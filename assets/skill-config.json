@@ -1,0 +1,56 @@
+{
+  "skill_name": "CMO-HKBQSKILL",
+  "version": "1.0.0",
+  "description": "Command: Modern Operations 海空兵棋 AI 助手",
+  "main_file": "SKILL.md",
+  
+  "mcp_tools": {
+    "query_dbid": {
+      "description": "自然语言查询装备 DBID",
+      "example": "query_dbid('US F-16 fighter')"
+    },
+    "get_dbid_by_name": {
+      "description": "按名称精确查询 DBID",
+      "example": "get_dbid_by_name('F-22')"
+    },
+    "get_dbid_by_country": {
+      "description": "按国家和类别查询 DBID",
+      "example": "get_dbid_by_country('United States', 'aircraft')"
+    },
+    "read_query": {
+      "description": "执行 SELECT SQL 查询",
+      "example": "read_query('SELECT * FROM platforms LIMIT 10')"
+    },
+    "list_tables": {
+      "description": "列出数据库表"
+    },
+    "describe_table": {
+      "description": "获取表结构",
+      "example": "describe_table('platforms')"
+    }
+  },
+  
+  "references": {
+    "lua_api": "references/lua-api/",
+    "data_types": "references/data-types/",
+    "templates": "templates/",
+    "examples": "examples/"
+  },
+  
+  "external_sources": [
+    {
+      "name": "官方文档",
+      "url": "https://commandlua.github.io/assets/Functions.html"
+    },
+    {
+      "name": "网上案例",
+      "url": "https://commandops.github.io/"
+    }
+  ],
+  
+  "rules": {
+    "dbid_query": "必须使用 MCP query_dbid 查询,数据库内容是英文、数字，不要用中文搜索，禁止硬编码",
+    "reference_docs": "生成代码前必须参考 lua-api 和 data-types 文档",
+    "use_templates": "优先使用模板库中的模板"
+  }
+}

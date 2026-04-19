@@ -1,0 +1,143 @@
+{
+  "templates": {
+    "basic": [
+      {
+        "name": "create-side.lua",
+        "description": "创建阵营",
+        "category": "side"
+      },
+      {
+        "name": "add-unit.lua",
+        "description": "添加单位（通用）",
+        "category": "unit"
+      },
+      {
+        "name": "add-aircraft.lua",
+        "description": "添加飞机",
+        "category": "unit"
+      },
+      {
+        "name": "add-ship.lua",
+        "description": "添加舰艇",
+        "category": "unit"
+      },
+      {
+        "name": "add-submarine.lua",
+        "description": "添加潜艇",
+        "category": "unit"
+      },
+      {
+        "name": "add-facility.lua",
+        "description": "添加设施",
+        "category": "unit"
+      },
+      {
+        "name": "create-mission.lua",
+        "description": "创建任务",
+        "category": "mission"
+      },
+      {
+        "name": "reference-point.lua",
+        "description": "创建参考点",
+        "category": "reference"
+      }
+    ],
+    "advanced": [
+      {
+        "name": "patrol-mission.lua",
+        "description": "巡逻任务",
+        "category": "mission"
+      },
+      {
+        "name": "strike-mission.lua",
+        "description": "打击任务",
+        "category": "mission"
+      },
+      {
+        "name": "escort-mission.lua",
+        "description": "护航任务",
+        "category": "mission"
+      },
+      {
+        "name": "cargo-mission.lua",
+        "description": "运输任务",
+        "category": "mission"
+      },
+      {
+        "name": "minefield.lua",
+        "description": "布雷任务",
+        "category": "mission"
+      },
+      {
+        "name": "submarine-patrol.lua",
+        "description": "潜艇巡逻",
+        "category": "mission"
+      },
+      {
+        "name": "airbase.lua",
+        "description": "完整空军基地",
+        "category": "facility"
+      }
+    ],
+    "event": [
+      {
+        "name": "time-trigger.lua",
+        "description": "时间触发器",
+        "category": "event"
+      },
+      {
+        "name": "unit-destroyed.lua",
+        "description": "单位被摧毁",
+        "category": "event"
+      },
+      {
+        "name": "contact-detected.lua",
+        "description": "发现目标",
+        "category": "event"
+      },
+      {
+        "name": "special-action.lua",
+        "description": "特殊动作",
+        "category": "event"
+      },
+      {
+        "name": "condition-action.lua",
+        "description": "条件-动作对",
+        "category": "event"
+      }
+    ],
+    "utility": [
+      {
+        "name": "remove-sensor.lua",
+        "description": "移除传感器",
+        "category": "unit"
+      },
+      {
+        "name": "set-emcon.lua",
+        "description": "设置电磁管控",
+        "category": "unit"
+      },
+      {
+        "name": "set-doctrine.lua",
+        "description": "设置条令",
+        "category": "unit"
+      },
+      {
+        "name": "unit-loop.lua",
+        "description": "单位遍历",
+        "category": "utility"
+      },
+      {
+        "name": "get-unit-info.lua",
+        "description": "获取单位信息",
+        "category": "utility"
+      },
+      {
+        "name": "message-box.lua",
+        "description": "消息框",
+        "category": "utility"
+      }
+    ]
+  },
+  "total": 26
+}
