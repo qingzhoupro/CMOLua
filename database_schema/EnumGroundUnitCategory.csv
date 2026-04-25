@@ -1,0 +1,33 @@
+ID,Description
+0,None
+1000,Infantry
+1010,Marines
+1020,Air Assault
+1030,Mountain
+1040,Airborne
+1100,Special Forces
+1500,Combined Arms
+2000,Armor
+2500,Armor Recon
+3000,Artillery
+3010,Towed Artillery
+3020,Self-Propelled Artillery
+3110,Wheeled Rocket Artillery
+3120,Tracked Rocket Artillery
+3200,Mortar
+4000,SSM
+5000,AAA
+6000,SAM
+7000,Engineer
+8000,Supply
+9000,Surveillance
+10000,Recon
+10010,Amphibious Recon
+11000,Mech Infantry
+11010,Mech Marines
+11040,Mech Airborne
+11500,Mech Wheeled
+12000,Motorized Infantry
+13000,Anti Tank
+14000,Radar
+15000,Headquarters

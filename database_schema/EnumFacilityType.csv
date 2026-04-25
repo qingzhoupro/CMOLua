@@ -1,0 +1,32 @@
+ID,Description
+1001,None
+2001,Radar
+3001,SAM
+4001,AAA
+5001,Artillery
+5011,Towed Artillery
+5021,Self Propelled Artillery
+5111,Wheeled Rocket Artillery
+5121,Tracked Rocket Artillery
+5201,Mortar
+6001,SSM
+7001,Armored
+7500,Combined Arms
+8001,Infantry
+8011,Marines
+8021,Air Assault
+8031,Mountain
+8041,Airborne
+8101,Special Forces
+9001,Mechanized
+9041,Mechanized Airborne
+9501,Mechanized Wheeled
+10001,Motorized
+11001,Ammo
+12001,Fuel
+13001,Supply
+14001,Recon
+14011,Amphibious Recon
+16001,Anti Tank
+17001,Engineer
+18000,Headquarters

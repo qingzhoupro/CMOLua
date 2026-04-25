@@ -1,0 +1,25 @@
+{
+  "核心数据表": {
+    "DataAircraft": "飞机数据 - ID, Name, Type, OperatorCountry, YearCommissioned, YearDecommissioned",
+    "DataShip": "舰艇数据 - ID, Name, Type, OperatorCountry, YearCommissioned, YearDecommissioned",
+    "DataSubmarine": "潜艇数据 - ID, Name, Type, OperatorCountry, YearCommissioned, YearDecommissioned",
+    "DataGroundUnit": "地面单位 - ID, Name, Category, OperatorCountry, YearCommissioned, YearDecommissioned",
+    "DataWeapon": "武器数据 - ID, Name, Type, AirRangeMax, SurfaceRangeMax, MaxSpeed",
+    "DataFacility": "地面设施 - ID, Name, Category, Type, OperatorCountry, YearCommissioned"
+  },
+  "关键枚举表": {
+    "EnumOperatorCountry": "国家代码对照 - ID -> Description",
+    "EnumShipType": "舰型代码 - ID -> Description",
+    "EnumAircraftType": "飞机类型代码 - ID -> Description",
+    "EnumAircraftCategory": "飞机类别 - ID -> Description",
+    "EnumGroundUnitCategory": "地面单位类别 - ID -> Description",
+    "EnumFacilityCategory": "设施类别 - ID -> Description",
+    "EnumWeaponType": "武器类型 - ID -> Description"
+  },
+  "查询规则": {
+    "现役单位": "YearDecommissioned = 0",
+    "虚构单位": "Hypothetical = 'False'",
+    "国家过滤": "JOIN EnumOperatorCountry ON OperatorCountry = ID",
+    "NATO国家": "OperatorCountry = 2060"
+  }
+}

@@ -1,0 +1,16 @@
+ID,Description
+-99,Use all weapons against target
+-6,Use 1/4 the target's Missile Defence value (typical for heavy supersonic weapons like AS-4, SS-N-19)
+-5,Use 1/2 the target's Missile Defence value (typical for smaller supersonic weapons like SS-N-26)
+-4,Use four times the target's Missile Defence value
+-3,Use twice as many weapons as the target's Missile Defence value
+-2,Use target's Missile Defence value
+0,Do not use weapon against this target type
+1,1 rnd
+2,2 rnds
+3,3 rnds
+4,4 rnds
+5,5 rnds
+6,6 rnds
+7,7 rnds
+8,8 rnds

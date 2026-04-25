@@ -1,0 +1,7 @@
+ID,Description
+0,No Cargo
+1000,Personnel (Squads, MANPADS, ATGM)
+2000,Small Cargo (Car, AAA Guns, AMRAAM)
+3000,Medium Cargo (APC, Towed Arty, Cruise Missiles)
+4000,Large Cargo (Tank, TEL, Trailer)
+5000,Very Large Cargo (IRBM / ICBM TEL)

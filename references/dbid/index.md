@@ -2,10 +2,8 @@
 
 > **⚠ 本表仅收录最常用装备的速查参考，不可替代 MCP 查询。**
 > 大多数场景下，**必须先通过 MCP 查询真实 DBID**，本表仅用于记忆最常见的几个值。
->
-> 查询方法：`query_dbid("英文关键词")` 或 `read_query("SELECT ...")`
->
-> ⚠ **MCP 查询必须使用英文！** 数据库字段为英文，中文搜索无结果。
+
+> **MCP 查询支持中文！** 直接用中文提问即可，如 `cmo_nl_query("美军驱逐舰")`。
 
 ---
 
@@ -127,31 +125,60 @@
 ### 1. 查询装备 DBID（通过 MCP）
 
 ```python
-# 使用英文关键词，通过 MCP query_dbid 查询
-query_dbid("F-16C Fighting Falcon")
-query_dbid("Arleigh Burke destroyer")
-query_dbid("Virginia class submarine")
+# 使用 CallMcpTool 调用 cmo_nl_query，支持中文
+CallMcpTool(
+    arguments={"user_question": "美军现役驱逐舰"},
+    server="CMO_DBID_Lookup",
+    toolName="cmo_nl_query"
+)
+
+CallMcpTool(
+    arguments={"user_question": "F-16的DBID"},
+    server="CMO_DBID_Lookup",
+    toolName="cmo_nl_query"
+)
+
+CallMcpTool(
+    arguments={"user_question": "中国现役潜艇"},
+    server="CMO_DBID_Lookup",
+    toolName="cmo_nl_query"
+)
 ```
 
-### 2. 查询 LoadoutID（通过 MCP read_query）
+### 2. 查询飞机 LoadoutID（通过 MCP）
+
+```python
+# 查 F/A-18C 的所有 LoadoutID
+CallMcpTool(
+    arguments={"aircraft_name": "F/A-18C"},
+    server="CMO_DBID_Lookup",
+    toolName="cmo_get_loadouts"
+)
+```
+
+### 3. 直接 SQL（高级用法）
 
 ```sql
--- 先查 DBID，再查 LoadoutID：
-SELECT ID FROM DataAircraftLoadouts WHERE ComponentID = 322;
-
--- 验证 DBID 存在：
-SELECT ID, Name FROM DataAircraft WHERE Name LIKE '%F-16%';
-SELECT ID, Name FROM DataShip WHERE Name LIKE '%Arleigh Burke%';
+-- 通过 cmo_raw_query 直接执行
+SELECT ID, Name FROM DataShip WHERE Name LIKE '%Arleigh Burke%' LIMIT 10;
+SELECT ID, Name FROM DataAircraft WHERE Name LIKE '%F-16%' LIMIT 10;
 ```
 
-### 3. 查询所有表
+### 4. 查看数据库结构
 
-```sql
--- 通过 MCP list_tables() 可列出所有表
--- 主要表：DataAircraft, DataShip, DataSubmarine, DataFacility, DataWeapon, DataAircraftLoadouts, DataLoadout
+```python
+# 列出所有表
+CallMcpTool(arguments={}, server="CMO_DBID_Lookup", toolName="cmo_list_tables")
+
+# 查看表字段
+CallMcpTool(
+    arguments={"table_name": "DataShip"},
+    server="CMO_DBID_Lookup",
+    toolName="cmo_describe_table"
+)
 ```
 
-### 4. Facility（地面设施）不需要 LoadoutID
+### 5. Facility（地面设施）不需要 LoadoutID
 
 ```lua
 -- ✅ Facility 正确写法（不需要 LoadoutID）：
@@ -164,12 +191,12 @@ ScenEdit_AddUnit({
     longitude = 139.6503
 })
 
--- ❌ Aircraft 必须有 LoadoutID（必须先查）：
+-- ❌ Aircraft 必须有 LoadoutID（必须先通过 MCP 查询）：
 ScenEdit_AddUnit({
     side = "Blue",
     type = "Aircraft",
     dbid = 322,            -- F-16CM Blk 52（必须通过 MCP 查询）
-    LoadoutID = 122,       -- 必须通过 DataAircraftLoadouts 查询
+    LoadoutID = 122,       -- 必须通过 cmo_get_loadouts 查询
     name = "F-16 #1",
     latitude = 35.6762,
     longitude = 139.6503

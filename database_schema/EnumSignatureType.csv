@@ -1,0 +1,12 @@
+ID,Description
+1001,Passive Sonar, VLF (0-1000 Hz, 200 Hz Center Frequency)
+1002,Passive Sonar, LF (1-5 KHz, 3 KHz Center Frequency)
+1003,Passive Sonar, MF (5-10 KHz, 7.5 KHz Center Frequency)
+1004,Passive Sonar, HF (10-500 KHz, 20 KHz Center Frequency)
+2001,Active Sonar, VLF-HF (0-500 KHz)
+3001,Visual Detection Range
+3002,Visual Classification Range
+4001,Infrared Detection Range
+4002,Infrared Classification Range
+5001,Radar, A-D Band (30-2000 MHz)
+5002,Radar, E-M Band (2-100 GHz)

@@ -1,0 +1,11 @@
+ID,Description
+A,A,A,Observation Bubbles, 360-deg - Excellent visibility
+A,A,B,Bubble Canopy, 4th Gen Fighters (F-14, F-15, F-16) - Excellent visibility
+A,A,C,Forward Razorback Canopy (A-4, Su-25, Jaguar, helicopters) - Good front downward visibility
+A,B,C,Glass Front, Fair Side Vision (helicopters)
+A,C,C,Glass Front, Limited Side Vision (helicopters)
+B,A,C,Aft Razorback Canopy - Limited front downward visibility (F-4, MiG-21, MiG-23, WW2 fighters)
+B,B,B,Bombers /w Manned Gun Turrets
+B,B,C,Bombers, Attack A/C - Sunk cockpit
+B,C,C,Airliner - Very Limited Visibility
+C,C,C,Unmanned

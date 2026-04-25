@@ -1,0 +1,303 @@
+ID,Description,Comment
+1001,None,None
+2001,Radar, Air Search, 2D Long-Range,(>160nm)
+2002,Radar, Air Search, 3D Long-Range,(>160nm)
+2003,Radar, Air Search, 2D Medium-Range,(60-159nm)
+2004,Radar, Air Search, 3D Medium-Range,(60-159nm)
+2005,Radar, Air Search, 2D Short-Range,(<59nm)
+2006,Radar, Air Search, 3D Short-Range,(<59nm)
+2011,Radar, Air & Surface Search, 2D Long-Range,(>160nm)
+2012,Radar, Air & Surface Search, 3D Long-Range,(>160nm)
+2013,Radar, Air & Surface Search, 2D Medium-Range,(60-159nm)
+2014,Radar, Air & Surface Search, 3D Medium-Range,(60-159nm)
+2015,Radar, Air & Surface Search, 2D Short-Range,(<59nm)
+2016,Radar, Air & Surface Search, 3D Short-Range,(<59nm)
+2017,Radar, Height-Finder, Long-Range,(>160nm)
+2018,Radar, Height-Finder, Medium-Range,(60-159nm)
+2019,Radar, Height-Finder, Short-Range,(<59nm)
+2021,Radar, Surface Search, Long-Range,(>160nm)
+2022,Radar, Surface Search, Medium-Range,(60-159nm)
+2023,Radar, Surface Search, Short-Range,(<59nm)
+2027,Radar, Surface Search w/ OTH,None
+2028,Radar, Surface Search & Navigation,None
+2029,Radar, Periscope Search,None
+2031,Radar, Navigation,None
+2032,Radar, Ground Mapping,None
+2033,TFR, Terrain Following Radar,None
+2034,Radar, Weather,None
+2035,Radar, Weather and Navigation,None
+2036,Radar, Terrain Avoidance,None
+2039,Radar, Bomb Scoring Radar,None
+2041,TWR, Tail Warning Radar & Tail Gun Director,None
+2042,TWR, Tail Warning Radar,None
+2049,Radar, Missile Approach Warning System (MAWS),None
+2051,SLAR, Side-Looking Airborne Radar,None
+2101,Radar, Target Indicator, 2D Surface-to-Air,None
+2102,Radar, Target Indicator, 3D Surface-to-Air,None
+2103,Radar, Target Indicator, 2D Surface-to-Air & Surface-to-Surface,None
+2104,Radar, Target Indicator, 3D Surface-to-Air & Surface-to-Surface,None
+2105,Radar, Target Indicator, Surf-to-Surf,None
+2109,Radar, Counter-Battery,None
+2111,Radar, FCR, Air-to-Air, Long-Range,(>160nm)
+2112,Radar, FCR, Air-to-Air, Medium-Range,(60-159nm)
+2113,Radar, FCR, Air-to-Air, Short-Range,(<59nm)
+2121,Radar, FCR, Air-to-Air & Air-to-Surface, Long-Range,(>160nm)
+2122,Radar, FCR, Air-to-Air & Air-to-Surface, Medium-Range,(60-159nm)
+2123,Radar, FCR, Air-to-Air & Air-to-Surface, Short-Range,(<59nm)
+2124,Radar, FCR, Air-to-Surface, Long-Range,(>160nm)
+2125,Radar, FCR, Air-to-Surface, Medium-Range,(60-159nm)
+2126,Radar, FCR, Air-to-Surface, Short-Range,(<59nm)
+2131,Radar, FCR, Surface-to-Air, Long-Range,(>160nm)
+2132,Radar, FCR, Surface-to-Air, Medium-Range,(60-159nm)
+2133,Radar, FCR, Surface-to-Air, Short-Range,(<59nm)
+2141,Radar, FCR, Surface-to-Air & Surface-to-Surface, Long-Range,(>160nm)
+2142,Radar, FCR, Surface-to-Air & Surface-to-Surface, Medium-Range,(60-159nm)
+2143,Radar, FCR, Surface-to-Air & Surface-to-Surface, Short-Range,(<59nm)
+2151,Radar, FCR, Surface-to-Surface,None
+2152,Radar, FCR, Surface-to-Surface w/ OTH,None
+2161,Radar, FCR, Surface-to-Surface w/ Torpedo,None
+2191,Radar, FCR, Weapon Director,None
+2201,Radar Illuminator, Long-Range,(>60nm)
+2202,Radar Illuminator, Medium-Range,(15-59nm)
+2203,Radar Illuminator, Short-Range,(<14nm)
+2207,TTR, Target Tracking Radar,None
+2208,TRR, Target Ranging Radar,None
+2209,MTR, Missile Tracking Radar,None
+2211,Weapon Seeker, Active Radar,None
+2212,Weapon Seeker, Semi-Active Radar Homing (SARH),None
+2213,Weapon Seeker, Terminal Semi-Active Radar Homing (TSARH),None
+2301,Radar, Range-Only (RO),None
+2311,Radar, Air Traffic Control (ATC),None
+2312,Radar, Shipboard Air Traffic Control (SATC),None
+2401,Radar, Ballistic Missile Early Warning,None
+2402,Radar, Ballistic Missile Battle Management,None
+2403,Radar, Ballistic Missile Tracker,None
+2404,Radar, Ballistic Missile Engagement,None
+2501,Visual, Binoculars,None
+2511,Visual, Optical Sight,None
+2512,Visual, Bomb Sight,None
+2515,Visual, Surveillance Periscope,None
+2516,Visual, Fire Control Periscope,None
+2521,Visual, Searchlight,None
+2601,Visual, Surveillance TV Camera,None
+2602,Visual, Surveillance & Navigation TV Camera,None
+2605,Visual, Space Object Surveillance,None
+2606,Visual, Space Object Tracker,None
+2609,Visual, Day-Only Spherical Situational Awareness & Fire Control,None
+2610,Visual, Day-Only Spherical Situational Awareness,None
+2611,Visual, Reconnaissance Frame Camera,None
+2612,Visual, Reconnaissance Long-Range Frame Camera,None
+2613,Visual, Reconnaissance Very Long-Range Frame Camera,None
+2619,Visual, Reconnaissance Satellite Frame Camera,None
+2620,Visual, Wide Angle Aerial Surveillance (WAAS),None
+2621,Visual, Navigation TV Camera,None
+2630,Visual, Navigation & Attack TV Camera,None
+2631,Visual, Attack TV Camera,None
+2641,Visual, Strike Camera,None
+2671,Visual, Target Tracking and Identification TV Camera,None
+2672,Visual, Target Search, Tracking and Identification TV Camera,None
+2673,Visual, Target Search, Slaved Tracking and Identification TV Camera,None
+2681,Visual, Weapon Director TV Camera,None
+2682,Visual, Weapon Director & Target Tracking and Identification TV Camera,None
+2683,Visual, Weapon Director & Target Search, Tracking and Identification TV Camera,None
+2684,Visual, Weapon Director & Target Search, Slaved Tracking and Identification TV Camera,None
+2691,Weapon Seeker, TV,None
+2701,LLTV, Surveillance Camera,None
+2702,LLTV, Surveillance & Navigation Camera,None
+2703,LLTV, Night Vision Goggles (NVG),None
+2709,LLTV, Day/Night Spherical Situational Awareness & Fire Control,None
+2710,LLTV, Day/Night Spherical Situational Awareness,None
+2711,LLTV, Reconnaissance Frame Camera,None
+2712,LLTV, Reconnaissance Long-Range Frame Camera,None
+2713,LLTV, Reconnaissance Very Long-Range Frame Camera,None
+2719,LLTV, Reconnaissance Satellite Frame Camera,None
+2720,LLTV, Wide Angle Aerial Surveillance (WAAS),None
+2721,LLTV, Navigation,None
+2730,LLTV, Navigation & Attack,None
+2731,LLTV, Attack,None
+2771,LLTV, Target Tracking and Identification,None
+2772,LLTV, Target Search, Tracking and Identification,None
+2773,LLTV, Target Search, Slaved Tracking and Identification,None
+2781,LLTV, Weapon Director,None
+2782,LLTV, Weapon Director & Target Tracking and Identification,None
+2783,LLTV, Weapon Director & Target Search, Tracking and Identification,None
+2784,LLTV, Weapon Director & Target Search, Slaved Tracking and Identification,None
+2791,LLTV, Mine Reconnaissance,None
+2801,Infrared, Surveillance Camera,None
+2802,Infrared, Surveillance FLIR (DEPRECATED),None
+2803,Infrared, Surveillance & Navigation Camera,None
+2804,Infrared, Surveillance & Navigation FLIR (DEPRECATED),None
+2806,Infrared, Space Object Tracker,None
+2809,Infrared, Day/Night Spherical Situational Awareness & Fire Control,None
+2810,Infrared, Day/Night Spherical Situational Awareness,None
+2811,Infrared, Reconnaissance Frame Camera,None
+2812,Infrared, Reconnaissance Long-Range Frame Camera,None
+2813,Infrared, Reconnaissance Very Long-Range Frame Camera,None
+2814,IRLS, Non-Imaging Infrared Line Scanner,None
+2819,Infrared, Reconnaissance Satellite Frame Camera,None
+2820,Infrared, Wide Angle Aerial Surveillance (WAAS),None
+2821,Infrared, Navigation Camera,None
+2822,Infrared, Navigation FLIR (DEPRECATED),None
+2831,Infrared, Navigation / Attack Camera,None
+2832,Infrared, Navigation / Attack FLIR (DEPRECATED),None
+2833,Infrared, Attack Camera,None
+2834,Infrared, Attack FLIR (DEPRECATED),None
+2841,Infrared, Navigation / Attack Camera & Air-to-Air Tracking,None
+2842,Infrared, Attack Camera & Air-to-Air Tracking,None
+2851,IRST, Non-Imaging Infrared Search and Track,None
+2852,IRST, Imaging Infrared Search and Track,None
+2871,Infrared, Target Tracking and Identification Camera,None
+2872,Infrared, Target Tracking and Identification FLIR (DEPRECATED),None
+2873,Infrared, Target Search, Tracking and Identification Camera,None
+2874,Infrared, Target Search, Tracking and Identification FLIR (DEPRECATED),None
+2875,Infrared, Target Search, Slaved Tracking and Identification Camera,None
+2876,Infrared, Target Search, Slaved Tracking and Identification FLIR (DEPRECATED),None
+2879,Infrared, Target Indicator Camera,None
+2881,Infrared, Weapon Director Camera,None
+2882,Infrared, Weapon Director FLIR (DEPRECATED),None
+2883,Infrared, Weapon Director & Target Tracking and Identification Camera,None
+2884,Infrared, Weapon Director & Target Tracking and Identification FLIR (DEPRECATED),None
+2885,Infrared, Weapon Director & Target Search, Tracking and Identification Camera,None
+2886,Infrared, Weapon Director & Target Search, Tracking and Identification FLIR (DEPRECATED),None
+2887,Infrared, Weapon Director & Target Search, Slaved Tracking and Identification Camera,None
+2888,Infrared, Weapon Director & Target Search, Slaved Tracking and Identification FLIR (DEPRECATED),None
+2890,MAWS, Missile Approach Warning System & Infrared Spherical Situational Awareness,None
+2891,MAWS, Missile Approach Warning System,None
+2892,Weapon Seeker, Single Spectral IR,None
+2893,Weapon Seeker, Infrared, Dual Spectral IR,None
+2894,Weapon Seeker, Imaging IR,None
+2899,Infrared, Ballistic Missile Launch Detection,None
+3001,RWR, Radar Warning Receiver,None
+3002,LWR, Laser Warning Receiver,None
+3011,ELINT,None
+3012,ELINT w/ OTH Targeting,None
+3021,COMINT,None
+3022,COMINT/DF,None
+3031,SIGINT (ELINT & COMINT),None
+3032,SIGINT (ELINT & COMINT) w/ OTH Targeting,None
+3041,MASINT,None
+3101,HF/DF,None
+3102,HF/DF w/ OTH Targeting,None
+3201,Emitter Locator (For ARM Missiles),None
+3202,Emitter Locator System (ELS),None
+3211,Weapon Seeker, Anti-Radiation,None
+3901,IFF Deception System,None
+4001,OECM, Offensive ECM,None
+4011,DECM, Defensive ECM,None
+4021,OECM & DECM, Offensive & Defensive ECM,None
+4031,Repeater,None
+4041,IRCM,None
+4051,EMP Projector,None
+4061,Microwave Emitter,None
+4091,Communications Jammer,None
+4092,Communications Jammer, Directional,None
+4101,GNSS Jammer,None
+4901,Acoustic Jammer,None
+4902,Acoustic Repeater,None
+5001,Hull Sonar, Passive-Only Search,None
+5002,Hull Sonar, Passive-Only Search & Track,None
+5011,Hull Sonar, Passive-Only Ranging Flank Array Search & Track,None
+5012,Hull Sonar, Passive-Only Vertical Ranging Array,None
+5021,Hull Sonar, Passive-Only Torpedo Warning,None
+5031,Hull Sonar, Active/Passive Search,None
+5032,Hull Sonar, Active/Passive Search & Track,None
+5033,Hull Sonar, Active/Passive Search & Attack,None
+5034,Hull Sonar, Active/Passive Search & Mortar Fire Control,None
+5041,Hull Sonar, Active/Passive Attack,None
+5042,Bow Sonar, Active/Passive Search,None
+5061,Hull Sonar, Active-Only Search,None
+5062,Hull Sonar, Active-Only Search & Track,None
+5063,Hull Sonar, Active-Only Search & Attack,None
+5064,Hull Sonar, Active-Only Search & Mortar Fire Control,None
+5071,Hull Sonar, Active-Only Attack,None
+5072,Hull Sonar, Active-Only Mortar Fire Control,None
+5081,Hull Sonar, Active-Only Bottom Profiler,None
+5082,Hull Sonar, Active-Only Short-Range Sidescan Mapping,None
+5083,Hull Sonar, Active-Only Short-Range Sidescan Mapping, High-Definition LPI,None
+5091,Hull Sonar, Active-Only Mine Avoidance,None
+5092,Hull Sonar, Active-Only Mine & Obstacle Avoidance,None
+5093,Hull Sonar, Active-Only Shallow Water Mine & Obstacle Avoidance,None
+5094,Hull Sonar, Active-Only Shallow Water High-Definition Mine & Obstacle Avoidance,None
+5095,Hull Sonar, Active-Only Under-Ice Navigation and Mine & Obstacle Avoidance,None
+5096,Hull Sonar, Active-Only Anti-Collision & Navigation,None
+5097,Hull Sonar, Active-Only Mine Reconnaissance,None
+5098,Hull Sonar, Active-Only Mine Hunting [Detection & Classification],None
+5099,Hull Sonar, Active-Only Mine Hunting & ASW Mortar Fire Control [Detection & Classification],None
+5101,TASS, Passive-Only Towed Array Sonar System,None
+5102,TASS, Passive-Only Fat Line Towed Array Sonar System,None
+5103,TASS, Passive-Only Thin Line Towed Array Sonar System,None
+5104,TASS, Passive-Only Area Surveillance Towed Array Sonar System,None
+5111,TASS, Passive Torpedo Warning Towed Array Sonar System,None
+5131,TASS, Active/Passive Towed Array Sonar System,None
+5132,TASS, Active/Passive Area Surveillance Towed Array Sonar System,None
+5161,TASS, Active-Only Towed Array Sonar System,None
+5191,SURTASS, Passive-Only Surveillance Towed Array Sonar System,None
+5192,SURTASS, Active/Passive Surveillance Towed Array Sonar System,None
+5193,SURTASS, Active-Only Surveillance Towed Array Sonar System,None
+5201,VDS, Passive-Only Variable Depth Sonar,None
+5231,VDS, Active/Passive Variable Depth Sonar,None
+5261,VDS, Active-Only Variable Depth Sonar,None
+5271,VDS, Active-Only Mine Reconnaissance Variable Depth Sonar,None
+5272,VDS, Active-Only Mine Hunting Variable Depth Sonar [Detection & Classification],None
+5273,VDS, Active-Only Sidescan Mine Hunting Variable Depth Sonar [Detection & Classification],None
+5274,VDS, Propelled Active-Only Mine Hunting Variable Depth Sonar [Detection & Classification],None
+5301,Dipping Sonar, Passive-Only Search & Track,None
+5331,Dipping Sonar, Active/Passive Search & Track,None
+5332,Dipping Sonar, Active/Passive Shallow Water Search & Track,None
+5361,Dipping Sonar, Active-Only Search & Track,None
+5391,Helicopter Towed, Active Only Mine Reconnaissance Sonar,None
+5401,SOSUS, Passive Sound Surveillance Systems,None
+5402,Moored Sonobuoy, Passive Search,None
+5501,Sonobuoy, Passive-Only Non-Directional,None
+5502,Sonobuoy, Passive-Only Directional,None
+5507,Sonobuoy, Passive-Only Directional Frequency Analysis and Recording (DIFAR),None
+5508,Sonobuoy, Passive-Only Directional Low Frequency Analysis and Ranging (LOFAR),None
+5509,Sonobuoy, Passive-Only Directional Vertical Line Array DIFAR (VLAD),None
+5511,Sonobuoy, Active/Passive Range-Only Omni-Directional,None
+5512,Sonobuoy, Active/Passive Range & Directional,None
+5521,Sonobuoy, Active-Only Range-Only Non-Directional,None
+5522,Sonobuoy, Active-Only Range-Only Non-Directional Continous Ping,None
+5523,Sonobuoy, Active-Only Range-Only Non-Directional Command Activated Sonobuoy System (CASS),None
+5527,Sonobuoy, Active-Only Range & Directional,None
+5528,Sonobuoy, Active-Only Range & Directional Command Activated Sonobuoy System (DICASS),None
+5529,Sonobuoy, Active-Only Range & Directional Extended Echo Ranging (EER),None
+5601,Wake Detector,None
+5701,Torpedo Seeker, Passive-Only,None
+5702,Torpedo Seeker, Passive-Only Shallow Water,None
+5711,Torpedo Seeker, Active/Passive,None
+5712,Torpedo Seeker, Active/Passive Shallow Water,None
+5713,Torpedo Seeker, Active/Passive & Wake Homer (WH),None
+5714,Torpedo Seeker, Active/Passive Shallow Water & Wake Homer (WH),None
+5721,Torpedo Seeker, Active-Only,None
+5722,Torpedo Seeker, Active-Only Shallow Water,None
+5791,Torpedo Seeker, Wake Homer,None
+5795,Guided Depth Charge Seeker, Active-Only,None
+5796,Guided Depth Charge Seeker, Active-Only Shallow Water,None
+5801,MAD,None
+5901,Acoustic Intercept,None
+5902,Acoustic Intercept, Passive Ranging,None
+5903,Acoustic Intercept, Surveillance,None
+5911,Acoustic Intercept & Torpedo Warning,None
+6001,Mine Sweep, Mechanical Cable Cutter,None
+6002,Mine Sweep, Magnetic Influence,None
+6003,Mine Sweep, Acoustic Influence,None
+6004,Mine Sweep, Magnetic & Acoustic Multi-Influence,None
+6009,Mine Sweep, Two-Ship Magnetic Influence,None
+6011,Mine Sweep, Helicopter-Towed Mechanical Cable Cutter,None
+6012,Mine Sweep, Helicopter-Towed Magnetic Influence,None
+6013,Mine Sweep, Helicopter-Towed Acoustic Influence,None
+6014,Mine Sweep, Helicopter-Towed Magnetic & Acoustic Multi-Influence,None
+6021,Mine Neutralization, Moored Mine Cable Cutter,None
+6022,Mine Neutralization, Explosive Charge Mine Disposal,None
+6031,Mine Neutralization, Diver-deployed Explosive Charge,None
+6051,LIDAR, Airborne Mine Detection,None
+6061,LST, Laser Spot Tracker,None
+6071,Laser Rangefinder,None
+6081,Laser Rangefinder for Weapon Director,None
+6082,Laser Rangefinder for Weapon Director / Target Tracking and Identification,None
+6091,Laser Target Designator,None
+6092,Laser Target Designator & Ranger (LTD/R),None
+6093,Laser Ranger and Marked Target Seeker (LRMTS),None
+6099,Weapon Seeker, Semi-Active Laser Homing (SALH),None
+9001,Sensor Group,None
+9002,Sensor Turret,None

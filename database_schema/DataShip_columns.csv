@@ -1,0 +1,46 @@
+Field Name,Type,Nullable,Default,Primary Key,Description
+ID,INTEGER,No,,Yes,主键/DBID
+Category,INTEGER,Yes,1001,,类别代码 -> EnumShipCategory
+Type,INTEGER,Yes,1001,,舰型代码 -> EnumShipType
+Name,TEXT,Yes,,,舰艇名称
+Comments,TEXT,Yes,,,备注说明
+OperatorCountry,INTEGER,Yes,0,,国家代码 -> EnumOperatorCountry
+OperatorService,INTEGER,Yes,0,,军种代码
+YearCommissioned,INTEGER,Yes,0,,服役年份
+YearDecommissioned,INTEGER,Yes,0,,退役年份 (0=现役)
+Length,DOUBLE,Yes,0,,船长(米)
+Beam,DOUBLE,Yes,0,,船宽(米)
+Draft,DOUBLE,Yes,0,,吃水深度(米)
+Height,DOUBLE,Yes,0,,
+DisplacementEmpty,INTEGER,Yes,0,,空载排水量(吨)
+DisplacementStandard,INTEGER,Yes,0,,标准排水量(吨)
+DisplacementFull,INTEGER,Yes,0,,满载排水量(吨)
+Crew,INTEGER,Yes,1,,舰员人数
+ArmorBelt,INTEGER,Yes,0,,
+ArmorBulkheads,INTEGER,Yes,0,,
+ArmorDeck,INTEGER,Yes,0,,
+ArmorBridge,INTEGER,Yes,0,,
+ArmorCIC,INTEGER,Yes,0,,
+ArmorEngineering,INTEGER,Yes,0,,
+ArmorRudder,INTEGER,Yes,0,,
+DamagePoints,INTEGER,Yes,0,,
+FOCSeaState,INTEGER,Yes,0,,
+MaxSeaState,INTEGER,Yes,0,,最大工作海况
+RepairCapacity,INTEGER,Yes,0,,
+TroopCapacity,INTEGER,Yes,0,,
+CargoCapacity,INTEGER,Yes,0,,
+MissileDefense,INTEGER,Yes,0,,
+CSGen,INTEGER,Yes,0,,
+Ergonomics,INTEGER,Yes,3000,,
+OODADetectionCycle,INTEGER,Yes,0,,
+OODATargetingCycle,INTEGER,Yes,0,,
+OODAEvasiveCycle,INTEGER,Yes,0,,
+PhysicalSizeCode,INTEGER,Yes,1001,,
+Hypothetical,BOOLEAN,No,'False',,是否虚构
+Cargo_Type,INTEGER,No,0,,
+Cargo_Mass,DOUBLE,No,0,,
+Cargo_Area,DOUBLE,No,0,,
+Cargo_Crew,DOUBLE,No,0,,
+Cargo_Volume,INTEGER,Yes,0,,
+Cost,INTEGER,Yes,0,,造价
+Deprecated,BOOLEAN,No,'No',,

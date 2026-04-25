@@ -1,0 +1,10 @@
+ID,Description
+1001,None
+2001,Very Small Pier (0-11m Long)
+2002,Small Pier (11.1-17m Long)
+2003,Medium Pier (17.1-25m Long)
+2004,Large Pier (25.1-45m Long)
+2005,Very Large Pier (45.1-200m)
+2006,Extra Large Pier (200m-500m)
+4001,Dry-Deck Shelter (DDS)
+5001,ROV/UUV

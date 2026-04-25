@@ -1,0 +1,61 @@
+ID,Description
+1002,Nuclear Shock Resistant
+1011,Prairie Masker
+1012,Advanced Quieting
+1013,Waterjet Propulsion
+2001,Helo In-Flight Refuel Capable (HIFR)
+2101,Can Deploy Amphibious Vehicles From Cargo
+3001,Passive or Single Stabilizers
+3002,Dual or Triple Stabilizers
+3003,Has Lateral Thrusters
+4001,Low Construction Standards (-40% DP Penalty)
+4002,All Aluminum Construction (-30% DP Penalty)
+4003,Aluminum Superstructure Only (-20% DP Penalty)
+4006,Wooden Hull Construction (-30% DP Penalty)
+4007,Glass Reinforced Polyester (GRP) Construction (-20% DP Penalty)
+4011,Hovercraft/SES (-40% DP Penalty)
+4012,Catamaran/Trimaran Multihull (-30% DP Penalty)
+4020,Laid Down Before 1930 (-20% DP Penalty)
+4022,Built to Mercantile Standards (-30% DP Penalty)
+6001,Degaussed Steel Hull
+6002,Onboard Degaussing Gear (Magnetometer) [Minesweeper]
+6003,Wooden Hull [Minesweeper]
+6004,Glass Reinforced Polyester (GRP) Hull [Minesweeper]
+8001,Refuel to Port x 1 (Out)
+8002,Refuel to Port x 2 (Out)
+8003,Refuel to Port x 3 (Out)
+8004,Refuel to Port x 4 (Out)
+8005,Refuel to Starboard x 1 (Out)
+8006,Refuel to Starboard x 2 (Out)
+8007,Refuel to Starboard x 3 (Out)
+8008,Refuel to Starboard x 4 (Out)
+8011,Refuel to Astern x 1 (Out)
+8012,Refuel to Astern x 2 (Out)
+8101,Refuel from Port x 1 (In)
+8102,Refuel from Port x 2 (In)
+8103,Refuel from Port x 3 (In)
+8104,Refuel from Port x 4 (In)
+8105,Refuel from Port x 5 (In)
+8106,Refuel from Starboard x 1 (In)
+8107,Refuel from Starboard x 2 (In)
+8108,Refuel from Starboard x 3 (In)
+8109,Refuel from Starboard x 4 (In)
+8110,Refuel from Starboard x 5 (In)
+8111,Refuel from Astern x 1 (In)
+8112,Refuel from Astern x 2 (In)
+9001,Replenish to Port x 1 (Out)
+9002,Replenish to Port x 2 (Out)
+9003,Replenish to Port x 3 (Out)
+9004,Replenish to Port x 4 (Out)
+9005,Replenish to Starboard x 1 (Out)
+9006,Replenish to Starboard x 2 (Out)
+9007,Replenish to Starboard x 3 (Out)
+9008,Replenish to Starboard x 4 (Out)
+9101,Replenish from Port x 1 (In)
+9102,Replenish from Port x 2 (In)
+9103,Replenish from Port x 3 (In)
+9104,Replenish from Port x 4 (In)
+9105,Replenish from Starboard x 1 (In)
+9106,Replenish from Starboard x 2 (In)
+9107,Replenish from Starboard x 3 (In)
+9108,Replenish from Starboard x 4 (In)

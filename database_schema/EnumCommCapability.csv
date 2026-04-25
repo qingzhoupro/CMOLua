@@ -1,0 +1,24 @@
+ID,Description
+1200,Send Only
+1201,Receive Only
+1300,LOS Limited
+1310,Degrades With Range
+1401,Secure
+1402,Broadcast
+1450,Low Probability of Intercept/Detection (LPI/LPD)
+1475,Phased Array Antenna
+1500,Jam Resistant
+3001,ELF Radio (3-30 Hz)
+3002,SLF Radio (30-300 Hz)
+3003,ULF Radio (300-3000 Hz)
+3004,VLF Radio (3-30 KHz)
+3005,LF Radio (30-300 KHz)
+3006,MF Radio (300-3000 KHz)
+3007,HF Radio (3-30 MHz)
+3008,VHF Radio (30-300 MHz)
+3009,UHF Radio (300-3000 MHz)
+3010,SHF Radio (3-30 GHz)
+3011,EHF Radio (30-300 GHz)
+3100,BLOS-LEO
+3110,BLOS-MEO
+4000,Daisy Chain Capability

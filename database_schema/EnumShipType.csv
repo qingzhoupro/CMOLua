@@ -1,0 +1,182 @@
+ID,Description,YearStart,YearEnd
+1001,None,None,None
+2001,CV - Aircraft Carrier,None,None
+2002,CVA - Attack Carrier,None,None
+2003,CVB - Large Aircraft Carrier,None,None
+2004,CVE - Escort Aircraft Carrier,None,None
+2005,CVGH - Guided Missile Helicopter Carrier,None,None
+2006,CVH - Helicopter Carrier,None,None
+2007,CVL - Light Aircraft Carrier,None,None
+2008,CVN - Nuclear Powered Aircraft Carrier,None,None
+2009,CVS - Seaplane Carrier,None,1957
+2010,CVS - Anti-Submarine Aircraft Carrier,1957,None
+2011,AVT - Training Carrier,None,None
+3001,B - Battleship,None,None
+3002,BB - Battleship,None,None
+3003,BBC - Command Battleship,None,None
+3004,BBG - Guided Missile Battleship ,None,None
+3005,BBH - Helicopter Battleship,None,None
+3006,BCGN - Nuclear Powered Guided Missile Battle Cruiser,None,None
+3007,BM - Monitor,1920,None
+3101,C - Cruiser,None,None
+3102,CA - Heavy Cruiser,None,None
+3103,CAG - Heavy Guided Missile Cruiser,1952,None
+3104,CB - Large Cruiser,None,None
+3105,CBG - Large Guided Missile Cruiser,None,None
+3106,CG - Guided Missile Cruiser,None,None
+3107,CGH - Guided Missile Helicopter Cruiser,None,None
+3108,CGN - Nuclear Powered Guided Missile Cruiser,None,None
+3109,CL - Light Cruiser,None,None
+3110,CLAA - Light Anti-Aircraft Cruiser,None,None
+3111,CLC - Light Command Cruiser,None,None
+3112,CLG - Light Guided Missile Cruiser,1957,None
+3113,CLH - Light Helicopter Cruiser,None,None
+3114,CS - Scout Cruiser,None,None
+3201,D - Destroyer,None,None
+3202,DD - Destroyer,None,None
+3203,DDG - Guided Missile Destroyer,1955,None
+3204,DDH - Helicopter Destroyer,None,None
+3205,DDK - ASW Submarine Killer Destroyer,None,None
+3206,DDR - Radar Picket Destroyer,None,None
+3207,DE - Destroyer Escort,None,None
+3208,DEG - Guided Missile Destroyer Escort,None,None
+3209,DER - Radar Picket Destroyer Escort,None,None
+3210,DL - Destroyer,None,1975
+3211,DLG - Guided Missile Destroyer,None,1975
+3212,DM - Destroyer Minelayer (converted destroyer) ,None,None
+3301,F - Frigate,None,None
+3302,FF - Frigate,None,None
+3303,FFG - Guided Missile Frigate,None,None
+3304,FFL - Corvette,None,None
+3305,PF - Patrol Frigate,None,None
+3306,LCS - Littoral Combat Ship,None,None
+3307,OPV - Offshore Patrol Vessel,None,None
+3308,USV - Unmanned Surface Vessel,None,None
+3401,PB - Patrol Boat,None,None
+3402,PC - Coastal Patrol Boat,None,None
+3403,PC - Submarine Chaser,None,None
+3404,PCE - Submarine Chaser Escort,None,None
+3405,PCF - Fast Patrol Craft,None,None
+3406,PCFG - Fast Guided Missile Patrol Craft,None,None
+3407,PG - Patrol Gunboat,None,None
+3408,PG - Corvette ,None,None
+3409,PGM - Missile Gunboat,None,None
+3410,PH - Hydrofoil Gunboat ,None,None
+3411,PHM - Missile Hydrofoil ,None,None
+3412,PHT - Hydrofoil Torpedo Boat ,None,None
+3413,PT - Patrol Torpedo Boat,None,None
+3414,PTS - Patrol Torpedo Boat Small,None,None
+3415,MTB - Motor Torpedo Boat,None,None
+3416,WHEC - Coast Guard High Endurance Cutter,None,None
+3417,WMEC - Coast Guard Medium Endurance Cutter,None,None
+3418,WPB - Coast Guard Patrol Boat,None,None
+3419,WPG - Coast Guard Patrol Gunboat,None,None
+3420,MCDV - Maritime Coastal Defense Vessel,None,None
+3421,WMEC - Medium Endurance Cutter,None,None
+3422,WMSL - Maritime Security Cutter, Large,None,None
+3423,WMSM - Maritime Security Cutter, Medium,None,None
+4000,AGF - Fleet Flagship,None,None
+4001,AGC - Amphibious Fleet Flagship,None,None
+4002,LCAC - Air Cushion Landing Craft,None,None
+4003,LCC - Amphibious Command Vessel,None,None
+4004,LCM - Mechanized Landing Craft,None,None
+4005,LCP - Personnel Landing Craft,None,None
+4006,LCT - Tank Landing Craft,None,None
+4007,LCU - Utility Landing Craft,None,None
+4008,LCVP - Vehicle and Personnel Landing Craft,None,None
+4009,LFR - Inshore Fire Support Vessel,None,None
+4010,LHA - Amphibious Assault Ship, General Purpose,None,None
+4011,LHD - Amphibious Assault Ship, Multi-Purpose,None,None
+4012,LKA - Amphibious Cargo Vessel,None,None
+4013,LPD - Amphibious Transport Dock Vessel,None,None
+4014,LPH - Amphibious Assault Helicopter Carrier,None,None
+4015,LSD - Dock Landing Ship ,None,None
+4016,LSH - Unknown! British Designation!,None,None
+4017,LSL - Landing Ship Logistics,None,None
+4018,LSM - Medium Landing Ship,None,None
+4019,LSM(R) - Medium Landing Ship, Rocket,None,None
+4020,LST - Tank Landing Ship,None,None
+4021,LSU - Utility Landing Ship ,None,None
+4022,LSV - Vehicle Landing Ship ,None,None
+4023,LCI - Landing Craft, Infantry,None,None
+4024,LSDV - Saboteur Infiltration Craft,None,None
+4025,LCPA - Personnel Landing Craft, Air-Cushioned,None,None
+4026,EPF - Expeditionary Fast Transport,None,None
+4027,ESD - Expeditionary Transfer Dock,None,None
+4028,ESB - Expeditionary Mobile Base,None,None
+5001,A - Auxiliary ,None,None
+5002,AD - Destroyer Tender,None,None
+5003,AE - Ammunition Ship ,None,None
+5004,AF - Refrigerated Stores Ship ,None,None
+5005,AFS - Combat Stores Ship,None,None
+5006,AG - Generic Auxiliary,None,None
+5007,AGB - Icebreaker,None,None
+5008,AGF - Fleet Flagship ,None,None
+5009,AGI - Intelligence Gathering Ship ,None,None
+5010,AGMR - Communications Major Relay Ship ,None,None
+5011,AGOR - Oceanographic Research Ship ,None,None
+5012,AGOS - Ocean Surveillance Ship ,None,None
+5013,AGR - Radar Picket Ship (converted cargo ship) ,None,None
+5014,AGS - Surveying Ship ,None,None
+5015,AGTR - Technical Research Ship,None,None
+5016,AH - Hospital Ship,None,None
+5017,AK - Cargo Ship ,None,None
+5018,AKA - Attack Cargo Ship ,None,None
+5019,AKE - Dry Cargo Ship ,None,None
+5020,AKR - Roll-on/Roll-off Cargo Ship,None,None
+5021,AKS - General Stores Ship ,None,None
+5022,AO - Fleet Oiler ,None,None
+5023,AOE - Fast Combat Support Ship ,None,None
+5024,AOL - Small Oiler ,None,None
+5025,AOR - Replenishment Oiler ,None,None
+5026,AOT - Transport Oiler,None,None
+5027,APA - Attack Personnel Transport Ship ,None,None
+5028,APD - Troop Transport (High Speed) ,None,None
+5029,AR - Repair Ship ,None,None
+5030,AS - Submarine Tender,None,None
+5031,ATC - Armored Troop Carrier (Tango Boat) ,None,None
+5032,ATA - Auxiliary Ocean Tug ,None,None
+5033,ATS - Salvage Tug ,None,None
+5034,AV - Seaplane Tender,None,None
+5035,AX - Training Vessel,None,None
+5036,ASR - Submarine Rescue Ship,None,None
+5037,AP - Personnel Transport Ship,None,None
+5038,DSV - Diving Support Vessel / Deep Submergence Vehicle,None,None
+5039,AGM - Missile Range Instrumentation Ship,None,None
+5040,AD - Destroyer Tender,None,None
+5041,DTV - Diving Tender,None,None
+5042,GPV - General Purpose Vessel,None,None
+5043,AGL - Buoy Tender,None,None
+5044,ATLS - Drone Launch Ship,None,None
+5101,T-AGOS - MSC Ocean Surveillance Ship,None,None
+5102,T-AH  - MSC Hospital Ship,None,None
+5103,T-AK - Cargo Ship,None,None
+5104,T-AKE - MSC Dry Cargo Ship,None,None
+5105,T-AKR - MSC Roll-on/Roll-off Cargo Ship,None,None
+5106,T-AO - MSC Fleet Oiler,None,None
+5107,T-AO - MSC Transport Oiler,None,None
+5108,T-MLP - MSC Mobile Landing Platforms,None,None
+6001,MCD - Mine Countermeasures Drone ,None,None
+6002,MCM - Mine Countermeasures Ship ,None,None
+6003,MCS - Mine Countermeasures Support Ship ,None,None
+6004,MHC - Coastal Minehunter ,None,None
+6005,ML - Minelayer ,None,None
+6006,MSC - Coastal Minesweeper ,None,None
+6007,MSF - Steel Hull Fleet Minesweeper ,None,None
+6008,MSI - Inshore Minesweeper ,None,None
+6010,MSO - Ocean Minesweeper ,None,None
+6011,MST - Minesweeper Tender,None,None
+6012,MHI - Mine Hunter Inshore,None,None
+6013,MM - Controlled Minefield Tender,None,None
+7001,YAG - Miscellaneous Service Craft,None,None
+7002,YRT - Torpedo Retriever,None,None
+7003,YRM - Missile Retriever,None,None
+9001,Civilian,None,None
+9002,Merchant,None,None
+9003,Platform,None,None
+9004,NGS Buoy,None,None
+9005,Bottom Fixed Array Sonar,None,None
+9006,Moored Sonobuoy,None,None
+9007,Special (Land Unit/Satellite),None,None
+9008,Small Watercraft,None,None
+9011,Mobile Offshore Base (MOB),None,None

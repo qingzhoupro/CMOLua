@@ -1,0 +1,23 @@
+ID,Description,Example,OODADetectionCycle,OODATargetingCycle,OODAEvasiveCycle
+0,Undefined (Use Below),None,None,None,None
+1000,None (Small),Sqd, Vehicle, Small Bldg,10,15,5
+1001,None (Large),Large Bldg,45,60,30
+2100,Sensor (Fixed, Mechanical),Bar Lock, AN-FPS 24,30,0,0
+2150,Sensor (Fixed, Electronic),AN/FPS-132,15,0,0
+2200,Sensor (Mobile, Mechanical),P-18, AN/TPS-43,30,0,300
+2250,Sensor (Mobile, Electronic),9296E, AN/TPS-75,15,0,180
+3100,SAM (Fixed, Analog),SA-2, MIM-3 Nike,30,30,0
+3150,SAM (Fixed, Digital),S-200C,15,5,0
+3200,SAM (TEL, Analog),SA-4, SA-10,30,30,300
+3250,SAM (TEL, Digital),SA-21, MIM-104 Patriot,15,5,300
+3300,SAM (SPAD, Analog),SA-6, SA-8,30,30,5
+3350,SAM (SPAD, Digital),SA-11, Type 11,15,5,4
+4100,AAA (Towed, Manual),M1950, ZSU-23,10,15,45
+4150,AAA (Towed, Assisted),Skyshield,15,5,45
+4200,AAA (SPAAG, Manual),M42 Duster, ZSU-57-2,10,15,5
+4250,AAA (SPAAG, Assisted),Gepard, ZSU-23-4 Shilka,15,5,4
+5100,Artillery (Towed),M198, D-44,10,180,180
+5200,Artillery (SPG, Manual),M107, BM-21,15,90,5
+5250,Artillery (SPG, Digital FC),Paladin, HIMARS,12,60,4
+6100,Mech/Armor (Analog),M60, T-72,8,3,5
+6200,Mech/Armor (Digital),M1 Abrams, T-90,6,2,4

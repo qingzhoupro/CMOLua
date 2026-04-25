@@ -1,0 +1,37 @@
+ID,Description
+1001,A Band (30-250 MHz) [Old P Band (HF)] 100-300 cm
+1002,B Band (250-500 MHz) [Old P Band (VHF)] 60-100 cm
+1003,C Band (500-1000 MHz) [Old L Band (UHF)] 60-30cm
+1004,D Band (1-2 GHz) [Old L Band] 15-30 cm
+1005,E Band (2-3 GHz) [Old S Band] 10-15 cm
+1006,F Band (3-4 GHz) [Old S Band] 7.5-10 cm
+1007,G Band (4-6 GHz) [Old C Band] 5-7.5 cm
+1008,H Band (6-8 GHz) [Old C Band] 3.75-5 cm
+1009,I Band (8-10 GHz) [Old X Band] 3-3.75 cm
+1010,J Band (10-20 GHz) [Old X Band] 1.5-3 cm
+1011,K Band (20-40 GHz) [Old Ku Band] 0.75-1.5 cm
+1012,L Band (40-60 GHz) [Old Ka Band] 5-7.5 mm
+1013,M Band (60-100 GHz) [Old V/W Band] 3-5 mm
+2001,Visual Light
+2002,Near IR (0.75-8 µm)
+2003,Far IR (8-1000 µm)
+2004,Laser
+3001,ELF Radio (3-30 Hz)
+3002,SLF Radio (30-300 Hz)
+3003,ULF Radio (300-3000 Hz)
+3004,VLF Radio (3-30 KHz)
+3005,LF Radio (30-300 KHz)
+3006,MF Radio (300-3000 KHz)
+3007,HF Radio (3-30 MHz)
+3008,VHF Radio (30-300 MHz)
+3009,UHF Radio (300-3000 MHz)
+3010,SHF Radio (3-30 GHz)
+3011,EHF Radio (30-300 GHz)
+4001,LF Sonar (1-5 KHz, 3 KHz Center Frequency)
+4002,MF Sonar (5-10 KHz, 7.5 KHz Center Frequency)
+4003,HF Sonar (10-500 KHz, 20 KHz Center Frequency)
+4004,VLF Sonar (0-1000 Hz, 200 Hz Center Frequency)
+5001,GPS (GNSS)
+5002,GLONASS (GNSS)
+5003,BeiDou/COMPASS (GNSS)
+5004,NavIC/IRNSS (GNSS)

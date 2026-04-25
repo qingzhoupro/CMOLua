@@ -1,0 +1,22 @@
+ID,Description
+1001,None
+1900,SSQ - Auxillary Submarine, Communications
+2001,AGSS - Auxilary/Experimental Submarine 
+2002,APSS - Auxiliary Cargo Submarine
+2003,SS - Attack/Fleet Submarine 
+2004,SSB - Ballistic Missile Submarine
+2005,SSBN - Nuclear Powered Ballistic Missile Submarine
+2006,SSG - Guided Missile Attack Submarine
+2007,SSGN - Nuclear Powered Guided Missile Attack Submarine
+2008,SSK - Hunter-Killer Submarine 
+2009,SSM - Midget Submarine 
+2010,SSN - Nuclear Powered Attack Submarine
+2011,SSP - Transport Submarine 
+2012,SSR - Radar Picket Submarine 
+2013,SSRN - Nuclear Powered Radar Picket Submarine
+3001,SDV - Swimmer Delivery Vehicle
+4001,ROV - Remotely Operated Vehicle
+4002,UUV - Unmanned Underwater Vehicle
+4003,Unmanned Underwater Glider
+9001,Biologics
+9002,False Target

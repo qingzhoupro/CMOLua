@@ -1,0 +1,49 @@
+ID,Description
+1001,None
+2001,Guided Weapon
+2002,Rocket
+2003,Bomb
+2004,Gun
+2005,Decoy (Expendable)
+2006,Decoy (Towed)
+2007,Decoy (Vehicle)
+2008,Training Round
+2009,Dispenser
+2010,Contact Bomb - Suicide
+2011,Contact Bomb - Sabotage
+2012,Guided Projectile
+2013,Small Arms
+2014,UAV (Expendable)
+3001,Sensor Pod
+3002,Drop Tank
+3003,Buddy Store
+3004,Ferry Tank
+4001,Torpedo
+4002,Depth Charge
+4003,Sonobuoy
+4004,Bottom Mine
+4005,Moored Mine
+4006,Floating Mine
+4007,Moving Mine
+4008,Rising Mine
+4009,Drifting Mine
+4010,Attached Mine
+4011,Dummy Mine
+4012,Guided Depth Charge
+4101,Helicopter-Towed Package
+4102,Aircraft
+4103,Ship
+4104,Submarine
+4105,Satellite
+4106,Ground Unit
+5001,RV / MRV/ MIRV
+5002,Pallet Munition
+6001,Laser
+6002,Microwave
+6003,Laser Dazzler
+8001,Hypersonic Glide Vehicle
+8002,Glide Vehicle
+8003,Hypersonic Cruise Missile
+9001,Cargo
+9002,Troops
+9003,Paratroops

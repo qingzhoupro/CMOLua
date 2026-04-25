@@ -1,0 +1,19 @@
+ID,Description
+1001,Aircraft
+1002,Helicopter
+1003,Missile
+1004,Satellite
+1005,C-RAM (Counter Rocket, Artillery and Mortar)
+2001,Surface Vessel
+2002,Submarine
+2003,Mine
+2004,Torpedo
+3001,Land Structure - Soft
+3002,Land Structure - Hardened
+3003,Runway
+3004,Radar
+4001,Mobile Target - Soft
+4002,Mobile Target - Hardened
+4003,Mobile Target - Personnel
+5001,Underwater Structure
+9001,Air Base

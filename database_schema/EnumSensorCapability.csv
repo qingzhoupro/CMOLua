@@ -1,0 +1,25 @@
+ID,Description
+1001,Air Search
+1002,Surface Search
+1003,Submarine Search
+1004,Land Search - Fixed Facility
+1005,Land Search - Mobile Unit
+1006,Periscope Search
+1007,C-RAM (Counter-Rocket, Artillery and Mortar)
+1011,Space Search (ABM)
+1021,Mine & Obstacle Search
+1022,Torpedo Warning
+1023,Missile Approach Warning
+2001,Range Information
+2002,Altitude Information
+2003,Speed Information
+2004,Heading Information
+4001,Navigation Only
+4002,Ground Mapping Only
+4003,Terrain Avoidance / Following Only
+4004,Weather Only
+4005,Weather and Navigation Only
+9001,OTH-B (Backscatter)
+9002,OTH-SW (Surface Wave)
+10001,TDOA (Time Difference of Arrivals)
+10002,DF (Direction Finding)

@@ -1,0 +1,9 @@
+ID,Description,Example,YearStart,YearEnd,OODADetectionCycle,OODATargetingCycle,OODAEvasiveCycle,Architecture
+0,Undefined (Use Below),None,None,None,None,None,None,None
+1000,None,Slide Rule,0,0,30,300,25,Manual
+1100,CS Gen 1 (1940-1960),Mk1/3/4 TDC,1940,1960,25,240,15,Analog/Mechanical, Visual
+1200,CS Gen 2 (1961-1965),Mk112 UFCS,1961,1965,20,180,15,Analog/Mechanical
+1300,CS Gen 3 (1966-1980),Mk113 w/ UYK-7 CPU,1966,1980,15,90,10,Partially Digital (Digital TMA, Analog Attack Director)
+1400,CS Gen 4 (1981-2000),Mk117 w/ UYK-7/43 CPU,1981,2000,10,45,8,All Digital
+1500,CS Gen 5 (2001-2029),AN/BYG-1 w/ COTS CPU,2001,2029,5,15,3,All Digital
+1600,CS Gen 6 (2030+),SSN(X),2030,0,3,10,2,All Digital

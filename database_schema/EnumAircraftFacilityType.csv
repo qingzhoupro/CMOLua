@@ -1,0 +1,17 @@
+ID,Description
+1001,None
+2001,Runway
+2002,Runway w/ Arrest
+2003,Runway-Grade Taxiway
+2004,Runway Access Point
+2005,Carrier Catapult
+2006,Carrier Ski Jump
+2007,Carrier Arresting Gear
+3001,Pad
+3002,Pad with Haul-Down
+4001,Hangar
+4002,Open Parking
+4003,Elevator
+5001,UAV Catapult
+6001,Flat-Top Deck (Helo/STOL Only)
+6002,Flat-Top Deck (VTOL Capable)

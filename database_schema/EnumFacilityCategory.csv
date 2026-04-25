@@ -1,0 +1,21 @@
+ID,Description
+1001,None
+2001,Runway
+2002,Runway-Grade Taxiway
+2003,Runway Access Point
+3001,Building (Surface)
+3002,Building (Reveted)
+3003,Building (Bunker)
+3004,Building (Underground)
+3005,Structure (Open)
+3006,Structure (Reveted)
+3007,Surface (Flat) & Underground
+4001,Underwater
+4050,Water (Surface)
+5001,Mobile Vehicle(s)
+5002,Mobile Personnel
+5003,Mobile Vehicle(s) - Tracked
+5004,Mobile Vehicle(s) - Half-Track
+5005,Mobile Vehicle(s) - Wheeled
+6001,Aerostat Mooring
+9001,Air Base

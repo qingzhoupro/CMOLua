@@ -1,0 +1,187 @@
+ID,Description,YearStart,YearEnd
+1001,None,0,0
+1002,Unknown,0,0
+1003,Generic,0,0
+1101,Civilian,0,0
+1102,Commercial,0,0
+1201,Pirates,0,0
+1202,Rebels,0,0
+1203,Terrorists,0,0
+2001,Abu Dhabi,0,0
+2002,Albania,0,0
+2003,Algeria,0,0
+2004,Angola,0,0
+2005,Argentina,0,0
+2006,Australia,0,0
+2007,Austria,0,0
+2008,Bahrain,0,0
+2009,Bangladesh,0,0
+2010,Belarus [1992-],1992,0
+2011,Belgium,0,0
+2012,Botswana,0,0
+2013,Brazil,0,0
+2014,Brunei,0,0
+2015,Bulgaria,0,0
+2016,Canada,0,0
+2017,Chile,0,0
+2018,China,0,0
+2019,Colombia,0,0
+2020,Croatia [1992-],1992,0
+2021,Cuba,0,0
+2022,Cyprus,0,0
+2023,Czech Republic [1993-],1993,0
+2024,Czechoslovakia  [-1992],0,1992
+2025,Denmark,0,0
+2026,Dominican Republic,0,0
+2027,Ecuador,0,0
+2028,Egypt,0,0
+2029,El Salvador,0,0
+2030,Estonia [1992-],1992,0
+2031,Finland,0,0
+2032,France,0,0
+2033,Gabon,0,0
+2034,Germany [DDR, -1990],0,1990
+2035,Germany [FRG/Reunified],0,0
+2036,Greece,0,0
+2037,Guatemala,0,0
+2038,Honduras,0,0
+2039,Hong Kong,0,0
+2040,Hungary,0,0
+2041,India,0,0
+2042,Indonesia,0,0
+2043,Iran,0,0
+2044,Iraq,0,0
+2045,Ireland,0,0
+2046,Israel,0,0
+2047,Italy,0,0
+2048,Japan,0,0
+2049,Jordan,0,0
+2050,Kuwait,0,0
+2051,Latvia [1992-],1992,0
+2052,Lebanon,0,0
+2053,Libya,0,0
+2054,Lithuania [1992-],1992,0
+2055,Malaysia,0,0
+2056,Mexico,0,0
+2057,Montenegro [1992-],1992,0
+2058,Morocco,0,0
+2059,Mozambique,0,0
+2060,NATO,0,0
+2061,Netherlands,0,0
+2062,New Zealand,0,0
+2063,Nicaragua,0,0
+2064,Nigeria,0,0
+2065,North Korea,0,0
+2066,North Vietnam [-1975],0,1975
+2067,Norway,0,0
+2068,Oman,0,0
+2069,Pakistan,0,0
+2070,Panama,0,0
+2071,Paraguay,0,0
+2072,Peru,0,0
+2073,Philippines,0,0
+2074,Poland,0,0
+2075,Portugal,0,0
+2076,Qatar,0,0
+2077,Rhodesia,0,0
+2078,Romania,0,0
+2079,Russia [1992-],1992,0
+2080,Saudi Arabia,0,0
+2081,Serbia [1992-],1992,0
+2082,Singapore,0,0
+2083,Slovakia [1993-],1993,0
+2084,Slovenia,0,0
+2085,South Africa,0,0
+2086,South Korea,0,0
+2087,South Vietnam [-1975],0,1975
+2088,Soviet Union [-1991],0,1991
+2089,Spain,0,0
+2090,Sri Lanka,0,0
+2091,Sweden,0,0
+2092,Switzerland,0,0
+2093,Syria,0,0
+2094,Taiwan,0,0
+2095,Thailand,0,0
+2096,Tunisia,0,0
+2097,Turkey,0,0
+2098,UAE,0,0
+2099,Ukraine [1992-],1992,0
+2100,United Kingdom,0,0
+2101,United States,0,0
+2102,Venezuela,0,0
+2103,Vietnam [1975-],1975,0
+2104,Yemen [1990-],1990,0
+2105,Yugoslavia [-1992],0,1992
+2106,DRC/Zaire [1960-],1960,0
+2107,Zimbabwe,0,0
+2108,Uruguay,0,0
+2109,Somalia,0,0
+2110,Ethiopia,0,0
+2111,Iceland,0,0
+2112,Turkmenistan,1992,0
+2113,Myanmar,0,0
+2114,Sudan,0,0
+2115,South Sudan,2011,0
+2116,Tanzania,0,0
+2117,Uganda,0,0
+2118,Papua New Guinea,0,0
+2119,Federated States of Micronesia,0,0
+2120,Solomon Islands,0,0
+2121,Tonga,0,0
+2122,Fiji,0,0
+2123,Equatorial Guinea,0,0
+2124,Kenya,0,0
+2125,Cambodia,0,0
+2126,Afghanistan,0,0
+2127,Cameroon,0,0
+2128,Hamas,0,0
+2129,Kazakhstan [1992-],1992,0
+2130,Namibia,0,0
+2131,Djibouti [1977-],1977,0
+2133,Kyrgyzstan,0,0
+2134,Tajikistan,0,0
+2135,Uzbekistan,0,0
+2136,Azerbaijan,0,0
+2137,Bahamas,0,0
+2138,Armenia,0,0
+2139,Zambia,0,0
+2140,Congo [1960-],1960,0
+2141,Ghana,0,0
+2142,Togo,0,0
+2143,Senegal,0,0
+2144,Antigua and Barbuda [1981-],1981,0
+2145,Bahamas [1973-],1973,0
+2146,Niger,0,0
+2147,Jamaica [1962-],1962,0
+2148,Trinidad and Tobago [1962-],1962,0
+2149,Laos,0,0
+2150,Rwanda [1962-],1962,0
+2151,Cote D'Ivoire [1960-],1960,0
+2152,Benin [1961-],1961,0
+2153,Gambia [1965-],1965,0
+2154,Georgia [1991-],1991,0
+2155,Malta,0,0
+2156,Germany [Nazi],0,1945
+2157,Chad [1960-],1960,0
+2158,European Union [1993-],1993,0
+2159,Burkina Faso [1960-],1960,0
+2160,Suriname [1954-],1954,0
+2161,Mali [1960-],1960,0
+2162,Nepal,0,0
+2163,Costa Rica,0,0
+2164,Timor Leste [1975-],1975,0
+2165,Lesotho,1966,0
+2166,Swaziland,1968,0
+2167,Malawi [1966-],1966,0
+2168,Moldova [1992-],1992,0
+2169,Burundi [1962-],1962,0
+2170,Chechnya [1991-2000],1991,2000
+2171,Central African Republic [1960-],1960,0
+2172,Guyana [1966-],1966,0
+2173,North Macedonia [1991-],1991,0
+2174,Maldives [1965-],1965,0
+2175,Barbados [1966-],1966,0
+2176,Bolivia,0,0
+2177,Luxembourg,0,0
+2178,Mauritania [1960-],1960,0
+9999,Junkyard,None,None

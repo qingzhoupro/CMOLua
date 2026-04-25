@@ -1,0 +1,21 @@
+ID,Description
+1001,n/a
+2001,Winchester: Mission-specific weapons have been expended. Disengage immediately.
+2002,Winchester: Mission-specific weapons have been expended. Allow targets of opportunity with air-to-air guns. PREFERRED!
+3001,Shotgun: All BVR or Stand-Off weapons have been expended. Disengage immediately.
+3002,Shotgun: All BVR or Stand-Off weapons have been expended. Allow easy targets of opportunity with WVR or Strike weapons. No air-to-air guns.
+3003,Shotgun: All BVR or Stand-Off weapons have been expended. Allow easy targets of opportunity with WVR or Strike weapons, and air-to-air guns.
+4001,Shotgun: 25% of relevant weapons have been expended. Disengage immediately.
+4002,Shotgun: 25% of relevant weapons have been expended. Allow targets of opportunity, including air-to-air guns.
+4011,Shotgun: 50% of relevant weapons have been expended. Disengage immediately.
+4012,Shotgun: 50% of relevant weapons have been expended. Allow targets of opportunity, including air-to-air guns.
+4021,Shotgun: 75% of relevant weapons have been expended. Disengage immediately.
+4022,Shotgun: 75% of relevant weapons have been expended. Allow targets of opportunity, including air-to-air guns.
+5001,Shotgun: One engagement with BVR or Stand-Off weapons. Disengage immediately.
+5002,Shotgun: One engagement with BVR or Stand-Off weapons. Allow easy targets of opportunity with WVR or Strike weapons. No air-to-air guns. PREFERRED!
+5003,Shotgun: One engagement with BVR or Stand-Off weapons. Allow easy targets of opportunity with WVR or Strike weapons, and air-to-air guns.
+5005,Shotgun: One engagement with both BVR and WVR or Stand-Off and Strike weapons. No air-to-air guns.
+5006,Shotgun: One engagement with both BVR and WVR or Stand-Off and Strike weapons. Allow easy targets of opportunity with air-to-air guns. PREFERRED!
+5011,Shotgun: One engagement with WVR or Strike weapons. Disengage immediately.
+5012,Shotgun: One engagement with WVR or Strike weapons. Allow targets of opportunity with air-to-air guns. PREFERRED!
+5021,Shotgun: One engagement with guns.

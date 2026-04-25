@@ -1,0 +1,46 @@
+ID,Description
+4001,Supermanouverability (5th Gen Fighters)
+5002,HIFR Capable
+5999,Nap-of-the-Earth (NOE)
+6000,Auto-GCAS (Ground Collision Avoidance System)
+6001,Terrain Avoidance (Land: 300ft [91.4m], Sea: 100ft [30.5m])
+6002,Terrain Following (Land: 200ft [60.9m], Sea: 100ft [30.5m])
+6003,Fly-by-Wire
+6004,Blip Enhance / Luneberg Reflectors
+6011,Night Navigation (Ferry, Air-to-Air, Air-to-Surface Missiles)
+6012,Night Navigation/Attack (Incl. Bomb, Rocket Delivery)
+7001,Bombsight - Basic
+7002,Bombsight - Ballistic Computing
+7003,Bombsight - Advanced Computing
+7004,Bombsight - Advanced Navigation (INS/GPS)
+7010,Helmet Mounted Sight / Display (HMS/HMD)
+8001,Probe Refueling
+8002,Boom Refueling
+9001,Centerline Drogue
+9002,Wing Drogue
+9003,Centerline Boom
+9101,Fuselage Structure - Low Subsonic Fighter
+9102,Fuselage Structure - High Subsonic Fighter
+9103,Fuselage Structure - Low Supersonic Fighter
+9104,Fuselage Structure - High Supersonic Fighter
+9111,Fuselage Structure - Low Subsonic Attack Aircraft
+9112,Fuselage Structure - High Subsonic Attack Aircraft
+9113,Fuselage Structure - Low Supersonic Attack Aircraft
+9114,Fuselage Structure - High Supersonic Attack Aircraft
+9121,Fuselage Structure - Low Subsonic Bomber
+9122,Fuselage Structure - High Subsonic Bomber
+9123,Fuselage Structure - Low Supersonic Bomber
+9124,Fuselage Structure - High Supersonic Bomber
+9185,Fuselage Structure - High-Altitude Slow-Speed Recon
+9186,Fuselage Structure - High-Altitude High-Speed Recon
+9191,Fuselage Structure - Low Subsonic, Civilian Standards
+9192,Fuselage Structure - High Subsonic, Civilian Standards
+9199,Fuselage Structure - Airship
+10001,RCSS - Active Cancellation
+10101,RCSS - S-Shaped Intake(s)
+10102,RCSS - Exposed Fan Blocker(s)
+10201,RCSS - Stealth Pylons
+11101,IRSS - Shielded Exhaust (Jet Deviation)
+11102,IRSS - Masked Exhaust
+11103,IRSS - Heavily Masked / Slit-Shaped Exhaust
+11201,IRSS - Peak Temp Reduction (Cool-Air Mix)

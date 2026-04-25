@@ -1,0 +1,14 @@
+ID,Description,Example,OODADetectionCycle,OODATargetingCycle,OODAEvasiveCycle
+0,Undefined (Use Below),None,None,None,None
+1000,None,Personnel, Civilian,10,15,5
+2200,Sensor (Mechanical),P-18, AN/TPS-43,30,0,5
+2250,Sensor (Electronic),9296E, AN/TPS-75,15,0,5
+3300,SAM (Analog),SA-6, SA-8,30,30,5
+3350,SAM (Digital),SA-11, Type 11,15,5,5
+4100,AAA (Manual),M1950, ZSU-23,10,15,5
+4150,AAA (Assisted),Skyshield,15,5,5
+5100,Artillery (Towed),M198, D-44,10,180,5
+5200,Artillery (SPG, Manual),M107, BM-21,15,90,5
+5250,Artillery (SPG, Digital FC),Paladin, HIMARS,12,60,4
+6100,Mech/Armor (Analog),M60, T-72,8,3,5
+6200,Mech/Armor (Digital),M1 Abrams, T-90,6,2,4

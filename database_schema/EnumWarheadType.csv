@@ -1,0 +1,42 @@
+ID,Description
+1001,None
+2001,High Explosive (HE) Blast / Frag
+2002,Armor-Piercing (AP)
+2003,High Explosive Anti-Tank (HEAT) Shaped Charge
+2004,Incendiary (Napalm, WP)
+2005,Fragmentation
+2006,Semi Armor-Piercing (SAP)
+2007,High Explosive Splash Head (HESH)
+2008,Continuous Rod
+2009,Hard Target Penetrator (HTP)
+2010,Fuel-Air Explosive (FAE / Thermobaric)
+2011,Enhanced Armor-Piercing Fragmentation
+2012,Fragmentation - ABM-Optimized
+3001,Torpedo
+3002,Depth Charge
+3003,Torpedo, ASW Optimized
+4001,Nuclear
+4011,Chemical
+4021,Bacteriological
+4031,Microwave
+5002,Weapon (DP=Weapon ID)
+5003,Aircraft (DP=Aircraft ID)
+5004,Ship (DP=Ship DBID)
+5005,Submarine (DP=Submarine DBID)
+5006,Ground Unit (DP=Unit DBID)
+5007,Satellite (DP=Satellite DBID)
+6001,Cluster Bomb, Anti-Personnel (Fragmentation)
+6002,Cluster Bomb, Anti-Tank (Shaped Charge)
+6003,Cluster Bomb, Anti-Runway (Penetrator)
+6012,Cluster Bomb, Guided Submunitions, Anti-Tank (Shaped Charge)
+7001,Mine, Anti-Personnel (Fragmentation)
+7002,Mine, Anti-Tank (Shaped Charge)
+8001,Long Rod Penetrator (APDS / APFSDS)
+9001,Anti-Electrical
+9002,Leaflet Dispensing
+9101,COIL Laser
+9102,Carbon Dioxide Laser
+9103,Deuterium Fluoride Laser
+9104,Solid-State Laser (Fiber)
+9201,EMP - Directed
+9202,EMP - Omnidirectional

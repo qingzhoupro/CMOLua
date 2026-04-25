@@ -1,0 +1,44 @@
+ID,Description
+1001,None
+2001,Radar
+2002,Semi-Active
+2003,Visual
+2004,Infrared
+2005,Track-Via-Missile (TVM)
+2006,Terminal Semi-Active
+3001,ESM
+3002,ECM
+3003,EMP Projector
+3004,Passive Coherent Location System
+4001,Laser Designator
+4002,Laser Spot Tracker (LST)
+4003,Laser Rangefinder
+4101,LIDAR
+5001,Hull Sonar, Passive-Only
+5002,Hull Sonar, Active/Passive
+5003,Hull Sonar, Active-Only
+5004,Bow Sonar, Active/Passive
+5011,TASS, Passive-Only Towed Array Sonar System
+5012,TASS, Active/Passive Towed Array Sonar System
+5013,TASS, Active Towed Array Sonar System
+5021,VDS, Passive Only Sonar
+5022,VDS, Active/Passive Sonar
+5023,VDS, Active Only Sonar
+5031,Dipping Sonar, Passive-Only
+5032,Dipping Sonar, Active/Passive
+5033,Dipping Sonar, Active-Only
+5041,Bottom Fixed Sonar, Passive-Only
+5101,MAD
+5601,Wake Detector
+5901,Acoustic Intercept (Active Sonar Warning)
+6001,Mine Sweep, Mechanical Cable Cutter
+6002,Mine Sweep, Magnetic Influence
+6003,Mine Sweep, Acoustic Influence
+6004,Mine Sweep, Magnetic & Acoustic Multi-Influence
+6011,Mine Sweep, Two-Ship Magnetic Influence
+6021,Mine Neutralization, Moored Mine Cable Cutter
+6022,Mine Neutralization, Explosive Charge Mine Disposal
+6031,Mine Neutralization, Diver-deployed Explosive Charge
+7001,Microwave Emitter
+8001,Non-Detecting Emitter
+9001,Sensor Group

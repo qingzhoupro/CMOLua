@@ -1,0 +1,7 @@
+ID,Description,Capability,Example
+0,None,None,None
+1000,Slow,Slow,ELF
+2000,Norm,Normal,Radio
+3000,Fast,Fast (Legacy Datalinks),Link 11
+4000,Instnt,Near-Instant (Adv. Datalinks, EO),Link 16, CEC
+5000,BMD,Near-Instant (BMD Capable),EOR

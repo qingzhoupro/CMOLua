@@ -1,0 +1,9 @@
+ID,Description,OnSignalLoss
+0,Undefined,None
+1000,Remotely Piloted,"Ghost Plane," Continue on Heading Until Crash
+1500,Self-Recovering,Briefly Stop/Loiter to Await Signal, Then RTB
+2000,Changeable Mission,Complete Last Order(s), Then RTB
+3000,Fault/Event Adaptive,Complete Last Order(s) if Able, Then RTB
+4000,Multi-Vehicle Coordination,Complete Last Order(s) if Able, Follow The Leader
+5000,Battlespace Cognizant,Continue Mission (e.g. Sea Control, AAW Patrol)
+6000,Fully Autonomous,Engage Hostile Targets w/in Last Received ROE

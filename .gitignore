@@ -3,13 +3,6 @@
 Thumbs.db
 ~$*
 
-# IDE
-.vscode/settings.json
-.cursor/
-*.swp
-*.swo
-*.swn
-
 # Python
 __pycache__/
 *.py[cod]
@@ -19,13 +12,17 @@ build/
 .venv/
 venv/
 
-# MCP database (user-provided, do not commit)
-mcp/db/DB3K_514.db3
+# MCP database (user-provided; never commit)
 mcp/db/*.db3
 
-# Temp files
+# Temp / log
 *.tmp
 *.log
 
-# SpecStory / Cursor cache
+# IDE
+.vscode/settings.json
+.cursor/
+*.swp *.swo *.swn
+
+# SpecStory cache
 .specstory/

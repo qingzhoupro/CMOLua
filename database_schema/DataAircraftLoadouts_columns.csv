@@ -1,0 +1,3 @@
+Field Name,Type,Nullable,Default,Primary Key,Description
+ID,INTEGER,No,,Yes,
+ComponentID,INTEGER,No,,Yes,

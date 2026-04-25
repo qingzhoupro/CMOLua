@@ -172,6 +172,6 @@ ScenEdit_SetAction({
 
 ## 六、资料来源
 
-1. **本地文档**：F:\codeAi\AIassistant\03_Archive\900_系统管理\CMO语法资料\
+1. **本地文档**：referenced in this skill under the `references/` directory
 2. **官方文档**：https://commandlua.github.io/assets/Functions.html
 3. **网友案例**：https://commandops.github.io/

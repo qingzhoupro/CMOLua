@@ -1,0 +1,10 @@
+Field Name,Type,Nullable,Default,Primary Key,Description
+ID,INTEGER,Yes,,Yes,
+Name,TEXT,Yes,,,
+Comments,TEXT,Yes,,,
+ArmorGeneral,INTEGER,Yes,0,,
+ROF,INTEGER,Yes,0,,
+Capacity,INTEGER,Yes,0,,
+AviationMagazine,BOOLEAN,No,'False',,
+Hypothetical,BOOLEAN,No,'False',,
+Deprecated,BOOLEAN,No,'No',,

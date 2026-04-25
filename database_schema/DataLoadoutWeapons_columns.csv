@@ -1,0 +1,6 @@
+Field Name,Type,Nullable,Default,Primary Key,Description
+ID,INTEGER,No,,Yes,
+ComponentNumber,INTEGER,No,,Yes,
+ComponentID,INTEGER,Yes,0,,
+Optional,BOOLEAN,No,,,
+Internal,BOOLEAN,No,,,

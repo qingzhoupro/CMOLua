@@ -1,0 +1,31 @@
+Field Name,Type,Nullable,Default,Primary Key,Description
+ID,INTEGER,No,,Yes,主键/DBID
+Category,INTEGER,Yes,1001,,类别代码
+Type,INTEGER,Yes,1001,,类型代码
+Name,TEXT,Yes,,,潜艇名称
+OperatorCountry,INTEGER,Yes,0,,国家代码 -> EnumOperatorCountry
+OperatorService,INTEGER,Yes,0,,
+YearCommissioned,INTEGER,Yes,0,,服役年份
+YearDecommissioned,INTEGER,Yes,0,,退役年份 (0=现役)
+Comments,TEXT,Yes,,,
+MaxDepth,INTEGER,Yes,0,,最大下潜深度(米)
+DamagePoints,INTEGER,Yes,0,,
+Length,DOUBLE,Yes,0,,
+Beam,DOUBLE,Yes,0,,
+Draft,DOUBLE,Yes,0,,
+Height,DOUBLE,Yes,0,,
+DisplacementEmpty,INTEGER,Yes,0,,
+DisplacementStandard,INTEGER,Yes,0,,
+DisplacementFull,INTEGER,Yes,0,,水下排水量(吨)
+Crew,INTEGER,Yes,0,,艇员人数
+CSGen,INTEGER,Yes,0,,
+Ergonomics,INTEGER,Yes,3000,,
+OODADetectionCycle,INTEGER,Yes,0,,
+OODATargetingCycle,INTEGER,Yes,0,,
+OODAEvasiveCycle,INTEGER,Yes,0,,
+ROVRadius,DOUBLE,Yes,0,,
+PhysicalSizeCode,INTEGER,Yes,1001,,
+Hypothetical,BOOLEAN,No,'False',,是否虚构
+Cost,INTEGER,Yes,0,,
+Cargo_Volume,INTEGER,Yes,0,,
+Deprecated,BOOLEAN,No,'No',,

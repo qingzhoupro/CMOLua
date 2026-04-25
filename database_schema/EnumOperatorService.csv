@@ -1,0 +1,60 @@
+ID,Description
+1001,None
+1002,Unknown
+1003,Generic
+2001,Air Force
+2002,Navy
+2003,Army
+2004,Marines
+2005,Coast Guard
+2006,National Guard
+2007,Home Guard
+2008,Coastal Artillery
+2009,Marine Corps
+2010,Customs
+2011,Civil Air Patrol
+2012,Air National Guard
+2013,Border Guard
+2014,Police
+2015,Space Force
+2101,Royal Air Force
+2102,Royal Navy
+2103,Royal Army
+2104,Royal Marines
+2201,Frontal Aviation [VVS]
+2202,Air Defence Troops [PVO]
+2203,Naval Fleet [V-MF]
+2204,Naval Aviation [AV-MF]
+2205,Red Army
+2206,Naval Infantry
+2207,Strategic Rocket Forces
+2208,Long Range Aviation [DA]
+2209,Military Transport Aviation (VTA)
+2210,PLAAF
+2211,PLANAF
+2212,PLAN
+2213,PAFMM
+2214,Maritime Safety Administration
+2215,PAP
+2220,PLAGF
+2221,PLANMC
+2300,PLAASF / PLASSF
+2301,PLARF / Second Artillery Corps
+2302,Surface-to-Air Missile Corps
+2401,Air Corps
+2402,Army Air Forces
+2501,Military
+2601,IRGC Navy
+2602,IRGC Ground Forces
+2603,Republican Guard
+2604,Air Self-Defense Force
+2605,Maritime Self-Defense Force
+2606,Ground Self-Defense Force
+2607,Air Defense Force
+2608,IRGC Aerospace Force
+2609,Royal Auxillary Air Force
+2610,SENAN
+3001,Reserves
+3011,Ready Reserve Force
+9001,Civilian
+9002,Commercial

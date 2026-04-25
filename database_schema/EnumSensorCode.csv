@@ -1,0 +1,29 @@
+ID,Description
+1001,Identification Friend or Foe (IFF) [Side Info]
+1002,Classification [Class Info] / Brilliant Weapon [Automatic Target Aquisition]
+1003,Non-Cooperative Target Recognition (NCTR)  - Jet Engine Modulation [Class Info]
+1004,Non-Cooperative Target Recognition (NCTR)  - Narrow Beam Interleaved Search and Track [Class Info]
+1011,Continuous Tracking Capability
+1012,Continuous Tracking Capability [Target Tracking Radar]
+1021,Continuous Tracking Capability [Visual]
+1031,Periscope Search - Basic Capability
+1032,Periscope/Surface Search - Fine Range Resolution + Rapid Scan [1980+]
+1033,Periscope/Surface Search - Advanced Processing [2000+]
+2001,Track While Scan (TWS)
+2002,Moving Target Indicator (MTI)
+2011,Low Probability of Intercept (LPI)
+2701,LLTV / NVG / CCD (Night-Capable) / Searchlight [Visual Night-Capable]
+3001,Pulse-Only Radar
+3002,Pulse Doppler Radar (Full LDSD Capability)
+3003,Pulse Doppler Radar (Limited LDSD Capability)
+3011,Passive Electronically Scanned Array (PESA)
+3012,Active Electronically Scanned Array (AESA)
+3013,Can Classify Ground Targets (SAR)
+4001,Continuous Wave Illumination
+4002,Interrupted Continuous Wave Illumination
+4003,Weapon FCR (No CW Illumination)
+5001,Frequency Agile
+5002,Cognitive EW
+6001,Generates AAW Fire-Control Data
+9101,Shallow Water Capable (Partial)
+9102,Shallow Water Capable (Full) [Classification Flag Required]

@@ -1,0 +1,56 @@
+ID,Description
+1001,n/a
+2001,Intercept, BVR AAMs
+2002,Intercept, WVR AAMs
+2003,Air Superiority, BVR AAMs
+2004,Air Superiority, WVR AAMs
+2005,Point-defence, BVR AAMs
+2006,Point-defence, WVR AAMs
+2007,Guns Only
+2101,Anti-Satellite Intercept (ASAT)
+2102,Airborne Laser (ABM)
+3001,Strike, Land/Naval
+3002,Standoff Strike, Land/Naval
+3003,SEAD, ARM, Land/Naval
+3004,SEAD, TALD, Land/Naval
+3005,DEAD, Land/Naval
+3101,Strike, Land-only
+3102,Standoff Strike, Land
+3103,SEAD, ARM, Land
+3104,SEAD, TALD, Land
+3105,DEAD, Land
+3201,Strike, Naval
+3202,Standoff Strike, Naval
+3203,SEAD, ARM, Naval
+3204,SEAD, TALD, Naval
+3205,DEAD, Naval
+3401,BAI/CAS
+3501,Buddy Illumination
+4001,Offensive ECM
+4002,Airborne Early Warning (AEW)
+4003,Airborne Command Post (ACP)
+4004,Chaff Dispenser
+4005,Drone Deployment
+4101,Search And Rescue (SAR)
+4102,Combat Search And Rescue (CSAR)
+4201,Mine Sweep (MCM)
+4202,Mine Reconnaissance
+4301,Naval Mine Laying
+6001,ASW Patrol
+6002,ASW Attack
+7001,Forward Observer
+7002,Area Surveillance
+7003,Armed Recon
+7004,Unarmed Recon
+7005,Maritime Surveillance
+7101,Paratroops
+7102,Troop Transport
+7201,Cargo Transport
+8001,Air Refueling
+8101,Training
+8102,Target Tow
+8103,Target Drone
+9001,Ferry
+9002,Unavailable
+9003,Reserve
+9004,Armed Ferry

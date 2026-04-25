@@ -1,0 +1,34 @@
+ID,Description
+1001,None
+1002,Not Applicable (N/A)
+2001,Early 1950s
+2002,Late 1950s
+2003,Early 1960s
+2004,Late 1960s
+2005,Early 1970s
+2006,Late 1970s
+2007,Early 1980s
+2008,Late 1980s
+2009,Early 1990s
+2010,Late 1990s
+2011,Early 2000s
+2012,Late 2000s
+2013,Early 2010s
+2014,Late 2010s
+2015,Early 2020s
+2016,Late 2020s
+2501,Visual
+2601,Visual, 1st Generation TV Camera (1960s/1970s, TISEO)
+2602,Visual, 2nd Generation TV Camera (1980s/1990s, AXX-1 TCS)
+2603,Visual, 3rd Generation TV Camera (2000s/2010s, CCD)
+2701,LLTV, 1st Generation (1970s)
+2702,LLTV, 2nd Generation (1980s/1990s)
+2703,LLTV, 3rd Generation (2000s/2010s)
+2801,Infrared, Non-Imaging
+2802,Infrared, 1st Generation Imaging (1970s)
+2803,Infrared, 2nd Generation Imaging (1980s/1990s, LANTIRN, Litening)
+)
+2804,Infrared, 3rd Generation Imaging (2000s/2010s, Impr LANTIRN, Litening II/III, ATFLIR)
+3001,Seeker, Single Spectral IR
+3002,Seeker, Dual Spectral IR
+3003,Seeker, Imaging IR (IIR) / Focal Plane Array Seeker

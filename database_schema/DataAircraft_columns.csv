@@ -1,0 +1,38 @@
+Field Name,Type,Nullable,Default,Primary Key,Description
+ID,INTEGER,No,,Yes,主键/DBID
+Category,INTEGER,Yes,1001,,类别代码 -> EnumAircraftCategory
+Type,INTEGER,Yes,1001,,类型代码 -> EnumAircraftType
+Name,TEXT,Yes,,,飞机名称
+Comments,TEXT,Yes,,,备注说明
+OperatorCountry,INTEGER,Yes,0,,国家代码 -> EnumOperatorCountry
+OperatorService,INTEGER,Yes,0,,军种代码 -> EnumOperatorService
+YearCommissioned,INTEGER,Yes,0,,服役年份
+YearDecommissioned,INTEGER,Yes,0,,退役年份 (0=现役)
+Length,DOUBLE,Yes,0,,长度(米)
+Span,DOUBLE,Yes,0,,翼展(米)
+Height,DOUBLE,Yes,0,,高度(米)
+WeightEmpty,INTEGER,Yes,0,,空重(kg)
+WeightMax,INTEGER,Yes,0,,最大起飞重量(kg)
+WeightPayload,INTEGER,Yes,0,,有效载荷(kg)
+Crew,INTEGER,Yes,1,,机组人数
+Agility,DOUBLE,Yes,0,,敏捷性评分
+ClimbRate,DOUBLE,Yes,0,,爬升率(米/秒)
+AutonomousControlLevel,INTEGER,Yes,0,,
+CockpitGen,INTEGER,Yes,0,,
+Ergonomics,INTEGER,Yes,3000,,
+OODADetectionCycle,INTEGER,Yes,0,,
+OODATargetingCycle,INTEGER,Yes,0,,
+OODAEvasiveCycle,INTEGER,Yes,0,,
+TotalEndurance,INTEGER,Yes,0,,总续航时间(分钟)
+PhysicalSizeCode,INTEGER,Yes,1001,,
+RunwayLengthCode,INTEGER,Yes,1001,,
+Hypothetical,BOOLEAN,No,'False',,是否虚构
+Cost,INTEGER,Yes,0,,造价
+DamagePoints,DOUBLE,Yes,0,,生命值
+AircraftEngineArmor,INTEGER,Yes,0,,
+AircraftFuselageArmor,INTEGER,Yes,0,,
+AircraftCockpitArmor,INTEGER,Yes,0,,
+Visibility,TEXT,Yes,,,
+FuelOffloadRate,INTEGER,Yes,0,,
+FuelOnloadRate,INTEGER,Yes,0,,
+Deprecated,BOOLEAN,No,'No',,

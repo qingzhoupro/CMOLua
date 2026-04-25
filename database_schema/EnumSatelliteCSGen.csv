@@ -1,0 +1,10 @@
+ID,Description,Example,YearStart,YearEnd,OODADetectionCycle,OODATargetingCycle,OODAEvasiveCycle
+0,Undefined (Use Below),None,None,None,None,None,None
+1100,Visual (Gen 1),KH-1, KH-9,1960,1975,1800,2300,0
+1200,Visual (Gen 2),KH-11 Blk I/II,1976,1990,1200,1575,0
+1300,Visual (Gen 3),KH-11 Blk III,1991,2005,600,785,0
+1400,Visual (Gen 4),KH-11 Blk IV/V,2006,2021,300,400,0
+1500,Visual (Gen 5),FOO Fighter,2021,None,120,160,0
+2100,Non-Visual (Gen 1),GRAB,1960,1970,1200,1575,0
+2200,Non-Visual (Gen 2),Aquacade,1971,1995,900,1100,0
+2300,Non-Visual (Gen 3),Orion,1996,None,60,80,0

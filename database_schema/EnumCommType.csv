@@ -1,0 +1,109 @@
+ID,Description
+1001,None
+2001,Commercial SATCOM
+2002,FLTSATCOM
+2003,MILSTAR SATCOM
+2004,AFSATCOM
+2005,Skynet SATCOM
+2006,Big Ball SATCOM
+2007,Satellite Downlink
+2009,Punch Bowl SATCOM
+2010,SATCOM
+3001,Visual Comm
+3002,Laser Comm
+3003,Land Line
+4001,Link 4
+4002,Link 10
+4003,Link 11
+4004,Link 16
+4005,Link 14
+4006,Link 11B
+4007,Link 22
+4011,CEC
+4021,Link Y
+4022,Link T
+5004,LAMPS Datalink
+5006,A346Z Datalink
+6001,ELF Link (Submarine)
+7001,Radio
+8002,Two-Way Wire Guidance
+9001,NATO Sonobuoy Link
+9002,Generic Sonobuoy Link
+10001,AEGIS Weapon Link
+10002,Generic Weapon Link
+10003,NTU Weapon Link
+10004,NASAMS Weapon Link
+10005,AGM-142 Weapon Link
+10006,Patriot Weapon Link
+10008,Rapier Weapon Link
+10009,AIM-120 Weapon Link
+10010,Roland Weapon Link
+10011,AN/AAW-9/13 Weapon Link
+10012,SA-12 Weapon Link
+10013,AJ.168 Weapon Link
+10015,AS.11/12 Weapon Wire
+10016,SA-10/SA-N-6 Weapon Link
+10018,HUMRAAM Weapon Link
+10019,AS.30 Weapon Link
+10020,HOT Weapon Link
+10021,APK-8/9 Weapon Link
+10022,IKARA Weapon Link
+10023,AS-7 Weapon Link
+10024,MICA Weapon Link
+10025,Aster Weapon Link
+10026,Otomat Weapon Link
+10027,GBU-15 Weapon Link
+10028,RBS-15 Weapon Link
+10029,ABM Weapon Link
+10030,ADATS Weapon Link
+10031,Arrow Weapon Link
+10032,AT-2/3/6/11/12/16 Weapon Link
+10033,Bamse Weapon Link
+10035,Blowpipe Weapon Link
+10036,Bullpup Weapon Link
+10037,C-701 Weapon Link
+10039,ASM/SSM Weapon Link (Soviet/Russia)
+10041,EFOGM Weapon Link
+10042,Gabriel Weapon Link
+10043,Marte/Sea Killer Weapon Link
+10045,SAM-1 Weapon Link
+10046,SAM-4 Weapon Link
+10047,Sea Cat Weapon Link
+10050,Sky Bow Weapon Link
+10051,Starstreak Weapon Link
+10052,THAAD Weapon Link
+10053,TOW Weapon Link
+10054,AA-10/12 Weapon Link
+10055,AA-9/13 Weapon Link
+10056,AA-5 Weapon Link
+10057,AA-6 Weapon Link
+10058,AAM-4 Weapon Link
+10059,Sky Sword II Weapon Link
+10060,RBS 70/90 Weapon Link
+10061,Derby Weapon Link
+10062,TacTom Weapon Link
+10063,SA-17/SA-N-12 Weapon Link
+10064,Hakim Weapon Link
+10065,Sea Dart ADIMP Link
+10066,PL-15 Weapon Link
+10067,DART/DAVIDE Link
+10068,Stunner Weapon Link
+10069,MHTK Weapon Link
+10070,SPICE Weapon Link
+10071,AARGM Weapon Link
+10072,R-27R Weapon Link
+10073,Blackwing Weapon Link
+10074,Qaem Weapon Link
+10075,Swingfire Weapon Link
+10076,HISAR Weapon Link
+10077,SSM-2 Weapon Link
+10078,Nag Weapon Link
+10079,FIM-92K Weapon Link
+10080,Chungum Weapon Link
+10081,AD-200 Weapon Link
+10082,TSCE Weapon Link
+10083,Atmaca Weapon Link
+10084,IRIS-T SL Weapon Link
+10085,Astra Weapon Link
+10086,Shahed-136 Weapon Link
+10087,Gungnir Weapon Link

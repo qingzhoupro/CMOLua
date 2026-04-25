@@ -1,0 +1,7 @@
+ID,Description,Capability,Example
+0,None,None,None
+1000,GLoc,General Location,Radio
+2000,TacP,Tactical Picture, OTH ASuW,Link 11
+3000,AAW,Offboard AAW,CEC
+4000,BMD,Remote BMD,EOR
+5000,FMV,Full Motion Video,IRST Coord

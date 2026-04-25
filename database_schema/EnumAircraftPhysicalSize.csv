@@ -1,0 +1,10 @@
+ID,Description
+1001,None
+2001,Small Aircraft (0-12m)
+2002,Medium Aircraft (12.1-18m)
+2003,Large Aircraft (18.1-26m)
+2004,Very Large Aircraft (26.1-75m)
+3001,UAS [NATO Class I, Micro] (0-2kg)
+3002,UAS [NATO Class I, Mini] (2-20kg)
+3003,UAS [NATO Class I, Small] (20-150kg)
+3004,UAS [NATO Class II] (150-600kg)

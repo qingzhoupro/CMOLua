@@ -1,0 +1,13 @@
+ID,Description
+1001,None
+1005,Light (Handgun Resistant)
+1010,Light (Assault Rifle Resistant)
+1015,Light (HMG Resistant)
+1020,Light (20-25mm RHA)
+1025,Light (26-30mm RHA)
+1030,Light (31-35mm RHA)
+1035,Light (36-40mm RHA)
+2001,Light (41-90mm RHA)
+2002,Medium (91-140mm RHA)
+2003,Heavy (141-200mm RHA)
+2004,Special (201-500mm RHA)

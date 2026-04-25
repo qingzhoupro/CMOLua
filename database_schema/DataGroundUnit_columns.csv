@@ -1,0 +1,41 @@
+Field Name,Type,Nullable,Default,Primary Key,Description
+ID,INTEGER,No,,Yes,主键/DBID
+Name,TEXT,Yes,,,单位名称
+Comments,TEXT,Yes,,,
+Category,INTEGER,Yes,1001,,类别代码 -> EnumGroundUnitCategory
+OperatorCountry,INTEGER,Yes,0,,国家代码 -> EnumOperatorCountry
+OperatorService,INTEGER,Yes,0,,
+YearCommissioned,INTEGER,Yes,0,,服役年份
+YearDecommissioned,INTEGER,Yes,0,,退役年份 (0=现役)
+Area,DOUBLE,Yes,0,,
+Length,DOUBLE,Yes,0,,
+Width,DOUBLE,Yes,0,,
+MastHeight,DOUBLE,Yes,0,,
+Mass,DOUBLE,Yes,0,,重量(吨)
+Crew,INTEGER,Yes,0,,乘员人数
+TroopCapacity,INTEGER,Yes,0,,
+ArmorGeneral,INTEGER,Yes,0,,装甲等级
+DamagePoints,INTEGER,Yes,0,,
+MissileDefense,INTEGER,Yes,0,,
+CSGen,INTEGER,Yes,0,,
+Ergonomics,INTEGER,Yes,3000,,
+OODADetectionCycle,INTEGER,Yes,0,,
+OODATargetingCycle,INTEGER,Yes,0,,
+OODAEvasiveCycle,INTEGER,Yes,0,,
+Hypothetical,BOOLEAN,No,'False',,是否虚构
+Cost,INTEGER,Yes,0,,
+Deprecated,BOOLEAN,No,'No',,
+MaxSeaState,INTEGER,Yes,0,,
+Self_Cargo_Type,INTEGER,Yes,0,,
+Self_Cargo_Mass,DOUBLE,Yes,0,,
+Self_Cargo_Area,DOUBLE,Yes,0,,
+Self_Cargo_Crew,INTEGER,Yes,0,,
+Self_Cargo_Volume,DOUBLE,Yes,0,,
+Self_Cargo_ParadropCapable,BOOLEAN,No,'No',,
+Carry_Cargo_Type,INTEGER,Yes,0,,
+Carry_Cargo_Mass,DOUBLE,Yes,0,,
+Carry_Cargo_Area,DOUBLE,Yes,0,,
+Carry_Cargo_Crew,INTEGER,Yes,0,,
+Carry_Cargo_Volume,DOUBLE,Yes,0,,
+Tow_Mass,DOUBLE,Yes,0,,
+Setup,INTEGER,Yes,0,,

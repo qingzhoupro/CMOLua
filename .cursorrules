@@ -1,0 +1,59 @@
+# CMO 数据库查询规则
+
+## 项目信息
+
+- **数据库路径**: `f:\codeAi\AIassistant\03_Archive\CMO-HKBQSKILL\mcp\db\DB3K_514.db3`
+- **数据库大小**: 56.5 MB
+- **MCP 服务**: `CMO_DBID_Lookup`
+- **MCP 脚本**: `f:\codeAi\AIassistant\03_Archive\CMO-HKBQSKILL\mcp\sqlite_explorer.py`
+
+## 核心原则
+
+**严禁以下行为：**
+- 检查数据库文件是否存在（数据库已确认存在，56.5 MB）
+- 说"数据库不存在"、"文件未找到"
+- 写 Python 脚本连接数据库
+- 编造 DBID、LoadoutID 等数据
+- 使用旧版 `server.py`（已废弃）
+
+## MCP 工具使用
+
+本项目的 MCP 服务名为 `CMO_DBID_Lookup`，所有工具通过 `CallMcpTool` 调用：
+
+| 工具 | 参数 | 用途 |
+|------|------|------|
+| `cmo_nl_query` | `user_question` | 自然语言查询（核心） |
+| `cmo_get_loadouts` | `aircraft_name` | 查飞机 LoadoutID |
+| `cmo_raw_query` | `sql_query` | 直接执行 SELECT SQL |
+| `cmo_list_tables` | 无 | 列出所有表 |
+| `cmo_describe_table` | `table_name` | 查看表字段 |
+| `cmo_get_schemas` | 无 | 表结构摘要 |
+
+## 使用示例
+
+```
+用户: 中国现役驱逐舰有哪些？
+AI: CallMcpTool(cmo_nl_query("中国现役驱逐舰"))
+
+用户: M1A2坦克的DBID是多少？
+AI: CallMcpTool(cmo_nl_query("M1A2"))
+
+用户: F/A-18C的LoadoutID
+AI: CallMcpTool(cmo_get_loadouts("F/A-18C"))
+```
+
+## 关键数据表
+
+- `DataShip` — 舰艇（DBID 直接使用）
+- `DataAircraft` — 飞机（需配合 LoadoutID）
+- `DataSubmarine` — 潜艇
+- `DataGroundUnit` — 地面单位
+- `DataWeapon` — 武器/导弹
+- `DataFacility` — 地面设施（DBID 直接使用）
+- `DataAircraftLoadouts` — 飞机挂载配置
+
+## 过滤规则
+
+- 现役: `YearDecommissioned = 0`
+- 非虚构: `Hypothetical = '0'`
+- 国家代码: `OperatorCountry` → `EnumOperatorCountry`

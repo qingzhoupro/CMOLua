@@ -1,0 +1,37 @@
+ID,Description
+1001,None
+2001,Fighter
+2002,Multirole (Fighter/Attack)
+2101,Anti-Satellite Interceptor (ASAT)
+2102,Airborne Laser Platform
+3001,Attack
+3002,Wild Weasel
+3101,Bomber
+3401,Battlefield Air Interdiction (BAI/CAS)
+4001,Electronic Warfare
+4002,Airborne Early Warning (AEW)
+4003,Airborne Command Post (ACP)
+4101,Search And Rescue (SAR)
+4201,Mine Sweeper (MCM)
+6001,Anti-Submarine Warfare (ASW)
+6002,Maritime Patrol Aircraft (MPA)
+7001,Forward Observer
+7002,Area Surveillance
+7003,Recon
+7004,Electronic Intelligence (ELINT)
+7005,Signals Intelligence (SIGINT)
+7101,Transport
+7201,Cargo
+7301,Commercial
+7302,Civilian
+7401,Utility
+7402,Naval Utility
+8001,Tanker (Air Refueling)
+8101,Trainer
+8102,Target Towing
+8103,Target Drone
+8201,Unmanned Aerial Vehicle (UAV)
+8202,Unmanned Combat Aerial Vehicle (UCAV)
+8901,Rigid Airship
+8902,Aerostat
+8903,Blimp

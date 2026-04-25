@@ -1,0 +1,8 @@
+ID,Description,Example,OODADetectionCycle,OODATargetingCycle,OODAEvasiveCycle
+0,Undefined (Use Below),None,None,None,None
+1000,Basic Instruments Only,Biplanes,10,10,2
+1100,Steam Gauges,WW2 Fighters,12,12,2
+1150,Steam Gauges (Complex),MiG-21,15,15,2
+1200,Glass Cockpit (Partial),F-111D w/ Mk2 Avionics,6,8,2
+1250,Glass Cockpit,F-14D, F/A-18A,5,7,2
+1300,Panoramic Cockpit Display,F-35,3,5,2

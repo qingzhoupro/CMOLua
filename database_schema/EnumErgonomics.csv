@@ -1,0 +1,6 @@
+ID,Description,OODADetectionModPercent,OODATargetingModPercent,OODAEvasiveModPercent
+1000,Awful,20,30,15
+2000,Poor,10,15,5
+3000,Average,0,0,0
+4000,Good,-10,-15,-5
+5000,Excellent,-20,-30,-15

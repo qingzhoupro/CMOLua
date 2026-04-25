@@ -1,0 +1,81 @@
+ID,Description
+1001,Illuminate at Launch
+1002,Terminal Illumination
+1003,Supports Buddy Illumination
+1101,Home On Jam (HOJ)
+2001,Anti-Air Stern Chase
+2002,Anti-Air Rear-Aspect
+2003,Anti-Air All-Aspect
+2004,Anti-Air Dogfight (High Off-Boresight)
+2005,No Diving Target Mod
+2006,Capable vs Seaskimmer
+2007,ARH AAW - No HQ Track Required
+2009,Counter- Rocket, Arty, Mortar (C-RAM) Capable
+2010,Lock-On After Launch (LOAL) - CEC-Capable
+2011,Flight Profile - Terrain Following
+2012,Lock-On After Launch (LOAL)
+2025,Launcher occupied during guidance
+3001,ARM Target Memory
+3003,Loiter Capability
+3004,Loiter Capability (Parachute)
+4001,Search Pattern
+4002,Drive-Through Logic
+4003,Bearing-Only Launch (BOL)
+4008,Depressed Ballistic Trajectory (Iskander, ATACMS, etc.)
+4010,Ballistic Trajectory (Ballistic Missile, GMLRS, etc.)
+4012,Multi-Stage Missile
+6001,Pod - Terrain Avoidance (Land: 300ft [91.4m], Sea: 200ft [60.9m])
+6002,Pod - Terrain Following (Land: 200ft [60.9m], Sea: 100ft [30.5m])
+6009,Pod - Day-Only Navigation
+6010,Pod - Day-Only Navigation/Attack
+6011,Pod - Night Navigation (Ferry, Air-to-Air, Air-to-Surface Missiles)
+6012,Pod - Night Navigation/Attack (Incl. Bomb, Rocket Delivery)
+6021,Pod - Recon, Day-Only
+6022,Pod - Recon, Night Capable
+6101,Weapon - INS Navigation
+6102,Weapon - INS w/ GNSS Navigation
+6103,Weapon - TERCOM Navigation
+6111,Weapon - Pre-Briefed Target Only
+6112,Weapon - Can Target Specific Subsystems
+6121,Terminal Maneuver - Pop-Up
+6122,Terminal Maneuver - Zig-Zag
+6123,Terminal Maneuver - Random (Advanced)
+6129,Re-Attack Capability
+6130,Weapon Altitude Control Possible
+6131,Attitude Control - Aerodynamic Only
+6132,Attitude Control - Non-Aerodynamic Only
+6133,Attitude Control - Combined
+6140,Uses GPS
+6141,Uses GLONASS
+6142,Uses BeiDou/COMPASS
+6143,Uses NavIC/IRNSS
+6201,Weapon - Has Imaging Seeker (CAN BE DELETED?)
+6301,Mine - Contact Fuze
+6311,Mine - Magnetic Fuze, Simple Magnetic
+6312,Mine - Magnetic Fuze, Total-Field Magnetometer
+6321,Mine - Passive Acoustic Fuze, Broad-Band (Simple)
+6322,Mine - Passive Acoustic Fuze, Narrow-Band (Advanced)
+6331,Mine - Pressure Fuze
+6341,Mine - Seismic Fuze
+6401,Mine - Delay Counter
+6402,Mine - Arming Delay
+6501,Mine - Target Discrimination / Identification
+6511,Mine - Remote Controlled
+7001,Warhead - Single Re-Entry Vehicle (RV)
+7002,Warhead - Multiple Re-Entry Vehicles (MRV)
+7003,Warhead - Multiple Independent Re-Entry Vehicles (MIRV)
+7101,Fuze - Impact
+7102,Fuze - Barometric/Altimeter
+7103,Fuze - Proximity
+7104,Fuze - Top-Down Proximity (NLAW, TOW AERO)
+7110,Fuze - Combination
+7111,Fuze - Shock Factor (Under-Keel) Optimized
+8001,Capable vs Mobile Land Unit  (CAN BE DELETED?)
+8002,Is Retarded Munition
+8010,Boosted Penetrator
+9001,Torpedo - Straight-Running
+9002,Torpedo - Wake Homing (WH)
+9003,Torpedo - Straight-Running & Time Detonation
+9004,Torpedo - Pattern-Running
+9998,Flight Profile - Hi-Hi-Lo
+9999,Flight Profile - Level Cruise Flight

@@ -1,0 +1,94 @@
+ID,Description
+1001,None
+1999,Air Contact Unknown
+2000,Aircraft - Unspecified
+2001,Aircraft - 5th Generation Fighter/Attack [Agility/Gen: 5.0+] (F-22, Eurofighter, Rafale)
+2002,Aircraft - 4th Generation Fighter/Attack [Agility/Gen: 4.0-4.9] (F-14, F-15, F-16, MiG-29, Su-27)
+2003,Aircraft - 3rd Generation Fighter/Attack [Agility/Gen: 3.0-3.9] (F-4, F-5, MiG-21, MiG-23)
+2004,Aircraft - Less Capable Fighter/Attack [Agility: 2.0-2.9] (F-111, Lightning, Su-7, MiG-17)
+2011,Aircraft - High-performance Bombers [Agility: 2.0+] (B-1B, B-2A, Tu-22M
+2012,Aircraft - Medium-performance Bombers [Agility: 1.5-1.9] (B-52, Vulcan, Tu-16)
+2013,Aircraft - Low-performance Bombers [Agility: 1.0-1.4] (B-24, Canberra, Tu-95, Bison)
+2021,Aircraft - High-Performance Reconnaissance and Electronic Warfare [Agility: 4.0+]
+2022,Aircraft - Medium-Performance Reconnaissance and Electronic Warfare [Agility: 3.0-3.9]
+2023,Aircraft - Low-Performance Reconnaissance and Electronic Warfare [Agility: 2.0-2.9]
+2031,Aircraft - Airborne Early Warning and Control
+2032,Aircraft - Micro-UAV
+2100,Helicopter - Unspecified
+2200,Guided Weapon - Unspecified
+2201,Guided Weapon - Supersonic Sea-Skimming
+2202,Guided Weapon - Subsonic Sea-Skimming
+2203,Guided Weapon - Supersonic
+2204,Guided Weapon - Subsonic
+2211,Guided Weapon - Ballistic
+2300,Satellite - Unspecified
+2400,C-RAM (Counter Rocket, Artillery and Mortar)
+2999,Surface Contact - Unknown Type
+3000,Ship - Unspecified
+3001,Ship - Carrier, 0-25000 tons
+3002,Ship - Carrier, 25001-45000 tons
+3003,Ship - Carrier, 45001-95000 tons
+3004,Ship - Carrier, 95000+ tons
+3101,Ship - Surface Combatant, 0-500 tons
+3102,Ship - Surface Combatant, 501-1500 tons, plus Missile Boats with smaller displacement
+3103,Ship - Surface Combatant, 1501-5000 tons, plus Frigates and Corvettes with smaller displacement
+3104,Ship - Surface Combatant, 5001-10000 tons, plus Destroyers with smaller displacement
+3105,Ship - Surface Combatant, 10001-25000 tons, plus Cruisers with smaller displacement
+3106,Ship - Surface Combatant, 25001-45000 tons
+3107,Ship - Surface Combatant, 45001-95000 tons
+3108,Ship - Surface Combatant, 95000+ tons
+3201,Ship - Amphibious, 0-500 tons
+3202,Ship - Amphibious, 501-1500 tons
+3203,Ship - Amphibious, 1501-5000 tons
+3204,Ship - Amphibious, 5001-10000 tons
+3205,Ship - Amphibious, 10001-25000 tons
+3206,Ship - Amphibious, 25001-45000 tons
+3207,Ship - Amphibious, 45001-95000 tons
+3208,Ship - Amphibious, 95000+ tons
+3301,Ship - Auxiliary, 0-500 tons
+3302,Ship - Auxiliary, 501-1500 tons
+3303,Ship - Auxiliary, 1501-5000 tons
+3304,Ship - Auxiliary, 5001-10000 tons
+3305,Ship - Auxiliary, 10001-25000 tons
+3306,Ship - Auxiliary, 25001-45000 tons
+3307,Ship - Auxiliary, 45001-95000 tons
+3308,Ship - Auxiliary, 95000+ tons
+3401,Ship - Merchant / Civilian, 0-500 tons
+3402,Ship - Merchant / Civilian, 501-1500 tons
+3403,Ship - Merchant / Civilian, 1501-5000 tons
+3404,Ship - Merchant / Civilian, 5001-10000 tons
+3405,Ship - Merchant / Civilian, 10001-25000 tons
+3406,Ship - Merchant / Civilian, 25001-45000 tons
+3407,Ship - Merchant / Civilian, 45001-95000 tons
+3408,Ship - Merchant / Civilian, 95000+ tons
+3501,Ship - Surfaced Submarine
+3999,Sub-Surface Contact - Unknown Type
+4000,Submarine - Unspecified
+4999,Land Contact - Unknown Type
+5000,Land Structure - Soft - Unspecified
+5001,Land Structure - Soft - Building (Surface)
+5002,Land Structure - Soft - Building (Reveted)
+5003,Land Structure - Soft - Building (Bunker)
+5004,Land Structure - Soft - Building (Underground)
+5005,Land Structure - Soft - Structure (Open)
+5006,Land Structure - Soft - Structure (Reveted)
+5100,Land Structure - Hardened - Unspecified
+5101,Land Structure - Hardened - Building (Surface)
+5102,Land Structure - Hardened - Building (Reveted)
+5103,Land Structure - Hardened - Building (Bunker)
+5104,Land Structure - Hardened - Building (Underground)
+5105,Land Structure - Hardened - Structure (Open)
+5106,Land Structure - Hardened - Structure (Reveted)
+5200,Runway Facility - Unspecified
+5201,Runway
+5202,Runway-Grade Taxiway
+5203,Runway Access Point
+5300,Radar - Unspecified
+5400,Mobile Target - Soft - Unspecified
+5401,Mobile Target - Soft - Mobile Vehicle(s)
+5402,Mobile Target - Soft - Mobile Personnel
+5500,Mobile Target - Hardened - Unspecified
+5501,Mobile Target - Hardened - Mobile Vehicle(s)
+5601,Underwater Structure
+5701,Aerostat Moring
+5801,Air Base (Single-Unit Airfield)

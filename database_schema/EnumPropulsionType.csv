@@ -1,0 +1,25 @@
+ID,Description
+1001,None
+2001,Turbojet
+2002,Turbofan
+2003,Turboprop
+2004,Piston
+2005,Helo Turboshaft
+3001,Diesel
+3002,Steam
+3003,Gas Turbine
+3004,Nuclear
+3005,Pump Jet Propulsor
+3006,Gasoline
+3007,Personnel
+4001,Electric
+4002,Air Independent
+5001,Rocket [Boost & Coast]
+5002,Torpedo Engine
+5003,Weapon Coast
+5004,Rocket [Long Burn]
+5005,Ramjet
+6001,Torpedo Thermal Combustion
+6002,Torpedo Thermal Closed Cycle
+6003,Torpedo Electric
+9001,Static

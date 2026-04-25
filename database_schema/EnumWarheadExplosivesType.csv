@@ -1,0 +1,67 @@
+ID,Description,TNTEquivalent,Comment
+1001,None,0.0,None
+2001,HE [kg], TNT (Trinitrotoluene),1.0,None
+2002,HE [kg], HMX,1.7,None
+2003,HE [kg], PETN (Pentrite),1.8,None
+2004,HE [kg], RDX (Cyclonite / Hexogen / C4),1.5,Royal Demolition eXplosive in the U.K. and Research Department eXplosive in the USA., Cyclotrimethylene Trinitramine Also referred to as Cyclonite, T 4, or Hexogen. RDX is a white crystalline solid usually used in mixtures with other explosives, oils, or waxes; it is rarely used alone. It has a high degree of stability in storage but is very sensitive to heat and shock
+2005,HE [kg], C4,1.2,None
+2006,HE [kg], Tritonal,1.5,None
+2007,HE [kg], Ammonium Nitrate (Ammonite),0.9,None
+2008,HE [kg], Picric Acid / Trinitrophenol / Type 97 (Pertit / Pikrinit / Melinit / Ekrasit / Shimose),0.9,Widely used military explosive in WWI and WWII. More sensitive than TNT.
+2009,HE [kg], Torpex,1.5,TORPedo EXplosive aka TPX. A mixture of 37-41% TNT, 41- 45% RDX (Cyclonite, Cyclomethylene Trinitramine), 18% aluminium.
+Torpex is attractive because of the increased explosive energy and higher detonation velocity of RDX as compared to TNT and the prolongation of the pressure wave by the aluminium. On a weight basis, Torpex is conservatively estimated to be about 50% more effective than TNT as an underwater explosive against ships. However, Torpex is more sensitive than TNT and RDX is expensive and difficult to make safely.
+In the late 1940s Torpex was replaced by HBX, then H-6 in the 1960s and by PBX in the 1970s.
+2010,HE [kg], Dynamite,0.8,None
+2011,HE [kg], PBXN-1XX,1.7,None
+2012,HE [kg], AFX-757,1.9,None
+2013,HE [kg], Minol-2,0.9,Minol-2: 40% TNT, 40% ammonium nitrate and 20% aluminium. Percentages may vary.
+2014,HE [kg], H-6,1.7,None
+2015,HE [kg], Destex,1.7,None
+2016,HE [kg], Minol-1,0.9,Minol-1: 48% TNT, 42% ammonium nitrate and 10% aluminium. Percentages may vary.
+Minol-series are mixtures of TNT, Ammonium Nitrate and Aluminium. This type of compound is likely to be used for maritime warfare, as it is "waterproof". It must not be fired from gun barrels, because it will positively detonate when exposed over 250 g acceleration. The high part of aluminium-grinding is increasing the detonation-gases thus implementing the mine-effect, especially underwater. Minol is a trademark of DuPont, USA, 1941. Production has been discontinued, as there are more powerful derivates available.
+2017,HE [kg], HBX-1,1.45,HBX-1 and HBX-3 are castable mixtures of RDX, TNT, powdered aluminium, and D-2 wax with calcium chloride. These explosives are used in missile warheads and underwater ordnance. HBX-1:RDX (including Nitrocellulose, Calcium Chloride and Calcium Silicate) 40.4 %, TNT 37.8 %, Al  17.1 %, Wax & Lecithin 4.7 %. Percentages may vary.
+2018,HE [kg], HBX-3,1.91,HBX-3: RDX (including Nitrocellulose, Calcium Chloride and Calcium Silicate) 31.3 %, TNT 29 %, Al  34.8 %, Wax & Lecithin 4.9 %. Percentages may vary.
+2019,HE [kg], Hexanite,1.1,Mixture of TNT and hexyl. Usually 60%  TNT and 40 % Hexyl
+slightly more powerful than TNT.
+2020,HE [kg], Dipicrylamine / Hexyl (Hexamine / Hexite / Hexanitrodiphenylamine),1.1,None
+2021,HE [kg], Minol-3,0.9,Minol-3: 42% TNT, 38% ammonium nitrate and 20% aluminium. Percentages may vary.
+2022,HE [kg], Minol-4,0.9,Minol-4: 40% TNT, 40 % A & K nitrate (90-10) and 20% aluminium. Percentages may vary.
+2023,HE [kg], PBX,1.7,Plastic Bonded eXplosive. PBX is a term applied to a variety of explosive mixtures which have high mechanical strength, good explosive properties, excellent chemical stability, relative insensitivity to handling and shock, and high thermal output sensitivity. PBX's contain a high percentage of basic explosives such as RDX, HMX, HNS, or PETN in a mixture with a polymeric binder.
+2024,HE [kg], Comp B,1.6,59.5% RDX, 39.5% TNT
+2101,Incendiary [kg], Napalm,0.8,None
+2102,Incendiary [kg], WP,0.8,None
+2103,Incendiary [kg], FAE,0.8,None
+2201,HEAT Shaped Charge, Light Armor (41-90mm),1.0,None
+2202,HEAT Shaped Charge, Medium Armor (91-140mm),1.0,None
+2203,HEAT Shaped Charge, Heavy Armor (141-200mm),1.0,None
+2204,HEAT Shaped Charge, Special Armor (201-500mm),1.0,None
+2301,Fragmentation [kg], Prefragmented,0.35,None
+2311,Enhanced Armor-Piercing Fragmentation [kg], Light Armor (41-90mm),1.0,None
+2312,Enhanced Armor-Piercing Fragmentation [kg], Medium Armor (91-140mm),1.0,None
+2313,Enhanced Armor-Piercing Fragmentation [kg], Heavy Armor (141-200mm),1.0,None
+2314,Enhanced Armor-Piercing Fragmentation [kg], Special Armor (201-500mm),1.0,None
+2401,Continuous Rod [kg],0.35,Use same modifier as Fragmentation warhead, which is used by most anti-air weapons
+4001,Nuclear [kT],1.0,None
+4011,Chemical [kg],1.0,None
+4012,Bacteriological [kg],1.0,None
+6001,Submunitions [kg], Anti-Personnel (Fragmentation),1.0,None
+6002,Submunitions [kg], Anti-Tank, Light Armor (41-90mm),1.0,None
+6003,Submunitions [kg], Anti-Tank, Medium Armor (91-140mm),1.0,None
+6004,Submunitions [kg], Anti-Tank, Heavy Armor (141-200mm),1.0,None
+6005,Submunitions [kg], Anti-Tank, Special Armor (201-500mm),1.0,None
+6011,Submunitions [kg], Anti-Runway (Penetrator),1.0,None
+7011,Mine [kg], Anti-Personnel (Fragmentation),1.0,None
+7012,Mine [kg], Anti-Tank, Light Armor (41-90mm),1.0,None
+7013,Mine [kg], Anti-Tank, Medium Armor (91-140mm),1.0,None
+7014,Mine [kg], Anti-Tank, Heavy Armor (141-200mm),1.0,None
+7015,Mine [kg], Anti-Tank, Special Armor (201-500mm),1.0,None
+8001,Long Rod Penetrator, Light Armor (41-90mm),1.0,None
+8002,Long Rod Penetrator, Medium Armor (91-140mm),1.0,None
+8003,Long Rod Penetrator, Heavy Armor (141-200mm),1.0,None
+8004,Long Rod Penetrator, Special Armor (201-500mm),1.0,None
+9001,Anti-Electrical (Conductive Fiber),0.0,None
+9002,Leaflets,0.0,None
+9101,Laser Energy [kW],0.00024,None
+9111,Microwave Burst,0.00024,None
+9801,Kinetic Energy,1.0,None
+9998,Weapon Payload [Weapon ID#],0.0,None

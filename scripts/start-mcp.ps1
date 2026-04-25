@@ -1,80 +1,78 @@
-# CMO DBID MCP 一键启动脚本
-# 运行前请先安装依赖：pip install -r mcp/requirements.txt
+# CMO-HKBQSKILL start-mcp.ps1
+# Starts the MCP server with a clean status display.
 
 $ErrorActionPreference = "Stop"
 $ProjectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
+$ServerScript = Join-Path $ProjectRoot "mcp\server.py"
+$ReqFile      = Join-Path $ProjectRoot "mcp\requirements.txt"
+$DbDir        = Join-Path $ProjectRoot "mcp\db"
 
-Push-Location $ProjectRoot
-
-# 查找可用的 Python
-$PythonCmd = $null
-$PythonPaths = @(
-    "python",
-    "python3",
-    "C:\Program Files\Python313\python.exe",
-    "$env:LOCALAPPDATA\Programs\Python\Python313\python.exe"
-)
-foreach ($py in $PythonPaths) {
-    try {
-        $result = & $py --version 2>$null
-        if ($LASTEXITCODE -eq 0) {
-            $PythonCmd = $py
-            Write-Host "    找到 Python: $PythonCmd ($result)" -ForegroundColor Green
-            break
-        }
-    } catch { continue }
+function Find-Python {
+    $candidates = @("python", "python3",
+        "C:\Program Files\Python313\python.exe",
+        "$env:LOCALAPPDATA\Programs\Python\Python313\python.exe")
+    foreach ($c in $candidates) {
+        try {
+            $v = & $c --version 2>$null
+            if ($LASTEXITCODE -eq 0) { return @{cmd=$c; version=$v} }
+        } catch { continue }
+    }
+    return $null
 }
 
-if (-not $PythonCmd) {
-    Write-Host "    ❌ 未找到 Python，请先安装 Python 3.8+" -ForegroundColor Red
-    Pop-Location
+# ── Banner ───────────────────────────────────────────────────────────────────
+Write-Host ""
+Write-Host "  ============================================" -ForegroundColor Cyan
+Write-Host "     CMO DBID Lookup MCP Server" -ForegroundColor Cyan
+Write-Host "  ============================================" -ForegroundColor Cyan
+Write-Host ""
+
+# Python
+$py = Find-Python
+if (-not $py) {
+    Write-Host "  [FAIL] Python not found. Install Python 3.8+ and add to PATH." -ForegroundColor Red
     exit 1
 }
+Write-Host "  [OK]   Python: $($py.version)" -ForegroundColor Green
 
-# 检查依赖
-Write-Host "[1/3] 检查依赖..." -ForegroundColor Cyan
-$installed = & $PythonCmd -m pip show fastmcp 2>$null
-if ($LASTEXITCODE -ne 0) {
-    Write-Host "    正在安装 fastmcp..." -ForegroundColor Yellow
-    & $PythonCmd -m pip install -r mcp/requirements.txt
-}
-
-# 检查数据库
-$dbPath = "$ProjectRoot\mcp\db\DB3K_514.db3"
-Write-Host "[2/3] 检查数据库文件..." -ForegroundColor Cyan
-if (-not (Test-Path $dbPath)) {
-    Write-Host ""
-    Write-Host "    ⚠ 数据库文件未找到！" -ForegroundColor Red
-    Write-Host "    请将 CMO 数据库文件复制到:" -ForegroundColor Yellow
-    Write-Host "    $dbPath" -ForegroundColor White
-    Write-Host ""
-    Write-Host "    CMO 数据库通常位于:" -ForegroundColor Yellow
-    Write-Host "    Command - Modern Operations\DB\DB3K_xxx.db3" -ForegroundColor White
-    Write-Host ""
-    $response = Read-Host "按回车退出，或输入自定义路径后回车继续..."
-    if ($response -ne "") {
-        $env:SQLITE_DB_PATH = $response
-        Write-Host "    已设置 SQLITE_DB_PATH=$env:SQLITE_DB_PATH" -ForegroundColor Green
-    } else {
-        Pop-Location
+# Dependencies
+$installed = & $py.cmd -m pip show fastmcp 2>$null
+if ($LASTEXITCODE -ne 0 -or -not $installed) {
+    Write-Host "  [INFO] Installing fastmcp..." -ForegroundColor Yellow
+    & $py.cmd -m pip install -r $ReqFile 2>$null | Out-Null
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "  [FAIL] pip install failed." -ForegroundColor Red
         exit 1
     }
+    Write-Host "  [OK]   fastmcp installed" -ForegroundColor Green
 } else {
-    Write-Host "    ✅ 数据库文件已就绪" -ForegroundColor Green
+    Write-Host "  [OK]   fastmcp already installed" -ForegroundColor Green
 }
 
-# 启动 MCP
-Write-Host ""
-Write-Host "[3/3] 启动 MCP 服务..." -ForegroundColor Cyan
-Write-Host ""
-Write-Host "    保持此窗口运行，然后在 IDE 中加载 SKILL.md 开始对话" -ForegroundColor White
-Write-Host ""
-Write-Host "    💡 提示：Cursor/Trae 可以通过 MCP 自动连接此服务" -ForegroundColor Gray
+# Database
+$dbCandidates = @(Get-ChildItem $DbDir -Filter "*.db3" -ErrorAction SilentlyContinue)
+if ($dbCandidates.Count -eq 0) {
+    Write-Host ""
+    Write-Host "  [FAIL] No .db3 file found in mcp/db/" -ForegroundColor Red
+    Write-Host "  Copy your DB3K_*.db3 file into mcp/db/ and re-run." -ForegroundColor Yellow
+    exit 1
+}
+$dbFile = $dbCandidates[0]
+Write-Host "  [OK]   Database: $($dbFile.Name)" -ForegroundColor Green
 Write-Host ""
 
-# 设置环境变量
-$env:SQLITE_DB_PATH = $dbPath
+# Launch
+Write-Host "  [INFO] Starting MCP server..." -ForegroundColor Cyan
+Write-Host "  [INFO] Press Ctrl+C to stop" -ForegroundColor Gray
+Write-Host ""
 
-& $PythonCmd mcp/server.py
-
+Push-Location $ProjectRoot
+& $py.cmd -m fastmcp run $ServerScript
+$exitCode = $LASTEXITCODE
 Pop-Location
+
+if ($exitCode -ne 0) {
+    Write-Host ""
+    Write-Host "  [FAIL] MCP server exited with code $exitCode" -ForegroundColor Red
+}
+exit $exitCode

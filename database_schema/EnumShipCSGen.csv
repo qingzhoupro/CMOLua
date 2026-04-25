@@ -1,0 +1,11 @@
+ID,Description,Example,YearStart,YearEnd,Architecture,OODADetectionCycle,OODATargetingCycle,OODAEvasiveCycle,TrackCap
+0,Undefined (Use Below),None,None,None,None,None,None,None,None
+1000,None (Small Craft),Shouting, Telephone,0,0,Individual Initiative, Manual, Voice,5,25,5,5
+1001,None (Large Vessel),Shouting, Telephone,0,0,Individual Initiative, Manual, Voice,30,300,25,10
+1100,CS Gen 1 (1945-1950),WW2-Vintage CICs,1945,1950,Plotting Table, Analog/Mechanical, Voice,25,240,15,18
+1200,CS Gen 2 (1951-1960),Korea-Vintage CICs,1951,1960,Plotting Table, Analog/Vacuum Tubes, Voice,20,180,15,25
+1300,CS Gen 3 (1961-1970),Early NTDS w/ CP-642 CPU,1961,1970,Federated CPUs, Discreet Components, Voice/Datalink,15,90,10,100
+1400,CS Gen 4 (1971-1985),Later NTDS w/ UYK-7 CPU,1971,1985,Federated CPUs, Microprocessors, Datalink,10,45,8,150
+1500,CS Gen 5 (1986-2000),NTU, Aegis w/ UYK-43 CPU,1986,2000,Integrated CPUs, Microprocessors, Datalink,7,25,5,200
+1600,CS Gen 6 (2001-2029),Aegis w/ COTS/Mil CPU,2001,2029,Integrated CPUs, Microprocessors, Datalink,5,15,3,250
+1700,CS Gen 7 (2030+),NCC 1701 Enterprise,2030,0,Q U A N T U M,3,10,2,350
