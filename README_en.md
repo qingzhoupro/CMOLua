@@ -40,7 +40,7 @@ Keep the original filename. `server.py` auto-discovers it.
 ### 3. Run the installer (first time)
 
 ```powershell
-.\scripts\install.ps1
+python .\scripts\install.py
 ```
 
 The wizard runs through each setup step and prints a success banner at the end:
