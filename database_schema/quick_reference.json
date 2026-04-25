@@ -18,7 +18,7 @@
   },
   "查询规则": {
     "现役单位": "YearDecommissioned = 0",
-    "虚构单位": "Hypothetical = 'False'",
+    "虚构单位": "Hypothetical = 0",
     "国家过滤": "JOIN EnumOperatorCountry ON OperatorCountry = ID",
     "NATO国家": "OperatorCountry = 2060"
   }

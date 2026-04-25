@@ -25,7 +25,7 @@ cd CMOLua
 本项目/mcp/db/DB3K_*.db3
 ```
 
-文件名保持不变（如 `DB3K_514.db3`），无需重命名。
+文件名保持不变（如 `DB3K_499.db3`），无需重命名。
 
 ### 第三步：在终端运行安装向导
 
@@ -119,8 +119,13 @@ CMO-HKBQSKILL/
 ├── examples/                 # 完整场景案例
 ├── errors/                   # 常见错误及解决方案
 └── scripts/
-    ├── install.bat           # 一键安装向导（双击即可）
-    └── start-mcp.ps1         # 启动 MCP 服务
+    ├── install.py           # 安装向导（唯一入口）
+    ├── config.py            # 数据库配置工具
+    ├── check-deps.ps1       # 依赖检查工具
+    ├── scan_database.py     # 数据库扫描工具
+    ├── export_table_schemas.py # 数据表字段导出
+    ├── uninstall.ps1        # 卸载工具
+    └── validate-structure.ps1 # 项目结构验证
 ```
 
 ---

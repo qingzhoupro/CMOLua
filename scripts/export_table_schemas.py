@@ -8,8 +8,8 @@ import json
 import csv
 from pathlib import Path
 
-INPUT_PATH = Path(r"F:\codeAi\AIassistant\03_Archive\CMO-HKBQSKILL\database_schema\full_schema.json")
-OUTPUT_DIR = Path(r"F:\codeAi\AIassistant\03_Archive\CMO-HKBQSKILL\database_schema")
+INPUT_PATH = Path(__file__).parent.parent / "database_schema" / "full_schema.json"
+OUTPUT_DIR = Path(__file__).parent.parent / "database_schema"
 
 # 核心数据表
 CORE_TABLES = [

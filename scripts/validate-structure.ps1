@@ -32,9 +32,11 @@ $RequiredDirs = @(
 $RequiredFiles = @(
     "SKILL.md",
     "README.md",
-    "mcp\server.py",
+    "mcp\sqlite_explorer.py",
     "mcp\requirements.txt",
-    "scripts\install.ps1",
+    "scripts\install.py",
+    "scripts\config.py",
+    "scripts\scan_database.py",
     "references\index.md",
     "references\lua-api\functions.md",
     "references\data-types\overview.md",

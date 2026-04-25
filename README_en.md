@@ -1,33 +1,23 @@
 # CMO-HKBQSKILL
 
-**Natural-language Lua script generator for Command: Modern Operations.**
+> **First time? Just 3 steps, 3 minutes to get started.**
 
-Supports any IDE that implements MCP: Cursor, Trae, VS Code + Continue, Claude Desktop, and more.
-
----
-
-## Features
-
-- **Natural language → Lua**: Describe a scenario, get production-ready scripts
-- **MCP live DBID lookup**: Connect to the live CMO database — no hardcoded IDs
-- **Template library**: Basic to advanced, copy and run
-- **Error reference**: Common errors with solutions
+Supports any IDE that implements the MCP protocol: Cursor, Trae, VS Code + Continue, Claude Desktop, and more.
 
 ---
 
-## Quick Start
+## First-Time Setup (3 Steps)
 
-### 1. Clone and install
+### Step 1: Clone the Project
 
 ```powershell
 git clone https://github.com/qingzhoupro/CMOLua.git
-cd CMO-HKBQSKILL
-pip install -r mcp/requirements.txt
+cd CMOLua
 ```
 
-### 2. Add the database file (first time)
+### Step 2: Add the Database File
 
-Copy your CMO database file from the game install directory:
+Copy your CMO database file to the project:
 
 ```
 <CMO game folder>/DB/DB3K_*.db3
@@ -35,58 +25,62 @@ Copy your CMO database file from the game install directory:
 this-project/mcp/db/DB3K_*.db3
 ```
 
-Keep the original filename. `server.py` auto-discovers it.
+Keep the original filename (e.g., `DB3K_499.db3`). No renaming needed.
 
-### 3. Run the installer (first time)
+### Step 3: Run the Installation Wizard
+
+Open a terminal (PowerShell / CMD / Windows Terminal), navigate to the project directory, and run:
 
 ```powershell
 python .\scripts\install.py
 ```
 
-The wizard runs through each setup step and prints a success banner at the end:
+> Do not double-click the .py file — it will exit immediately. Run it from the terminal to see interactive feedback.
+
+After successful installation, you will see:
 
 ```
- ╔══════════════════════════════════════════════════════════╗
- ║                                                          ║
- ║   C M O - H K B Q S K I L L                            ║
- ║   =====================================                  ║
- ║                                                          ║
- ║      ALL SYSTEM STATUS : NOMINAL                        ║
- ║      MCP SERVER         : READY                         ║
- ║      DATABASE           : CONNECTED                     ║
- ║                                                          ║
- ╚══════════════════════════════════════════════════════════╝
++------------------------------------------------------+
+|                                                      |
+|   C M O - H K B Q S K I L L                        |
+|   ===================================                |
+|                                                      |
+|   ALL SYSTEM STATUS : NOMINAL                        |
+|   MCP SERVER         : READY                         |
+|   DATABASE           : CONNECTED                     |
+|                                                      |
+|   Next: Restart IDE, load SKILL.md                  |
+|                                                      |
++------------------------------------------------------+
 ```
 
-### 4. Restart your IDE
+Then restart your IDE and start chatting.
 
-MCP connects automatically when the IDE starts.
+---
 
-### 5. Verify
+## Features
 
-Ask the AI to look up a DBID in English, e.g.:
-
-> "Query the DBID for F-16 fighter"
-
-- Returns real data → MCP is ready
-- Error → go back to step 1 and confirm the `.db3` file is in `mcp/db/`
+- **Natural language → Lua**: Describe a scenario, get production-ready scripts
+- **MCP live DBID lookup**: Connect to the live CMO database — query "Iranian Revolutionary Guard latest missile boat, return its DBID and anti-ship weapon type"
+- **Template library**: Basic to advanced, copy and run
+- **Error reference**: Common errors with solutions
 
 ---
 
 ## Compatible IDEs
 
-| IDE | Support |
-|-----|---------|
-| Cursor | MCP auto-connects |
-| Trae | MCP compatible |
-| VS Code + Continue | MCP compatible |
-| Claude Desktop | MCP compatible |
+| IDE | Support | Notes |
+|-----|---------|-------|
+| Cursor | MCP auto-connects | Loads automatically after first project open |
+| Trae | MCP compatible | Confirm Python environment matches |
+| VS Code + Continue | MCP compatible | Configure in Continue extension |
+| Claude Desktop | MCP compatible | Configure in `claude_desktop_config.json` |
 
 ---
 
-## Manual MCP Configuration (optional)
+## Manual MCP Configuration (Optional)
 
-If your IDE does not auto-detect the MCP server, add this to its MCP config:
+If your IDE does not auto-detect the MCP server, add this to its config file:
 
 ```json
 {
@@ -100,9 +94,10 @@ If your IDE does not auto-detect the MCP server, add this to its MCP config:
 ```
 
 Config file locations:
+
 - **Cursor**: `%APPDATA%\Cursor\User\mcp.json`
 - **Trae**: `%APPDATA%\Trae\mcp.json`
-- **VS Code**: `.vscode/settings.json`
+- **VS Code**: `.vscode/settings.json` (under `"mcpServers"`)
 - **Claude Desktop**: `%APPDATA%\Claude\claude_desktop_config.json`
 
 ---
@@ -111,48 +106,50 @@ Config file locations:
 
 ```
 CMO-HKBQSKILL/
-├── SKILL.md                  # AI behavior spec (load this file in your IDE)
+├── SKILL.md                  # AI behavior spec (core entry point)
 ├── mcp/
 │   ├── server.py             # MCP server (6 tools)
 │   ├── requirements.txt
 │   └── db/                   # ← place your DB3K_*.db3 here
-│       └── *.db3
 ├── references/               # Knowledge base
 │   ├── lua-api/              # Lua API reference
-│   ├── data-types/           # Data type reference
-│   └── dbid/                 # Common DBID quick ref (auxiliary)
+│   ├── data-types/           # Data type reference (lat/lon/altitude)
+│   └── dbid/                 # Common DBID quick ref (auxiliary, not a substitute for MCP)
 ├── templates/                # Lua templates (basic/advanced/event/utility)
 ├── examples/                 # Complete scenario examples
 ├── errors/                   # Common errors and solutions
 └── scripts/
-    ├── install.ps1            # First-run wizard
-    └── start-mcp.ps1          # Start MCP server
+    ├── install.py           # Installation wizard (main entry point)
+    ├── config.py            # Database configuration utility
+    ├── check-deps.ps1       # Dependency checker
+    ├── scan_database.py     # Database scanner
+    ├── export_table_schemas.py # Schema exporter
+    ├── uninstall.ps1        # Uninstaller
+    └── validate-structure.ps1 # Structure validator
 ```
 
 ---
 
 ## Database Version
 
-The version number in the filename (`DB3K_489`, `DB3K_514`, etc.) corresponds to the game build. Any `DB3K_*.db3` works — just put whichever version you have in the `mcp/db/` folder.
+The version number in the filename (`DB3K_489`, `DB3K_514`, etc.) corresponds to the game build. Any `DB3K_*.db3` file works — just put whichever version you have in the `mcp/db/` folder.
 
 ---
 
 ## FAQ
 
 **"No module named fastmcp"**
-Run `pip install -r mcp/requirements.txt` using the Python environment your IDE actually uses.
+Make sure `pip install -r mcp/requirements.txt` was installed to the Python environment your IDE uses. Windows Cursor typically uses `C:\Program Files\Python313\python.exe`.
 
 **MCP won't start**
+
 1. Confirm a `.db3` file exists in `mcp/db/`
 2. Confirm `pip install fastmcp` succeeded
 3. Restart the IDE
 
-**Database fields are in English — what language do I search in?**
-Always translate to English before querying. For example, "Chinese destroyer" → `query_dbid("China destroyer")`.
-
 ---
 
-## Links
+## Resources
 
 - Official Lua docs: https://commandlua.github.io/assets/Functions.html
 - Community cases: https://commandops.github.io/

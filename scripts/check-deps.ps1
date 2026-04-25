@@ -78,7 +78,7 @@ Write-Host ""
 Write-Host "========================================" -ForegroundColor Cyan
 if ($allPassed) {
     Write-Host "  ✓ 所有依赖检查通过！" -ForegroundColor Green
-    Write-Host "  可以运行 install.ps1 进行安装" -ForegroundColor Gray
+    Write-Host "  可以运行 python scripts/install.py 进行安装" -ForegroundColor Gray
 } else {
     Write-Host "  ⚠ 部分依赖缺失，请先安装" -ForegroundColor Yellow
 }

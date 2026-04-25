@@ -3,36 +3,28 @@
 """
 CMO SQLite Explorer MCP Server
 ==============================
-基于真实数据库 schema 的自然语言 SQL 生成器。
-
-Schema 依据 database_schema/ 目录下的 CSV 文件。
+基于 database_schema/ 目录的 CSV 文件动态读取结构信息。
 所有 SQL 均通过 JOIN 关联查询，返回人类可读的描述而非代码值。
 
-核心表
-------
-- DataShip      : 舰艇     (JOIN EnumShipType + EnumOperatorCountry)
-- DataAircraft   : 飞机     (JOIN EnumAircraftType + EnumOperatorCountry)
-- DataSubmarine  : 潜艇     (JOIN EnumSubmarineType + EnumOperatorCountry)
-- DataGroundUnit : 地面单位 (JOIN EnumGroundUnitCategory + EnumOperatorCountry)
-- DataWeapon     : 武器/导弹
-- DataFacility   : 地面设施 (JOIN EnumFacilityCategory + EnumOperatorCountry)
-- DataAircraftLoadouts: 飞机挂载配置 (JOIN DataAircraft)
+Schema 来源: database_schema/ 目录下的 CSV 文件
+- *columns.csv: 表字段定义
+- Enum*.csv: 枚举值映射
 
-过滤规则
---------
+过滤规则（来自 database_schema/quick_reference.json）:
 - 现役: YearDecommissioned = 0
-- 虚构: Hypothetical = 'False'
+- 虚构: Hypothetical = 0
 - 国家: OperatorCountry → EnumOperatorCountry.Description
 
-环境变量
---------
-SQLITE_DB_PATH : 数据库路径（可选，未设则自动发现 mcp/db/*.db3）
+环境变量:
+- SQLITE_DB_PATH: 数据库路径（可选，未设则自动发现 mcp/db/*.db3）
+- SCHEMA_DIR: database_schema/ 目录路径（默认: ../database_schema）
 """
 
 from pathlib import Path
 import sqlite3
 import os
 import re
+import csv
 import json
 from typing import List, Dict, Any, Optional
 from fastmcp import FastMCP
@@ -44,6 +36,8 @@ mcp = FastMCP("CMO_DBID_Lookup")
 # =============================================================================
 
 DB_PATH: Optional[str] = os.environ.get("SQLITE_DB_PATH")
+SCHEMA_DIR: Optional[Path] = None
+
 if not DB_PATH:
     script_dir = Path(__file__).parent.resolve()
     candidates = sorted((script_dir / "db").glob("*.db3")) if (script_dir / "db").exists() else []
@@ -55,6 +49,16 @@ if not DB_PATH:
             "SQLITE_DB_PATH must be set.\n"
             "Or place your DB3K_*.db3 file in mcp/db/ directory."
         )
+
+# 解析 schema 目录（相对于脚本或绝对路径）
+schema_dir_env = os.environ.get("SCHEMA_DIR")
+if schema_dir_env:
+    SCHEMA_DIR = Path(schema_dir_env).resolve()
+else:
+    # 默认: ../../database_schema (从 mcp/ 到项目根目录)
+    SCHEMA_DIR = Path(__file__).parent.parent / "database_schema"
+    if not SCHEMA_DIR.exists():
+        SCHEMA_DIR = None
 
 # =============================================================================
 # 数据库连接
@@ -97,54 +101,67 @@ class SQLiteConn:
 db = SQLiteConn(DB_PATH)
 
 # =============================================================================
-# 枚举表缓存（启动时加载一次）
+# Schema 动态加载（从 database_schema/*.csv）
 # =============================================================================
 
-COUNTRY_MAP: Dict[int, str] = {}    # ID → 国家名称（英文）
-SHIP_TYPE_MAP: Dict[int, str] = {}  # ID → 舰型描述
-AIRCRAFT_TYPE_MAP: Dict[int, str] = {}
-SUB_TYPE_MAP: Dict[int, str] = {}
-GND_CAT_MAP: Dict[int, str] = {}
-FAC_CAT_MAP: Dict[int, str] = {}
-WEAPON_TYPE_MAP: Dict[int, str] = {}
-
-def _load_enums() -> None:
-    global COUNTRY_MAP, SHIP_TYPE_MAP, AIRCRAFT_TYPE_MAP, SUB_TYPE_MAP
-    global GND_CAT_MAP, FAC_CAT_MAP, WEAPON_TYPE_MAP
+def load_enum_csv(filename: str) -> Dict[int, str]:
+    """从 CSV 文件加载枚举映射"""
+    if not SCHEMA_DIR:
+        return {}
+    csv_path = SCHEMA_DIR / filename
+    if not csv_path.exists():
+        print(f"[WARN] Enum file not found: {csv_path}")
+        return {}
+    result = {}
     try:
-        COUNTRY_MAP = db.lookup_enum("EnumOperatorCountry", "Description")
-        SHIP_TYPE_MAP = db.lookup_enum("EnumShipType", "Description")
-        try:
-            AIRCRAFT_TYPE_MAP = db.lookup_enum("EnumAircraftType", "Description")
-        except Exception:
-            AIRCRAFT_TYPE_MAP = {}
-        try:
-            SUB_TYPE_MAP = db.lookup_enum("EnumSubmarineType", "Description")
-        except Exception:
-            SUB_TYPE_MAP = {}
-        try:
-            GND_CAT_MAP = db.lookup_enum("EnumGroundUnitCategory", "Description")
-        except Exception:
-            GND_CAT_MAP = {}
-        try:
-            FAC_CAT_MAP = db.lookup_enum("EnumFacilityCategory", "Description")
-        except Exception:
-            FAC_CAT_MAP = {}
-        try:
-            WEAPON_TYPE_MAP = db.lookup_enum("EnumWeaponType", "Description")
-        except Exception:
-            WEAPON_TYPE_MAP = {}
+        with open(csv_path, 'r', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                try:
+                    id_val = int(row.get('ID', 0))
+                    desc = row.get('Description', '') or ''
+                    if id_val and desc and desc != 'None':
+                        result[id_val] = desc
+                except (ValueError, KeyError):
+                    continue
     except Exception as e:
-        print(f"[WARN] Failed to load enum tables: {e}")
+        print(f"[WARN] Failed to load {filename}: {e}")
+    return result
 
-_load_enums()
+def load_quick_reference() -> Dict[str, Any]:
+    """加载 quick_reference.json"""
+    if not SCHEMA_DIR:
+        return {}
+    ref_path = SCHEMA_DIR / "quick_reference.json"
+    if not ref_path.exists():
+        return {}
+    try:
+        with open(ref_path, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except Exception:
+        return {}
+
+# 启动时加载所有枚举
+COUNTRY_MAP = load_enum_csv("EnumOperatorCountry.csv")
+SHIP_TYPE_MAP = load_enum_csv("EnumShipType.csv")
+AIRCRAFT_TYPE_MAP = load_enum_csv("EnumAircraftType.csv")
+SUB_TYPE_MAP = load_enum_csv("EnumSubmarineType.csv")
+GND_CAT_MAP = load_enum_csv("EnumGroundUnitCategory.csv")
+FAC_CAT_MAP = load_enum_csv("EnumFacilityCategory.csv")
+WEAPON_TYPE_MAP = load_enum_csv("EnumWeaponType.csv")
+
+QUICK_REF = load_quick_reference()
+
+print(f"[INFO] Schema loaded: {len(COUNTRY_MAP)} countries, {len(SHIP_TYPE_MAP)} ship types")
 
 # =============================================================================
-# 自然语言 → 国家代码
+# 国家/类型检测（基于动态加载的枚举）
 # =============================================================================
 
+# 国家关键词 → ID 映射（从 EnumOperatorCountry.csv 动态扩展）
+# 这些是用户常用的搜索词，需要手动维护与 CSV 的对应关系
 COUNTRY_KEYWORDS: Dict[str, int] = {
-    # 英文全称
+    # 英文
     "united states": 2101, "us": 2101, "usa": 2101, "america": 2101,
     "china": 2018, "chinese": 2018,
     "russia": 2079, "russian": 2079,
@@ -163,19 +180,13 @@ COUNTRY_KEYWORDS: Dict[str, int] = {
     "israel": 2046, "israeli": 2046,
     "taiwan": 2094,
     "iran": 2043, "iranian": 2043,
-    "iraq": 2044, "iraqi": 2044,
     "pakistan": 2069, "pakistani": 2069,
     "singapore": 2082, "singaporean": 2082,
     "indonesia": 2042, "indonesian": 2042,
-    "malaysia": 2056, "malaysian": 2056,
-    "thailand": 2095, "thai": 2095,
-    "philippines": 2073, "filipino": 2073,
     "vietnam": 2103, "vietnamese": 2103,
     "turkey": 2097, "turkish": 2097,
-    "poland": 2074, "polish": 2074,
-    "ukraine": 2099, "ukrainian": 2099,
     "nato": 2060,
-    # 中文简称
+    # 中文
     "美国": 2101, "美军": 2101, "美": 2101,
     "中国": 2018, "中共": 2018, "解放军": 2018,
     "俄国": 2079, "俄罗斯": 2079, "俄军": 2079, "俄": 2079,
@@ -202,21 +213,22 @@ def detect_country(q: str) -> Optional[int]:
     return None
 
 # =============================================================================
-# 舰型类型码
+# 舰型类型码（来源: EnumShipType.csv）
 # =============================================================================
 
+# 从 EnumShipType.csv 整理的语义化映射（仅保留主要类型）
 SHIP_TYPE_CODES = {
-    "destroyer": [3202, 3203],   # DD, DDG — 实测 3201 不存在
-    "frigate": [3302, 3303],
-    "lcs": [3306],
-    "corvette": [3304, 3305],
-    "carrier": [2001, 2002, 2007, 2008],
-    "cruiser": [3102, 3103, 3104, 3105, 3106, 3107, 3108],
-    "battleship": [3001, 3002, 3003, 3004, 3005],
-    "amphibious": list(range(4002, 4029)),
-    "oiler": [5022, 5023, 5024, 5025, 5106],
-    "mine_warfare": [6002, 6003, 6004, 6010],
-    "patrol": list(range(3401, 3424)),
+    "destroyer": [3201, 3202, 3203, 3204, 3205, 3206],  # D, DD, DDG, DDH, DDK, DDR
+    "frigate": [3301, 3302, 3303, 3304, 3305, 3306, 3307],  # F, FF, FFG, FFL, PF, LCS, OPV
+    "corvette": [3304, 3305],  # FFL, PF
+    "lcs": [3306],  # Littoral Combat Ship
+    "carrier": [2001, 2002, 2003, 2007, 2008],  # CV, CVA, CVB, CVL, CVN
+    "cruiser": [3101, 3102, 3103, 3104, 3105, 3106, 3107, 3108, 3109],  # C, CA, CAG, CB, CBG, CG, CGH, CGN, CL
+    "battleship": [3001, 3002, 3003, 3004, 3005],  # B, BB, BBC, BBG, BBH
+    "amphibious": list(range(4002, 4029)),  # LCAC, LCC, LCM...ESB
+    "oiler": [5022, 5023, 5024, 5025, 5106],  # AO, AOE, AOL, AOR, T-AO
+    "mine_warfare": [6002, 6003, 6004, 6010],  # MCM, MCS, MHC, MSO
+    "patrol": list(range(3401, 3424)),  # PB, PC...WMSM
     "auxiliary": list(range(5001, 5045)) + list(range(5101, 5109)),
 }
 
@@ -242,7 +254,7 @@ def detect_ship_type_codes(q: str) -> Optional[List[int]]:
     if any(k in q_lower for k in ["minesweeper", "mcm", "mho", "猎雷", "扫雷", "mine"]):
         return SHIP_TYPE_CODES["mine warfare"]
     if any(k in q_lower for k in ["escort", "护航"]):
-        return SHIP_TYPE_CODES["destroyer_escort"] + SHIP_TYPE_CODES["frigate"]
+        return [3207, 3208, 3209] + SHIP_TYPE_CODES["frigate"]  # DE, DEG, DER
     if any(k in q_lower for k in ["lcs", "littoral", "濒海", "近海巡逻"]):
         return SHIP_TYPE_CODES["lcs"] + SHIP_TYPE_CODES["patrol"]
     if any(k in q_lower for k in ["patrol", "巡逻", "pc-", "pg-", "导弹艇", "炮艇"]):
@@ -388,7 +400,7 @@ def gen_sql(question: str, limit: int = 15) -> str:
                 f"FROM DataGroundUnit g "
                 f"LEFT JOIN EnumOperatorCountry c ON g.OperatorCountry=c.ID "
                 f"LEFT JOIN EnumGroundUnitCategory cat ON g.Category=cat.ID "
-                f"WHERE {cond} AND g.Hypothetical='0' "
+                f"WHERE {cond} AND g.Hypothetical=0 "
                 f"LIMIT {limit}",
                 f"地面单位: {name}"
             )
@@ -399,7 +411,7 @@ def gen_sql(question: str, limit: int = 15) -> str:
                 f"FROM DataShip s "
                 f"LEFT JOIN EnumOperatorCountry c ON s.OperatorCountry=c.ID "
                 f"LEFT JOIN EnumShipType st ON s.Type=st.ID "
-                f"WHERE s.Name LIKE '%{name_like}%' AND s.Hypothetical='0' "
+                f"WHERE s.Name LIKE '%{name_like}%' AND s.Hypothetical=0 "
                 f"LIMIT {limit}",
                 f"舰艇: {name}"
             )
@@ -410,7 +422,7 @@ def gen_sql(question: str, limit: int = 15) -> str:
                 f"FROM DataSubmarine sub "
                 f"LEFT JOIN EnumOperatorCountry c ON sub.OperatorCountry=c.ID "
                 f"LEFT JOIN EnumSubmarineType st ON sub.Type=st.ID "
-                f"WHERE sub.Name LIKE '%{name_like}%' AND sub.Hypothetical='0' "
+                f"WHERE sub.Name LIKE '%{name_like}%' AND sub.Hypothetical=0 "
                 f"LIMIT {limit}",
                 f"潜艇: {name}"
             )
@@ -421,7 +433,7 @@ def gen_sql(question: str, limit: int = 15) -> str:
                 f"FROM DataFacility f "
                 f"LEFT JOIN EnumOperatorCountry c ON f.OperatorCountry=c.ID "
                 f"LEFT JOIN EnumFacilityCategory fc ON f.Category=fc.ID "
-                f"WHERE f.Name LIKE '%{name_like}%' AND f.Hypothetical='0' "
+                f"WHERE f.Name LIKE '%{name_like}%' AND f.Hypothetical=0 "
                 f"LIMIT {limit}",
                 f"地面设施: {name}"
             )
@@ -432,7 +444,7 @@ def gen_sql(question: str, limit: int = 15) -> str:
                 f"FROM DataAircraft a "
                 f"LEFT JOIN EnumOperatorCountry c ON a.OperatorCountry=c.ID "
                 f"LEFT JOIN EnumAircraftType at ON a.Type=at.ID "
-                f"WHERE a.Name LIKE '%{name_like}%' AND a.Hypothetical='0' "
+                f"WHERE a.Name LIKE '%{name_like}%' AND a.Hypothetical=0 "
                 f"LIMIT {limit}",
                 f"飞机: {name}"
             )
@@ -442,7 +454,7 @@ def gen_sql(question: str, limit: int = 15) -> str:
             f"wt.Description AS WeaponType, w.AirRangeMax, w.SurfaceRangeMax, w.MaxSpeed "
             f"FROM DataWeapon w "
             f"LEFT JOIN EnumWeaponType wt ON w.Type=wt.ID "
-            f"WHERE w.Name LIKE '%{name_like}%' AND w.Hypothetical='0' "
+            f"WHERE w.Name LIKE '%{name_like}%' AND w.Hypothetical=0 "
             f"LIMIT {limit}",
             f"武器: {name}"
         )
@@ -495,7 +507,7 @@ def gen_sql(question: str, limit: int = 15) -> str:
         return (
             f"SELECT {col_str} FROM DataWeapon w "
             f"LEFT JOIN EnumWeaponType wt ON w.Type=wt.ID "
-            f"WHERE w.Hypothetical='0'{extra} "
+            f"WHERE w.Hypothetical=0{extra} "
             f"LIMIT {limit}",
             "武器射程/速度参数"
         )
@@ -513,7 +525,7 @@ def gen_sql(question: str, limit: int = 15) -> str:
             f"LEFT JOIN EnumOperatorCountry c ON s.OperatorCountry=c.ID "
             f"LEFT JOIN EnumShipType st ON s.Type=st.ID "
             f"WHERE s.Type {in_clause} {country_clause} {active_clause} "
-            f"AND s.Hypothetical='0' "
+            f"AND s.Hypothetical=0 "
             f"ORDER BY c.Description, st.Description, s.Name "
             f"LIMIT {limit}",
             f"舰艇 (类型过滤)"
@@ -532,7 +544,7 @@ def gen_sql(question: str, limit: int = 15) -> str:
             f"LEFT JOIN EnumOperatorCountry c ON a.OperatorCountry=c.ID "
             f"LEFT JOIN EnumAircraftCategory ac ON a.Category=ac.ID "
             f"WHERE a.Category {in_clause} {country_clause} {active_clause} "
-            f"AND a.Hypothetical='0' "
+            f"AND a.Hypothetical=0 "
             f"ORDER BY c.Description, a.Name "
             f"LIMIT {limit}",
             "飞机"
@@ -549,7 +561,7 @@ def gen_sql(question: str, limit: int = 15) -> str:
             f"LEFT JOIN EnumOperatorCountry c ON sub.OperatorCountry=c.ID "
             f"LEFT JOIN EnumSubmarineType st ON sub.Type=st.ID "
             f"WHERE 1=1 {country_clause} {active_clause} "
-            f"AND sub.Hypothetical='0' "
+            f"AND sub.Hypothetical=0 "
             f"ORDER BY c.Description, sub.Name "
             f"LIMIT {limit}",
             "潜艇"
@@ -568,7 +580,7 @@ def gen_sql(question: str, limit: int = 15) -> str:
             f"LEFT JOIN EnumOperatorCountry c ON g.OperatorCountry=c.ID "
             f"LEFT JOIN EnumGroundUnitCategory cat ON g.Category=cat.ID "
             f"WHERE g.Category {in_clause} {country_clause} {active_clause} "
-            f"AND g.Hypothetical='0' "
+            f"AND g.Hypothetical=0 "
             f"ORDER BY c.Description, cat.Description, g.Name "
             f"LIMIT {limit}",
             "地面单位"
@@ -587,7 +599,7 @@ def gen_sql(question: str, limit: int = 15) -> str:
             f"LEFT JOIN EnumOperatorCountry c ON f.OperatorCountry=c.ID "
             f"LEFT JOIN EnumFacilityCategory fc ON f.Category=fc.ID "
             f"WHERE f.Category {in_clause} {country_clause} {active_clause} "
-            f"AND f.Hypothetical='0' "
+            f"AND f.Hypothetical=0 "
             f"ORDER BY c.Description, f.Name "
             f"LIMIT {limit}",
             "地面设施"
@@ -608,7 +620,7 @@ def gen_sql(question: str, limit: int = 15) -> str:
             f"w.AirRangeMax, w.SurfaceRangeMax, w.LandRangeMax, w.MaxSpeed "
             f"FROM DataWeapon w "
             f"LEFT JOIN EnumWeaponType wt ON w.Type=wt.ID "
-            f"WHERE w.Hypothetical='0' {country_clause} {extra} "
+            f"WHERE w.Hypothetical=0 {country_clause} {extra} "
             f"ORDER BY w.Name "
             f"LIMIT {limit}",
             "武器/导弹"
@@ -623,7 +635,7 @@ def gen_sql(question: str, limit: int = 15) -> str:
             f"FROM DataShip s "
             f"LEFT JOIN EnumOperatorCountry c ON s.OperatorCountry=c.ID "
             f"LEFT JOIN EnumShipType st ON s.Type=st.ID "
-            f"WHERE s.OperatorCountry={country_id} AND s.Hypothetical='0' "
+            f"WHERE s.OperatorCountry={country_id} AND s.Hypothetical=0 "
             f"AND s.YearDecommissioned=0 "
             f"ORDER BY st.Description, s.Name "
             f"LIMIT {limit}",
@@ -636,7 +648,7 @@ def gen_sql(question: str, limit: int = 15) -> str:
         f"w.AirRangeMax, w.SurfaceRangeMax, w.MaxSpeed "
         f"FROM DataWeapon w "
         f"LEFT JOIN EnumWeaponType wt ON w.Type=wt.ID "
-        f"WHERE w.Hypothetical='0' AND w.AirRangeMax > 0 "
+        f"WHERE w.Hypothetical=0 AND w.AirRangeMax > 0 "
         f"ORDER BY w.AirRangeMax DESC "
         f"LIMIT {limit}",
         "武器（按空射射程排序）"
@@ -784,7 +796,7 @@ def cmo_get_loadouts(aircraft_name: str) -> str:
             f"FROM DataAircraftLoadouts l "
             f"JOIN DataAircraft a ON l.ComponentID=a.ID "
             f"WHERE a.Name LIKE '%{aircraft_name.replace(chr(39), chr(39)+chr(39))}%' "
-            f"AND a.Hypothetical='0' "
+            f"AND a.Hypothetical=0 "
             f"ORDER BY a.Name, l.ID "
             f"LIMIT 50"
         )
