@@ -203,11 +203,10 @@ def check_mcp_status(project_root: Path) -> Tuple[bool, str]:
         lp = os.environ.get("LOCALAPPDATA", "")
         # 显式路径优先
         candidates.extend([
-            Path(pf) / "Python313" / "python.exe",
-            Path(pf) / "Python312" / "python.exe",
-            Path(pf) / "Python311" / "python.exe",
             Path(lp) / "Programs" / "Python" / "Python313" / "python.exe",
             Path(lp) / "Programs" / "Python" / "Python312" / "python.exe",
+            Path(pf) / "Python313" / "python.exe",
+            Path(pf) / "Python312" / "python.exe",
         ])
         # PATH 中的 python 放最后作为后备
         which_python = shutil.which("python")
@@ -225,7 +224,7 @@ def check_mcp_status(project_root: Path) -> Tuple[bool, str]:
 
     script_path = project_root / "mcp" / "sqlite_explorer.py"
     if not os.path.exists(script_path):
-        return False, f"MCP 脚本不存在: {script_path}"
+        return False, f"MCP 脚本不存在"
 
     for py_path in candidates:
         if not py_path.exists():
@@ -239,7 +238,22 @@ def check_mcp_status(project_root: Path) -> Tuple[bool, str]:
                 capture_output=True, text=True, timeout=10
             )
             if result.returncode != 0:
-                continue
+                # 检查是否是 __main__.py 缺失问题
+                if "No module named fastmcp.__main__" in result.stderr or \
+                   "'fastmcp' is a package" in result.stderr:
+                    # 尝试自动修复
+                    if fix_fastmcp_main(py_exe):
+                        # 修复后再次检查
+                        result = subprocess.run(
+                            [py_exe, "-m", "fastmcp", "--version"],
+                            capture_output=True, text=True, timeout=10
+                        )
+                        if result.returncode == 0:
+                            return True, f"就绪 (已自动修复)"
+                    else:
+                        continue
+                else:
+                    continue
 
             # 检查脚本语法
             result = subprocess.run(
@@ -316,8 +330,12 @@ fi
         return False
 
 
-def print_mcp_guide():
-    """打印 MCP 管理指南"""
+def print_mcp_guide(selected_ide: str = "Cursor"):
+    """打印 MCP 管理指南
+
+    Args:
+        selected_ide: 用户选择的 IDE 名称
+    """
     print()
     print_divider("=", 70)
     print()
@@ -335,7 +353,7 @@ def print_mcp_guide():
         print("    方法1: 运行 scripts/start.sh")
         print("    方法2: 在项目目录执行: python3 scripts/install.py --quick")
     print()
-    print("  重启 MCP 服务 (Cursor 已打开时):")
+    print(f"  重启 MCP 服务 ({selected_ide} 已打开时):")
     print("    Ctrl+Shift+P → 输入 'MCP: Restart Server' → 选择 'CMO_DBID_Lookup'")
     print()
     print_divider("─", 70)
@@ -343,53 +361,27 @@ def print_mcp_guide():
     print(f"{Colors.BOLD}【故障排除】{Colors.RESET}")
     print()
     print("  MCP 连接失败时尝试:")
-    print("    1. 重启 Cursor")
+    print("    1. 重启 IDE")
     print("    2. 检查 fastmcp: python -m fastmcp --version")
     print("    3. 重新运行安装: python scripts/install.py")
     print()
     print("  检查 MCP 日志:")
-    if IS_WINDOWS:
-        print("    View → Output → 切换到 'MCP' 标签页")
-    else:
-        print("    View → Output → 切换到 'MCP' 标签页")
+    print("    View → Output → 切换到 'MCP' 标签页")
     print()
     print_divider("─", 70)
     print()
     print(f"{Colors.BOLD}【卸载/重装】{Colors.RESET}")
     print()
     print("  完全重装:")
-    if IS_WINDOWS:
-        print("    1. 删除 %APPDATA%\\Cursor\\User\\globalStorage\\... 下的 MCP 相关缓存")
-        print("    2. 删除 %APPDATA%\\Cursor\\User\\mcp.json 中的 CMO_DBID_Lookup 配置")
-    else:
-        print("    1. 删除 ~/.config/Cursor/User/globalStorage/... 下的 MCP 相关缓存")
-        print("    2. 删除 ~/.config/Cursor/User/mcp.json 中的 CMO_DBID_Lookup 配置")
+    print(f"    1. 删除 IDE 的 MCP 相关缓存")
+    print(f"    2. 删除 mcp.json 中的 CMO_DBID_Lookup 配置")
     print("    3. 重新运行 python scripts/install.py")
     print()
     print_divider("=", 70)
     print()
 
 
-def print_quick_start():
-    """打印快速启动信息"""
-    print()
-    print_divider("─", 60)
-    print()
-    cprint("检测到已安装配置，正在启动 MCP 服务...", "info")
-    print()
-    print("  启动方式:")
-    if IS_WINDOWS:
-        print("    • 双击: start.bat")
-        print("    • 命令: python scripts\\install.py --quick")
-    else:
-        print("    • 运行: scripts/start.sh")
-        print("    • 命令: python3 scripts/install.py --quick")
-    print()
-    cprint("MCP 服务将在 Cursor 启动后自动加载", "ok")
-    print()
-
-
-def is_cursor_running() -> bool:
+def detect_running_ide() -> Optional[str]:
     """检测 Cursor 是否正在运行"""
     if IS_WINDOWS:
         try:
@@ -442,87 +434,148 @@ def restart_mcp_in_cursor() -> bool:
     return False
 
 
+def detect_running_ide() -> Optional[str]:
+    """检测当前运行的 IDE"""
+    if IS_WINDOWS:
+        # 检查进程名
+        processes = ["Cursor.exe", "Trae.exe", "Code.exe"]
+        for proc in processes:
+            try:
+                result = subprocess.run(
+                    ["tasklist", "/FI", f"IMAGENAME eq {proc}"],
+                    capture_output=True, text=True, timeout=5
+                )
+                if proc in result.stdout:
+                    if proc == "Cursor.exe":
+                        return "Cursor"
+                    elif proc == "Trae.exe":
+                        return "Trae"
+                    elif proc == "Code.exe":
+                        return "VS Code"
+            except Exception:
+                continue
+    elif IS_MAC:
+        for name in ["Cursor", "Trae", "Visual Studio Code"]:
+            try:
+                result = subprocess.run(
+                    ["pgrep", "-x", name],
+                    capture_output=True, text=True, timeout=5
+                )
+                if result.returncode == 0:
+                    return name
+            except Exception:
+                continue
+    return None
+
+
 def run_quick_start(python_exe: str, project_root: Path) -> bool:
-    """快速启动模式 - 检测现有配置并启动 MCP"""
+    """快速启动模式 - 检测现有配置并启动 IDE"""
     script_path = project_root / "mcp" / "sqlite_explorer.py"
-    cursor_path = get_cursor_path()
-    cursor_running = is_cursor_running()
-
-    if not cursor_path:
-        cprint("未找到 Cursor 安装，请先运行完整安装", "err")
-        return False
-
-    if not os.path.exists(script_path):
-        cprint("MCP 脚本不存在，请先运行完整安装", "err")
-        return False
-
-    # 确保启动脚本存在
-    create_quick_launch_scripts(project_root)
-
+    
+    # 检测所有已安装的 IDE
+    installed_ides = detect_installed_ides()
+    running_ide = detect_running_ide()
+    
     print()
     print_divider("─", 60)
     print()
-
-    if cursor_running:
-        # Cursor 已在运行
-        cprint("检测到 Cursor 已在运行", "info")
+    cprint("快速启动模式", "header")
+    print()
+    
+    # 检测 Python 和 fastmcp
+    cprint("检测环境...", "step")
+    py_exe, py_ver = check_python()
+    if py_exe:
+        cprint(f"  Python: {py_ver}", "ok")
+    else:
+        cprint("  未找到 Python", "err")
+    
+    fastmcp_ok = check_dependency(python_exe, "fastmcp")
+    if fastmcp_ok:
+        cprint("  fastmcp: 已安装", "ok")
+    else:
+        cprint("  fastmcp: 未安装", "warn")
+    
+    # 检测数据库
+    db_path = detect_db_file(project_root)
+    if db_path:
+        db_name = Path(db_path).name
+        cprint(f"  数据库: {db_name}", "ok")
+    else:
+        cprint("  数据库: 未找到", "warn")
+    
+    print()
+    
+    # 显示已安装的 IDE
+    if installed_ides:
+        cprint("已检测到的 IDE:", "step")
+        for ide_name, config_path in installed_ides:
+            running_marker = " (运行中)" if ide_name == running_ide else ""
+            exists_marker = " ●" if config_path and config_path.exists() else " ○"
+            print(f"  {exists_marker} {ide_name}{running_marker}")
+            if config_path:
+                print(f"      {Colors.DIM}{config_path}{Colors.RESET}")
+    else:
+        cprint("未检测到支持的 IDE", "warn")
         print()
-        print("  正在尝试重启 MCP 服务...")
+        print("  请先运行完整安装: python scripts/install.py")
+        return False
+    
+    print()
+    
+    # 如果有 IDE 在运行，提示重启 MCP
+    if running_ide:
+        cprint(f"检测到 {running_ide} 已在运行", "info")
         print()
-
-        # 尝试通过各种方式重启 MCP
-        restart_ok = False
-
-        # 方法1: 检查并确保 __main__.py 存在
-        pf = os.environ.get("ProgramFiles", "C:\\Program Files")
-        lp = os.environ.get("LOCALAPPDATA", "")
-        fastmcp_main_paths = [
-            Path(pf) / "Python313" / "Lib" / "site-packages" / "fastmcp" / "__main__.py",
-            Path(pf) / "Python312" / "Lib" / "site-packages" / "fastmcp" / "__main__.py",
-            Path(lp) / "Programs" / "Python" / "Python313" / "Lib" / "site-packages" / "fastmcp" / "__main__.py",
-            Path("C:\\ProgramData\\miniconda3\\Lib\\site-packages\\fastmcp\\__main__.py"),
-        ]
-
-        for main_path in fastmcp_main_paths:
-            if main_path.exists():
-                cprint(f"  ✓ fastmcp __main__.py 已存在: {main_path.parent.name}", "ok")
-                restart_ok = True
-                break
-
-        if not restart_ok:
-            cprint("  需要先运行完整安装来修复 fastmcp", "warn")
-
-        print()
-        print_divider("─", 60)
-        print()
-        cprint("MCP 重启提示:", "step")
-        print()
-        print("  请在 Cursor 中按:")
-        print("  Ctrl+Shift+P → 输入 'MCP: Restart Server' → 回车")
+        print("  请在 IDE 中重启 MCP 服务:")
+        print("  Ctrl+Shift+P → 输入 'MCP: Restart Server'")
         print("  → 选择 'CMO_DBID_Lookup'")
         print()
-        print("  或直接重启 Cursor (关闭后重新打开)")
-        print()
-        print_mcp_guide()
-        return True
+        print("  或直接重启 IDE")
     else:
-        # Cursor 未运行，启动它
-        cprint("检测到 Cursor 未运行，正在启动...", "info")
-        print()
+        # 尝试启动第一个检测到的 IDE
+        first_ide = installed_ides[0][0] if installed_ides else None
+        if first_ide:
+            cprint(f"准备启动 {first_ide}...", "info")
+            ide_path = _get_ide_exe_path(first_ide)
+            if ide_path and ide_path.exists():
+                if launch_ide(first_ide, str(ide_path)):
+                    cprint(f"{first_ide} 启动中...", "ok")
+                else:
+                    cprint("启动失败，请手动启动", "err")
+            else:
+                print(f"  请手动启动 {first_ide}")
+    
+    # 确保启动脚本存在
+    create_quick_launch_scripts(project_root)
+    
+    print()
+    return True
 
-        if launch_cursor(cursor_path):
-            cprint("Cursor 启动中，MCP 将自动连接...", "ok")
-            print()
-            print("  等待 5-10 秒后检查 MCP 状态")
-            print()
-            print("  如 MCP 未自动连接，请在 Cursor 中:")
-            print("  Ctrl+Shift+P → MCP: Restart Server → CMO_DBID_Lookup")
-            print()
-            return True
+
+def launch_ide(ide_name: str, app_path: Optional[str] = None) -> bool:
+    """启动 IDE"""
+    try:
+        if app_path and os.path.exists(app_path):
+            cmd = [app_path]
+        elif IS_WINDOWS:
+            if ide_name == "Cursor":
+                cmd = ["cmd", "/c", "start", "", "Cursor"]
+            elif ide_name == "Trae":
+                cmd = ["cmd", "/c", "start", "", "Trae"]
+            elif ide_name == "VS Code":
+                cmd = ["cmd", "/c", "start", "", "Code"]
+            else:
+                cmd = ["cmd", "/c", "start", "", ide_name]
+        elif IS_MAC:
+            cmd = ["open", "-a", ide_name]
         else:
-            cprint("Cursor 启动失败，请手动启动", "err")
-            print()
-            return False
+            cmd = [ide_name.lower().replace(" ", "-")]
+        
+        subprocess.Popen(cmd, detached=True, start_new_session=True)
+        return True
+    except Exception:
+        return False
 
 
 # =============================================================================
@@ -636,18 +689,25 @@ def fix_fastmcp_main(python_exe: str) -> bool:
     此函数创建缺失的 __main__.py 文件。
     """
     try:
+        # 获取 fastmcp 包的实际安装路径
         result = subprocess.run(
             [python_exe, "-c", "import fastmcp; import os; print(os.path.dirname(fastmcp.__file__))"],
             capture_output=True, text=True, timeout=10
         )
         if result.returncode != 0:
+            cprint(f"无法定位 fastmcp 包: {result.stderr[:100]}", "warn")
             return False
 
         fastmcp_dir = result.stdout.strip()
+        if not fastmcp_dir:
+            cprint("fastmcp 路径为空", "warn")
+            return False
+
         main_py = os.path.join(fastmcp_dir, "__main__.py")
 
         if os.path.exists(main_py):
-            return True  # 已存在，无需修复
+            cprint(f"fastmcp __main__.py 已存在: {main_py}", "ok")
+            return True
 
         # 创建 __main__.py
         main_content = '''"""Entry point for running fastmcp as a module."""
@@ -658,12 +718,59 @@ from fastmcp.cli.cli import app
 if __name__ == "__main__":
     app()
 '''
+        # 确保目录存在
+        os.makedirs(os.path.dirname(main_py), exist_ok=True)
+        
         with open(main_py, "w", encoding="utf-8") as f:
             f.write(main_content)
 
+        cprint(f"已创建 fastmcp __main__.py: {main_py}", "ok")
         return True
-    except Exception:
+    except PermissionError:
+        cprint("权限不足，无法创建 __main__.py，请以管理员身份运行", "err")
         return False
+    except Exception as e:
+        cprint(f"修复 fastmcp 失败: {e}", "warn")
+        return False
+
+
+def ensure_fastmcp_works(python_exe: str) -> bool:
+    """确保 fastmcp 可以作为模块运行
+    
+    尝试多种方式确保 python -m fastmcp 能工作：
+    1. 检查 __main__.py 是否存在
+    2. 如果不存在则创建
+    3. 验证修复是否成功
+    """
+    cprint("检查 fastmcp 模块...", "step")
+    
+    # 首先测试当前状态
+    test_result = subprocess.run(
+        [python_exe, "-m", "fastmcp", "--version"],
+        capture_output=True, text=True, timeout=10
+    )
+    
+    if test_result.returncode == 0:
+        cprint("fastmcp 模块可正常运行", "ok")
+        return True
+    
+    # 尝试修复
+    cprint("尝试修复 fastmcp 模块...", "info")
+    
+    if fix_fastmcp_main(python_exe):
+        # 验证修复
+        verify_result = subprocess.run(
+            [python_exe, "-m", "fastmcp", "--version"],
+            capture_output=True, text=True, timeout=10
+        )
+        if verify_result.returncode == 0:
+            cprint("fastmcp 修复成功", "ok")
+            return True
+        else:
+            cprint(f"fastmcp 仍无法运行: {verify_result.stderr[:100]}", "warn")
+            return False
+    
+    return False
 
 # =============================================================================
 # 步骤2: 数据库配置
@@ -774,6 +881,7 @@ def validate_database(db_path: str) -> Tuple[bool, str]:
 #   paths            - 按 sys.platform (win32 / darwin / linux) 映射相对路径
 #   is_project_path  - True 表示相对于项目根目录（如 VS Code 的 .vscode/settings.json）
 #   config_format    - 配置节点格式: "mcpServers" | "mcp" (VS Code Insiders)
+#   aliases          - 其他已知的目录名称（如 Trae CN 的 "Trae" 文件夹）
 IDE_CONFIG_MAP: dict = {
     "Cursor": {
         "config_file": "mcp.json",
@@ -784,16 +892,19 @@ IDE_CONFIG_MAP: dict = {
         },
         "is_project_path": False,
         "config_format": "mcpServers",
+        "aliases": [],
     },
     "Trae": {
         "config_file": "mcp.json",
         "paths": {
-            "win32":  "Trae/mcp.json",
-            "darwin": "Trae/mcp.json",
-            "linux":  "Trae/mcp.json",
+            "win32":  "Trae/User/mcp.json",
+            "darwin": "Trae/User/mcp.json",
+            "linux":  "Trae/User/mcp.json",
         },
         "is_project_path": False,
         "config_format": "mcpServers",
+        # Trae CN 版本可能安装在 "Trae" 子目录下
+        "aliases": ["Trae"],
     },
     "VS Code": {
         "config_file": "settings.json",
@@ -804,6 +915,7 @@ IDE_CONFIG_MAP: dict = {
         },
         "is_project_path": True,
         "config_format": "mcp",
+        "aliases": [],
     },
     "Claude Desktop": {
         "config_file": "claude_desktop_config.json",
@@ -814,6 +926,7 @@ IDE_CONFIG_MAP: dict = {
         },
         "is_project_path": False,
         "config_format": "mcpServers",
+        "aliases": [],
     },
 }
 
@@ -866,33 +979,72 @@ def detect_installed_ides() -> list:
     """检测本机可能已安装的 IDE（通过可执行文件路径 + 配置父目录是否存在）"""
     detected = []
     project_root = get_project_root()
+    config_base = get_ide_base_dir()
 
     for ide_name in IDE_CONFIG_MAP:
         config_path = get_ide_config_path(ide_name, project_root)
         if config_path is None:
             continue
-        # 任一条件满足即认为"可能已安装"：
-        # 1. 配置文件本身已存在
-        # 2. 配置文件的父目录已存在（说明 IDE 至少运行过一次）
+        
+        found = False
+        
+        # 1. 检查主路径
         if config_path.exists() or config_path.parent.exists():
             detected.append((ide_name, config_path))
-
-    # 补充检测：直接扫描可执行文件（Windows）
-    if IS_WINDOWS:
-        program_files = Path(os.environ.get("ProgramFiles", "C:\\Program Files"))
-        program_files_x86 = Path(os.environ.get("ProgramFiles(X86)", "C:\\Program Files (x86)"))
-
-        exe_map = {
-            "Cursor":          program_files_x86 / "Cursor" / "Cursor.exe",
-            "Trae":            program_files / "Trae" / "Trae.exe",
-            "VS Code":         program_files_x86 / "Microsoft VS Code" / "Code.exe",
-            "Claude Desktop":  program_files_x86 / "Claude" / "Claude.exe",
-        }
-        for name, exe_path in exe_map.items():
-            if exe_path.exists() and name not in [d[0] for d in detected]:
-                detected.append((name, None))
+            continue
+        
+        # 2. 检查别名路径（如 Trae CN 可能是 "Trae" 子目录）
+        entry = IDE_CONFIG_MAP[ide_name]
+        if entry.get("aliases"):
+            for alias in entry["aliases"]:
+                # 构造别名路径
+                if IS_WINDOWS:
+                    alias_base = config_base / alias
+                else:
+                    alias_base = config_base / alias
+                alias_path = alias_base / "User" / entry["config_file"]
+                if alias_path.exists() or alias_base.exists():
+                    detected.append((ide_name, alias_path))
+                    found = True
+                    break
+        
+        if not found:
+            # 3. 也检查可执行文件
+            exe_path = _get_ide_exe_path(ide_name)
+            if exe_path and exe_path.exists():
+                detected.append((ide_name, config_path))
 
     return detected
+
+
+def _get_ide_exe_path(ide_name: str) -> Optional[Path]:
+    """获取 IDE 可执行文件路径"""
+    if not IS_WINDOWS:
+        return None
+    
+    program_files = Path(os.environ.get("ProgramFiles", "C:\\Program Files"))
+    program_files_x86 = Path(os.environ.get("ProgramFiles(X86)", "C:\\Program Files (x86)"))
+    
+    exe_map = {
+        "Cursor":          program_files_x86 / "Cursor" / "Cursor.exe",
+        "Trae":            program_files / "Trae" / "Trae.exe",
+        "VS Code":         program_files_x86 / "Microsoft VS Code" / "Code.exe",
+        "Claude Desktop":  program_files_x86 / "Claude" / "Claude.exe",
+    }
+    
+    # Trae CN 可能安装在不同的位置
+    trae_paths = [
+        program_files / "Trae" / "Trae.exe",
+        Path("C:/Program Files/Trae/Trae.exe"),
+    ]
+    
+    if ide_name == "Trae":
+        for p in trae_paths:
+            if p.exists():
+                return p
+        return exe_map.get("Trae")
+    
+    return exe_map.get(ide_name)
 
 
 def detect_db_file(project_root: Path) -> Optional[str]:
@@ -995,8 +1147,12 @@ def write_mcp_config(ide_name: str, project_root: Path) -> Tuple[bool, Path]:
     return False, config_path
 
 
-def configure_ide_interactive(project_root: Path):
-    """交互式 IDE 配置向导（步骤3核心）"""
+def configure_ide_interactive(project_root: Path) -> str:
+    """交互式 IDE 配置向导（步骤3核心）
+
+    Returns:
+        用户选择的 IDE 名称
+    """
     print()
     print_divider("─", 70)
     print()
@@ -1056,7 +1212,7 @@ def configure_ide_interactive(project_root: Path):
     if config_path is None:
         cprint("无法解析该 IDE 的配置文件路径，请检查系统平台支持", "err")
         _print_manual_paste_guide(selected_ide, project_root)
-        return
+        return selected_ide
 
     cprint(f"目标路径: {config_path}", "info")
 
@@ -1073,7 +1229,7 @@ def configure_ide_interactive(project_root: Path):
         if retry.lower() not in ("y", "yes"):
             cprint("已取消配置", "warn")
             _print_manual_paste_guide(selected_ide, project_root)
-            return
+            return selected_ide
         print()
         cprint("将自动创建目录和文件...", "info")
 
@@ -1113,6 +1269,8 @@ def configure_ide_interactive(project_root: Path):
         print()
         cprint("MCP 配置写入失败，请检查权限或手动配置", "err")
         _print_manual_paste_guide(selected_ide, project_root)
+
+    return selected_ide
 
 
 def _print_manual_paste_guide(ide_name: str, project_root: Path):
@@ -1155,10 +1313,16 @@ def _print_manual_paste_guide(ide_name: str, project_root: Path):
 # 完成面板
 # =============================================================================
 
-def print_success_panel(python_exe: str, project_root: Path):
-    """打印成功完成面板并启动 Cursor"""
+def print_success_panel(python_exe: str, project_root: Path, selected_ide: str = "Cursor"):
+    """打印成功完成面板并启动 IDE
+
+    Args:
+        python_exe: Python 可执行文件路径
+        project_root: 项目根目录
+        selected_ide: 用户选择的 IDE 名称
+    """
     script_path = project_root / "mcp" / "sqlite_explorer.py"
-    cursor_path = get_cursor_path()
+    ide_path = _get_ide_exe_path(selected_ide)
 
     # 检查 MCP 状态
     mcp_ok, mcp_status = check_mcp_status(project_root)
@@ -1167,7 +1331,7 @@ def print_success_panel(python_exe: str, project_root: Path):
     print_divider("─", 70)
     print()
 
-    success_text = """
+    success_text = f"""
     ╔══════════════════════════════════════════════════════════╗
     ║                                                          ║
     ║                   海 空 兵 棋                             ║
@@ -1179,10 +1343,13 @@ def print_success_panel(python_exe: str, project_root: Path):
     ║     MCP SERVER      : READY                              ║
     ║     DATABASE        : CONNECTED                          ║"""
     else:
-        success_text += """
+        # 截断状态信息以适应面板宽度
+        status_line1 = mcp_status[:18].ljust(18)
+        status_line2 = mcp_status[18:36].ljust(18) if len(mcp_status) > 18 else "                  "
+        success_text += f"""
     ║     SYSTEM STATUS    : PARTIAL                           ║
-    ║     MCP SERVER      : """ + mcp_status[:16].ljust(16) + """                    ║
-    ║     DATABASE        : """ + mcp_status[16:].ljust(16) + """                    ║"""
+    ║     MCP SERVER      : {status_line1}                 ║
+    ║     DATABASE        : {status_line2}                 ║"""
 
     success_text += """║                                                          ║
     ╚══════════════════════════════════════════════════════════╝
@@ -1197,24 +1364,24 @@ def print_success_panel(python_exe: str, project_root: Path):
     cprint("安装完成!", "title")
     print()
 
-    # 自动启动 Cursor
-    if cursor_path:
+    # 自动启动 IDE
+    if ide_path and os.path.exists(ide_path):
         print_divider("─", 70)
         print()
-        launch_choice = input_prompt("是否立即启动 Cursor? (y/n)", "y")
+        launch_choice = input_prompt(f"是否立即启动 {selected_ide}? (y/n)", "y")
         print()
 
         if launch_choice.lower() in ("y", "yes", ""):
-            if launch_cursor(cursor_path):
-                cprint("Cursor 启动中...", "ok")
+            if launch_ide(selected_ide, str(ide_path)):
+                cprint(f"{selected_ide} 启动中...", "ok")
                 print()
-                print("  MCP 服务将在 Cursor 启动后自动连接")
+                print(f"  MCP 服务将在 {selected_ide} 启动后自动连接")
                 print()
             else:
-                cprint("Cursor 启动失败，请手动启动", "warn")
+                cprint(f"{selected_ide} 启动失败，请手动启动", "warn")
                 print()
         else:
-            print("  稍后可运行以下命令启动 Cursor:")
+            print(f"  稍后可运行以下命令启动 {selected_ide}:")
             if IS_WINDOWS:
                 print("    start.bat")
                 print("    或: python scripts\\install.py --quick")
@@ -1223,22 +1390,21 @@ def print_success_panel(python_exe: str, project_root: Path):
                 print("    或: python3 scripts/install.py --quick")
             print()
     else:
-        cprint("未找到 Cursor 安装路径", "warn")
+        cprint(f"未找到 {selected_ide} 安装路径", "warn")
         print()
         if IS_WINDOWS:
-            print("请手动启动 Cursor")
-            print("  开始菜单搜索 'Cursor'")
+            print(f"请手动启动 {selected_ide}")
+            print("  开始菜单搜索")
             print("  或运行: start.bat")
         else:
-            print("请手动启动 Cursor")
-            print("  终端运行: open -a Cursor")
-            print("  或运行: scripts/start.sh")
+            print(f"请手动启动 {selected_ide}")
+            print("  终端运行相关命令")
 
     print()
     print_divider("─", 70)
 
     # 打印 MCP 管理指南
-    print_mcp_guide()
+    print_mcp_guide(selected_ide)
 
 # =============================================================================
 # 主流程
@@ -1286,12 +1452,10 @@ def run():
     else:
         cprint("fastmcp 已安装", "ok")
 
-    # 修复 fastmcp __main__.py 问题（如果需要）
+    # 确保 fastmcp 可以作为模块运行
     if fastmcp_installed:
-        if fix_fastmcp_main(py_exe):
-            cprint("fastmcp 模块入口正常", "ok")
-        else:
-            cprint("fastmcp 模块入口修复失败", "warn")
+        if not ensure_fastmcp_works(py_exe):
+            cprint("fastmcp 无法正常运行，可能影响 MCP 服务", "warn")
 
     print()
 
@@ -1407,12 +1571,12 @@ def run():
     # -------------------------------------------------------------------------
     # 步骤3: IDE配置
     # -------------------------------------------------------------------------
-    configure_ide_interactive(project_root)
+    selected_ide = configure_ide_interactive(project_root)
 
     # -------------------------------------------------------------------------
     # 完成
     # -------------------------------------------------------------------------
-    print_success_panel(py_exe, project_root)
+    print_success_panel(py_exe, project_root, selected_ide)
 
     # 创建快速启动脚本
     if create_quick_launch_scripts(project_root):
