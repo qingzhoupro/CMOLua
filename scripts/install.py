@@ -437,7 +437,6 @@ def restart_mcp_in_cursor() -> bool:
 def detect_running_ide() -> Optional[str]:
     """检测当前运行的 IDE"""
     if IS_WINDOWS:
-        # 检查进程名
         processes = ["Cursor.exe", "Trae.exe", "Code.exe"]
         for proc in processes:
             try:
@@ -449,6 +448,11 @@ def detect_running_ide() -> Optional[str]:
                     if proc == "Cursor.exe":
                         return "Cursor"
                     elif proc == "Trae.exe":
+                        # 区分 Trae CN 和 Trae 国际版：检查配置目录
+                        config_base = get_ide_base_dir()
+                        trae_cn_path = config_base / "Trae CN"
+                        if trae_cn_path.exists():
+                            return "Trae CN"
                         return "Trae"
                     elif proc == "Code.exe":
                         return "VS Code"
@@ -462,6 +466,12 @@ def detect_running_ide() -> Optional[str]:
                     capture_output=True, text=True, timeout=5
                 )
                 if result.returncode == 0:
+                    # macOS 上也检查 Trae CN
+                    if name == "Trae":
+                        config_base = get_ide_base_dir()
+                        trae_cn_path = config_base / "Trae CN"
+                        if trae_cn_path.exists():
+                            return "Trae CN"
                     return name
             except Exception:
                 continue
@@ -897,14 +907,29 @@ IDE_CONFIG_MAP: dict = {
     "Trae": {
         "config_file": "mcp.json",
         "paths": {
+            # 用户级配置（Trae 国际版）
             "win32":  "Trae/User/mcp.json",
             "darwin": "Trae/User/mcp.json",
             "linux":  "Trae/User/mcp.json",
         },
         "is_project_path": False,
         "config_format": "mcpServers",
-        # Trae CN 版本可能安装在 "Trae" 子目录下
-        "aliases": ["Trae"],
+        "aliases": [],
+        "config_hint": "Trae 国际版用户级配置",
+    },
+    "Trae CN": {
+        "config_file": "mcp.json",
+        "paths": {
+            # 用户级配置（Trae CN 中国版）
+            "win32":  "Trae CN/User/mcp.json",
+            "darwin": "Trae CN/User/mcp.json",
+            "linux":  "Trae CN/User/mcp.json",
+        },
+        "is_project_path": False,
+        "config_format": "mcpServers",
+        # 检测 Trae CN 时使用的别名
+        "aliases": [],
+        "config_hint": "Trae CN 中国版用户级配置",
     },
     "VS Code": {
         "config_file": "settings.json",
@@ -976,43 +1001,56 @@ def get_ide_config_path(ide_name: str, project_root: Optional[Path] = None) -> O
 
 
 def detect_installed_ides() -> list:
-    """检测本机可能已安装的 IDE（通过可执行文件路径 + 配置父目录是否存在）"""
+    """检测本机可能已安装的 IDE（通过可执行文件路径 + 配置目录是否存在）
+    
+    重要：Trae CN（中国版）是中国用户最常用的版本，优先检测！
+    """
     detected = []
     project_root = get_project_root()
     config_base = get_ide_base_dir()
 
-    for ide_name in IDE_CONFIG_MAP:
+    # 定义检测顺序：Trae CN 优先（因为中国用户最常用）
+    # 如果先检测 Trae 国际版，可能会误判 Trae CN 用户
+    ide_detection_order = ["Cursor", "Trae CN", "Trae", "VS Code", "Claude Desktop"]
+
+    for ide_name in ide_detection_order:
+        if ide_name not in IDE_CONFIG_MAP:
+            continue
+        
+        entry = IDE_CONFIG_MAP[ide_name]
         config_path = get_ide_config_path(ide_name, project_root)
         if config_path is None:
             continue
         
         found = False
-        
-        # 1. 检查主路径
+        found_path = config_path
+
+        # 1. 检查主路径（配置目录或文件是否存在）
         if config_path.exists() or config_path.parent.exists():
-            detected.append((ide_name, config_path))
-            continue
-        
-        # 2. 检查别名路径（如 Trae CN 可能是 "Trae" 子目录）
-        entry = IDE_CONFIG_MAP[ide_name]
-        if entry.get("aliases"):
-            for alias in entry["aliases"]:
-                # 构造别名路径
-                if IS_WINDOWS:
-                    alias_base = config_base / alias
-                else:
-                    alias_base = config_base / alias
-                alias_path = alias_base / "User" / entry["config_file"]
-                if alias_path.exists() or alias_base.exists():
-                    detected.append((ide_name, alias_path))
+            found = True
+        else:
+            # 2. 检查 Trae CN 特殊路径
+            if ide_name in ("Trae", "Trae CN"):
+                # Trae CN 可能在 Trae 目录下
+                trae_cn_alt = config_base / "Trae" / "User" / entry["config_file"]
+                if trae_cn_alt.exists() or trae_cn_alt.parent.exists():
                     found = True
-                    break
-        
-        if not found:
-            # 3. 也检查可执行文件
-            exe_path = _get_ide_exe_path(ide_name)
-            if exe_path and exe_path.exists():
-                detected.append((ide_name, config_path))
+                    found_path = trae_cn_alt
+                
+                # 也检查 Trae CN 标准路径
+                if not found:
+                    trae_cn_std = config_base / "Trae CN" / "User" / entry["config_file"]
+                    if trae_cn_std.exists() or trae_cn_std.parent.exists():
+                        found = True
+                        found_path = trae_cn_std
+            else:
+                # 3. 检查可执行文件（其他 IDE）
+                exe_path = _get_ide_exe_path(ide_name)
+                if exe_path and exe_path.exists():
+                    found = True
+
+        if found:
+            detected.append((ide_name, found_path))
 
     return detected
 
@@ -1028,17 +1066,18 @@ def _get_ide_exe_path(ide_name: str) -> Optional[Path]:
     exe_map = {
         "Cursor":          program_files_x86 / "Cursor" / "Cursor.exe",
         "Trae":            program_files / "Trae" / "Trae.exe",
+        "Trae CN":         program_files / "Trae" / "Trae.exe",
         "VS Code":         program_files_x86 / "Microsoft VS Code" / "Code.exe",
         "Claude Desktop":  program_files_x86 / "Claude" / "Claude.exe",
     }
     
-    # Trae CN 可能安装在不同的位置
+    # Trae CN 和 Trae 使用相同的可执行文件，通过配置目录区分
     trae_paths = [
         program_files / "Trae" / "Trae.exe",
         Path("C:/Program Files/Trae/Trae.exe"),
     ]
     
-    if ide_name == "Trae":
+    if ide_name in ("Trae", "Trae CN"):
         for p in trae_paths:
             if p.exists():
                 return p
@@ -1140,6 +1179,9 @@ def write_mcp_config(ide_name: str, project_root: Path) -> Tuple[bool, Path]:
     config_entry = IDE_CONFIG_MAP.get(ide_name, {})
     config_format = config_entry.get("config_format", "mcpServers")
 
+    # ── 0. 确保父目录存在（如项目级配置需要创建 .trae 目录） ─────────────
+    config_path.parent.mkdir(parents=True, exist_ok=True)
+
     # ── 1. 读取已有配置（保留其他内容） ────────────────────────────────
     existing = read_json_safe(config_path)
 
@@ -1178,6 +1220,8 @@ def write_mcp_config(ide_name: str, project_root: Path) -> Tuple[bool, Path]:
 def configure_ide_interactive(project_root: Path) -> str:
     """交互式 IDE 配置向导（步骤3核心）
 
+    优先检测并推荐已安装的 IDE，Trae CN 用户不会被误判为 Trae 国际版。
+
     Returns:
         用户选择的 IDE 名称
     """
@@ -1189,11 +1233,49 @@ def configure_ide_interactive(project_root: Path) -> str:
     print_divider("─", 70)
     print()
 
-    # ── A. 展示支持的 IDE 列表 ────────────────────────────────────────
-    cprint("支持的 IDE:", "step")
+    # ── 0. 优先检测已安装的 IDE ───────────────────────────────────────
+    installed_ides = detect_installed_ides()
+    running_ide = detect_running_ide()
+    
+    if installed_ides:
+        cprint("已检测到以下 IDE（优先推荐）:", "step")
+        print()
+        for ide_name, config_path in installed_ides:
+            running_marker = f" {Colors.GREEN}(运行中){Colors.RESET}" if ide_name == running_ide else ""
+            # Trae CN 特别标注
+            cn_marker = " 🌏" if ide_name == "Trae CN" else ""
+            print(f"  {Colors.GREEN}●{Colors.RESET} {ide_name}{cn_marker}{running_marker}")
+            print(f"      {Colors.DIM}{config_path}{Colors.RESET}")
+        print()
+        
+        # 自动选择运行中的 IDE 或第一个检测到的
+        if running_ide:
+            default_ide = running_ide
+        else:
+            default_ide = installed_ides[0][0]
+        
+        # 构建提示字符串
+        installed_names = [name for name, _ in installed_ides]
+        default_idx = installed_names.index(default_ide) + 1 if default_ide in installed_names else 1
+        prompt_default = str(default_idx)
+    else:
+        default_ide = "Cursor"
+        prompt_default = "1"
+        installed_names = []
+
+    # ── A. 展示完整的 IDE 列表 ─────────────────────────────────────────
+    cprint("或从以下列表选择:", "info")
     print()
-    for i, ide_name in enumerate(IDE_CONFIG_MAP, 1):
-        icon = "○"
+    
+    # Trae CN 和 Trae 分开显示，避免混淆
+    ide_display_order = []
+    for ide_name in IDE_CONFIG_MAP:
+        # 已检测的 IDE 不重复显示
+        if ide_name not in installed_names:
+            ide_display_order.append(ide_name)
+    
+    for i, ide_name in enumerate(installed_names + ide_display_order, 1):
+        icon = "●" if ide_name in installed_names else "○"
         if IS_WINDOWS:
             base = get_ide_base_dir()
             entry = IDE_CONFIG_MAP[ide_name]
@@ -1207,20 +1289,24 @@ def configure_ide_interactive(project_root: Path) -> str:
             entry = IDE_CONFIG_MAP[ide_name]
             path_hint = base / entry["paths"]["linux"]
 
-        exists_str = ""
-        if path_hint.exists():
-            icon = "●"
-            exists_str = f"  {Colors.GREEN}(已找到配置文件){Colors.RESET}"
-
-        print(f"  {Colors.CYAN}{i}.{Colors.RESET} {icon} {ide_name}")
+        exists_str = f"  {Colors.GREEN}(已找到配置文件){Colors.RESET}" if icon == "●" else ""
+        
+        # Trae CN 特别标注
+        if ide_name == "Trae CN":
+            print(f"  {Colors.CYAN}{i}.{Colors.RESET} {icon} {ide_name} {Colors.YELLOW}← 中国用户常用{Colors.RESET}")
+        else:
+            print(f"  {Colors.CYAN}{i}.{Colors.RESET} {icon} {ide_name}")
         print(f"      {Colors.DIM}{path_hint}{Colors.RESET}{exists_str}")
 
     print()
 
     # ── B. 用户选择 ──────────────────────────────────────────────────
-    ide_names = list(IDE_CONFIG_MAP.keys())
+    ide_names = installed_names + ide_display_order
+    if not ide_names:
+        ide_names = list(IDE_CONFIG_MAP.keys())
+    
     while True:
-        raw = input_prompt("请输入 IDE 编号 (1-4)", "1")
+        raw = input_prompt(f"请输入 IDE 编号 (1-{len(ide_names)})", prompt_default)
         try:
             idx = int(raw) - 1
             if 0 <= idx < len(ide_names):
@@ -1228,7 +1314,7 @@ def configure_ide_interactive(project_root: Path) -> str:
                 break
             raise ValueError()
         except ValueError:
-            cprint("无效输入，请输入 1 到 4 之间的数字", "warn")
+            cprint(f"无效输入，请输入 1 到 {len(ide_names)} 之间的数字", "warn")
             print()
 
     cprint(f"已选择: {selected_ide}", "ok")

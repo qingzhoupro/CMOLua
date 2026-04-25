@@ -39,6 +39,8 @@ python .\scripts\install.py
 
 > Do not double-click the .py file — it will exit immediately. Run it from the terminal to see interactive feedback.
 
+> ⚠️ **Important**: Make sure the folder you open in your IDE is the **root directory**. You should **directly see** subfolders like `assets`, `database_schema`, `scripts` in the file list.
+
 After successful installation, you will see:
 
 ```

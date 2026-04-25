@@ -37,6 +37,8 @@ cd CMOLua
 python .\scripts\install.py
 ```
 
+> ⚠️ **重要**：确保在 IDE 中打开的文件夹是项目的**根目录**。打开后 IDE 文件列表应该**直接看到** `assets`、`database_schema`、`scripts` 等子文件夹才对。
+
 > 不要双击 py 文件，双击会闪退。在终端里输入命令才能看到交互反馈。
 
 安装成功后显示：
