@@ -1084,13 +1084,41 @@ def write_json_safe(path: Path, data: dict) -> bool:
 
 
 def build_mcp_server_entry(project_root: Path) -> dict:
-    """构建单个 MCP 服务器的 JSON 配置条目"""
+    """构建单个 MCP 服务器的 JSON 配置条目
+    
+    重要：Trae MCP 配置必须使用 ${workspaceFolder} 变量！
+    
+    Trae 会自动将 ${workspaceFolder} 替换为当前打开项目的根目录，
+    这确保了配置的跨设备、跨用户可移植性。
+    
+    路径规范（参考豆包AI）：
+    - 使用 ${workspaceFolder} 作为起点
+    - 路径分隔符统一用 /（Windows 也用 /）
+    - 不要用 ./、../ 等相对路径前缀
+    
+    示例输出：
+    {
+      "command": "python",
+      "args": ["-m", "fastmcp", "run", "${workspaceFolder}/mcp/sqlite_explorer.py"],
+      "env": {
+        "SQLITE_DB_PATH": "${workspaceFolder}/mcp/db/DB3K_505.db3"
+      }
+    }
+    """
+    # 检测实际使用的数据库文件
     db_path = detect_db_file(project_root)
+    
+    # 如果找到数据库，使用其文件名；否则使用默认名称
+    if db_path:
+        db_filename = Path(db_path).name
+    else:
+        db_filename = "DB3K_*.db3"  # 通配符让脚本自己查找
+    
     return {
         "command": "python",
-        "args": ["-m", "fastmcp", "run", "mcp/sqlite_explorer.py"],
+        "args": ["-m", "fastmcp", "run", "${workspaceFolder}/mcp/sqlite_explorer.py"],
         "env": {
-            "SQLITE_DB_PATH": db_path or "mcp/db/DB3K_514.db3",
+            "SQLITE_DB_PATH": f"${{workspaceFolder}}/mcp/db/{db_filename}",
         }
     }
 
