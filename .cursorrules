@@ -2,10 +2,10 @@
 
 ## 项目信息
 
-- **数据库路径**: `f:\codeAi\AIassistant\03_Archive\CMO-HKBQSKILL\mcp\db\DB3K_514.db3`
-- **数据库大小**: 56.5 MB
+- **数据库路径**: 配置在 `.env` 文件中，或通过 `SQLITE_DB_PATH` 环境变量设置
+- **数据库位置**: `mcp/db/*.db3`（请将 DB3K_*.db3 文件放在此目录）
 - **MCP 服务**: `CMO_DBID_Lookup`
-- **MCP 脚本**: `f:\codeAi\AIassistant\03_Archive\CMO-HKBQSKILL\mcp\sqlite_explorer.py`
+- **MCP 脚本**: `mcp/sqlite_explorer.py`
 
 ## 核心原则
 

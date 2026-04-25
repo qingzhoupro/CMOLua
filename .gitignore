@@ -15,6 +15,9 @@ venv/
 # MCP database (user-provided; never commit)
 mcp/db/*.db3
 
+# User configuration (contains database path)
+.env
+
 # Temp / log
 *.tmp
 *.log

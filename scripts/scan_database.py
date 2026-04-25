@@ -7,12 +7,58 @@
 
 import json
 import sqlite3
+import sys
 from pathlib import Path
 from datetime import datetime
 
-# 数据库路径
-DB_PATH = r"F:\codeAi\AIassistant\03_Archive\CMO-HKBQSKILL\mcp\db\DB3K_514.db3"
-OUTPUT_DIR = Path(r"F:\codeAi\AIassistant\03_Archive\CMO-HKBQSKILL\database_schema")
+# 获取项目根目录（向上两级）
+PROJECT_ROOT = Path(__file__).parent.parent.resolve()
+
+# 数据库路径 - 优先从环境变量或 .env 文件读取
+def get_db_path():
+    """获取数据库路径，按优先级：环境变量 > .env > mcp/db/*.db3"""
+    import os
+
+    # 1. 环境变量
+    env_path = os.environ.get("SQLITE_DB_PATH")
+    if env_path and Path(env_path).exists():
+        return env_path
+
+    # 2. .env 文件
+    env_file = PROJECT_ROOT / ".env"
+    if env_file.exists():
+        with open(env_file, "r", encoding="utf-8") as f:
+            for line in f:
+                if line.startswith("SQLITE_DB_PATH="):
+                    path = line.split("=", 1)[1].strip().strip('"').strip("'")
+                    if Path(path).exists():
+                        return path
+
+    # 3. 自动发现
+    db_dir = PROJECT_ROOT / "mcp" / "db"
+    if db_dir.exists():
+        candidates = sorted(db_dir.glob("*.db3"), key=lambda x: x.stat().st_mtime, reverse=True)
+        if candidates:
+            return str(candidates[0])
+
+    return None
+
+DB_PATH = get_db_path()
+OUTPUT_DIR = PROJECT_ROOT / "database_schema"
+
+if not DB_PATH:
+    print("=" * 60)
+    print("错误: 未找到数据库文件")
+    print("=" * 60)
+    print()
+    print("请运行以下命令进行配置:")
+    print("  python scripts/config.py --interactive")
+    print()
+    print("或手动设置环境变量:")
+    print("  Windows: set SQLITE_DB_PATH=D:\\path\\to\\DB3K_514.db3")
+    print("  Linux/Mac: export SQLITE_DB_PATH=/path/to/DB3K_514.db3")
+    print()
+    sys.exit(1)
 
 def scan_database():
     """扫描数据库，返回完整的结构信息"""

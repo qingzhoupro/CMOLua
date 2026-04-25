@@ -1,11 +1,13 @@
 # CMO-HKBQSKILL start-mcp.ps1
 # Starts the MCP server with a clean status display.
+# 首次运行时会引导用户配置数据库路径
 
 $ErrorActionPreference = "Stop"
 $ProjectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
-$ServerScript = Join-Path $ProjectRoot "mcp\server.py"
+$ServerScript = Join-Path $ProjectRoot "mcp\sqlite_explorer.py"
 $ReqFile      = Join-Path $ProjectRoot "mcp\requirements.txt"
 $DbDir        = Join-Path $ProjectRoot "mcp\db"
+$EnvFile      = Join-Path $ProjectRoot ".env"
 
 function Find-Python {
     $candidates = @("python", "python3",
@@ -20,7 +22,80 @@ function Find-Python {
     return $null
 }
 
-# ── Banner ───────────────────────────────────────────────────────────────────
+function Get-SavedDbPath {
+    if (Test-Path $EnvFile) {
+        $content = Get-Content $EnvFile -Raw
+        if ($content -match 'SQLITE_DB_PATH="([^"]+)"') {
+            $path = $matches[1]
+            if (Test-Path $path) { return $path }
+        }
+    }
+    return $null
+}
+
+function Save-DbPath {
+    param($Path)
+    $env:SQLITE_DB_PATH = $Path
+    @"
+# CMO Database Configuration
+# Created by start-mcp.ps1
+
+SQLITE_DB_PATH="$Path"
+"@ | Out-File -FilePath $EnvFile -Encoding UTF8
+    Write-Host "  [SAVE] Path saved to .env" -ForegroundColor Green
+}
+
+function Find-Database {
+    $candidates = @(Get-ChildItem $DbDir -Filter "*.db3" -ErrorAction SilentlyContinue)
+    if ($candidates.Count -gt 0) {
+        return $candidates[0].FullName
+    }
+    return $null
+}
+
+function Show-FirstRun-Wizard {
+    Write-Host ""
+    Write-Host "  ============================================" -ForegroundColor Yellow
+    Write-Host "  First Run Setup - Database Configuration" -ForegroundColor Yellow
+    Write-Host "  ============================================" -ForegroundColor Yellow
+    Write-Host ""
+
+    # 1. Check for existing .db3 files
+    $found = Find-Database
+
+    if ($found) {
+        Write-Host "  [FOUND] $found" -ForegroundColor Green
+        Write-Host ""
+        $ans = Read-Host "  Use this database? [Y/n]"
+        if ($ans -ne "n") {
+            Save-DbPath $found
+            return $found
+        }
+    }
+
+    # 2. Prompt for path
+    Write-Host ""
+    Write-Host "  No .db3 file found in mcp\db\" -ForegroundColor Yellow
+    Write-Host ""
+    Write-Host "  Please copy your DB3K_*.db3 file to mcp\db\" -ForegroundColor White
+    Write-Host "  Or enter the full path below:" -ForegroundColor White
+    Write-Host ""
+
+    while ($true) {
+        $path = Read-Host "  Database path (or 'q' to quit)"
+        if ($path -eq "q") { exit 0 }
+        if (Test-Path $path) {
+            if (-not $path.EndsWith(".db3") -and -not $path.EndsWith(".db")) {
+                Write-Host "  [WARN] File does not have .db3 extension" -ForegroundColor Yellow
+            }
+            Save-DbPath $path
+            return $path
+        }
+        Write-Host "  [ERROR] File not found" -ForegroundColor Red
+    }
+}
+
+# Banner
 Write-Host ""
 Write-Host "  ============================================" -ForegroundColor Cyan
 Write-Host "     CMO DBID Lookup MCP Server" -ForegroundColor Cyan
@@ -49,16 +124,19 @@ if ($LASTEXITCODE -ne 0 -or -not $installed) {
     Write-Host "  [OK]   fastmcp already installed" -ForegroundColor Green
 }
 
-# Database
-$dbCandidates = @(Get-ChildItem $DbDir -Filter "*.db3" -ErrorAction SilentlyContinue)
-if ($dbCandidates.Count -eq 0) {
-    Write-Host ""
-    Write-Host "  [FAIL] No .db3 file found in mcp/db/" -ForegroundColor Red
-    Write-Host "  Copy your DB3K_*.db3 file into mcp/db/ and re-run." -ForegroundColor Yellow
-    exit 1
+# Database - First run wizard or saved config
+$dbFile = $null
+
+# Try saved config first
+$savedPath = Get-SavedDbPath
+if ($savedPath) {
+    $dbFile = $savedPath
+    Write-Host "  [OK]   Database: $(Split-Path $dbFile -Leaf)" -ForegroundColor Green
+} else {
+    # First run wizard
+    $dbFile = Show-FirstRun-Wizard
 }
-$dbFile = $dbCandidates[0]
-Write-Host "  [OK]   Database: $($dbFile.Name)" -ForegroundColor Green
+
 Write-Host ""
 
 # Launch
@@ -67,6 +145,7 @@ Write-Host "  [INFO] Press Ctrl+C to stop" -ForegroundColor Gray
 Write-Host ""
 
 Push-Location $ProjectRoot
+$env:SQLITE_DB_PATH = $dbFile
 & $py.cmd -m fastmcp run $ServerScript
 $exitCode = $LASTEXITCODE
 Pop-Location
