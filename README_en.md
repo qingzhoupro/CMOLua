@@ -1,5 +1,7 @@
 # CMO-HKBQSKILL
 
+> [English](README_en.md) | [中文](README.md)
+
 > **First time? Just 3 steps, 3 minutes to get started.**
 
 Supports any IDE that implements the MCP protocol: Cursor, Trae, VS Code + Continue, Claude Desktop, and more.

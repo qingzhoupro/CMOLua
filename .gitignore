@@ -25,6 +25,7 @@ mcp/db/*.db3
 # IDE
 .vscode/settings.json
 .cursor/
+.cursorrules
 *.swp *.swo *.swn
 
 # SpecStory cache

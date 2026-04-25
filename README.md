@@ -1,5 +1,7 @@
 # CMO-HKBQSKILL
 
+> [English](README_en.md) | 中文
+
 > **第一次用？只需要 3 步，3 分钟搞定。**
 
 支持 Cursor / Trae / VSCode + Continue / Claude Desktop 等所有实现了 MCP 协议的 IDE。
@@ -61,7 +63,7 @@ python .\scripts\install.py
 ## 功能
 
 - **自然语言 → Lua**：描述场景，生成可运行的脚本
-- **MCP 实时查 DBID**：连接真实 CMO 数据库，彻底告别硬编码 ID
+- **MCP 实时查 DBID**：连接真实 CMO 数据库，如“用MCP查询伊朗革命卫队最新导弹快艇，返回快艇DBID和反舰武器型号”
 - **模板库**：基础到高级，复制即用
 - **报错速查**：常见错误 + 解决方案
 
