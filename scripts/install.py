@@ -14,6 +14,11 @@ CMO-HKBQSKILL 交互式安装向导
   uninstall.ps1           ← 卸载 MCP 配置工具
   validate-structure.ps1  ← 项目结构验证工具
 
+新增结构:
+  .cursor/commands/       ← 命令入口 (/cmo, /cmo-unit 等)
+  .cursor/skills/         ← 技能包 (auto, query, unit 等)
+  memory/                 ← 三层记忆体系 (hot/warm/cold)
+
 用法:
   python install.py              # 完整安装向导
   python install.py --quick      # 快速启动 (检测已安装配置)

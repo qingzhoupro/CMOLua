@@ -65,9 +65,11 @@ Then restart your IDE and start chatting.
 ## Features
 
 - **Natural language → Lua**: Describe a scenario, get production-ready scripts
-- **MCP live DBID lookup**: Connect to the live CMO database — query "Iranian Revolutionary Guard latest missile boat, return its DBID and anti-ship weapon type"
+- **MCP live DBID lookup**: Connect to the live CMO database
+- **Command + Skill dual-layer**: Compact entry + detailed skill packages
+- **Three-tier memory**: HOT(session) / WARM(project) / COLD(knowledge)
 - **Template library**: Basic to advanced, copy and run
-- **Error reference**: Common errors with solutions
+- **Error lessons**: Common errors with solutions
 
 ---
 
@@ -111,25 +113,39 @@ Config file locations:
 ```
 CMO-HKBQSKILL/
 ├── SKILL.md                  # AI behavior spec (core entry point)
+├── .cursor/
+│   ├── commands/             # Command entry points
+│   │   ├── cmo.md          # /cmo main command
+│   │   ├── cmo-unit.md     # /cmo-unit quick add unit
+│   │   ├── cmo-query.md    # /cmo-query database query
+│   │   ├── cmo-mission.md  # /cmo-mission mission generation
+│   │   └── cmo-check.md    # /cmo-check code self-check
+│   ├── skills/              # Skill packages
+│   │   ├── cmo-auto/       # Complete workflow
+│   │   ├── cmo-query/     # DBID query
+│   │   ├── cmo-unit/       # Unit operations
+│   │   ├── cmo-side/       # Side/forces
+│   │   ├── cmo-mission/    # Mission creation
+│   │   ├── cmo-debug/      # Debug & troubleshooting
+│   │   └── cmo-faq/        # FAQ
+│   └── mcp.json            # MCP configuration
 ├── mcp/
-│   ├── server.py             # MCP server (6 tools)
+│   ├── server.py            # MCP server
 │   ├── requirements.txt
-│   └── db/                   # ← place your DB3K_*.db3 here
-├── references/               # Knowledge base
-│   ├── lua-api/              # Lua API reference
-│   ├── data-types/           # Data type reference (lat/lon/altitude)
-│   └── dbid/                 # Common DBID quick ref (auxiliary, not a substitute for MCP)
-├── templates/                # Lua templates (basic/advanced/event/utility)
-├── examples/                 # Complete scenario examples
-├── errors/                   # Common errors and solutions
+│   └── db/                  # ← place your DB3K_*.db3 here
+├── memory/                  # Three-tier memory system
+│   ├── hot/                 # Current session
+│   ├── warm/                # Cross-session
+│   └── cold/                # Long-term knowledge
+├── references/              # Knowledge base
+│   ├── lua-api/            # Lua API reference
+│   ├── data-types/         # Data type reference
+│   └── dbid/               # DBID quick reference
+├── templates/               # Lua templates
+├── examples/                # Complete scenario examples
+├── errors/                  # Error lessons library
 └── scripts/
-    ├── install.py           # Installation wizard (main entry point)
-    ├── config.py            # Database configuration utility
-    ├── check-deps.ps1       # Dependency checker
-    ├── scan_database.py     # Database scanner
-    ├── export_table_schemas.py # Schema exporter
-    ├── uninstall.ps1        # Uninstaller
-    └── validate-structure.ps1 # Structure validator
+    └── install.py          # Installation wizard
 ```
 
 ---
