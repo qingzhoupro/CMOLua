@@ -22,7 +22,8 @@ mcp/db/*.db3
 *.tmp
 *.log
 
-# IDE - Cursor (keep commands and skills structure)
+# IDE - Cursor (structure only)
+.cursor/
 !.cursor/commands/
 !.cursor/skills/
 !.cursor/mcp.json
