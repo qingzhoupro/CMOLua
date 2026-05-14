@@ -22,11 +22,13 @@ mcp/db/*.db3
 *.tmp
 *.log
 
-# IDE
-.vscode/settings.json
-.cursor/
-.cursorrules
-*.swp *.swo *.swn
+# IDE - Cursor (keep commands and skills structure)
+!.cursor/commands/
+!.cursor/skills/
+!.cursor/mcp.json
 
-# SpecStory cache
+# IDE - VSCode
+.vscode/
+
+# IDE - SpecStory
 .specstory/

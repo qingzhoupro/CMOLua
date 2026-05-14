@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "CMO_DBID_Lookup": {
+      "command": "python",
+      "args": [
+        "-m",
+        "fastmcp",
+        "run",
+        "mcp/sqlite_explorer.py"
+      ],
+      "env": {}
+    }
+  }
+}

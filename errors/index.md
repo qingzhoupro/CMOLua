@@ -1,3 +1,12 @@
+---
+doc_id: CMO-ERROR-001
+title: 报错记录库
+description: AI 生成 Lua 代码时常见错误汇总
+type: error-handbook
+version: 1.0.0
+updated: 2026-05-14
+---
+
 # 报错记录库 | Error Record
 
 > AI 生成 Lua 代码时常见错误汇总。每次遇到新错误，必须先追加到本文件，再输出修复方案。

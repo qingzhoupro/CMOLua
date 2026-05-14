@@ -1,3 +1,16 @@
+---
+doc_id: CMO-README-001
+title: CMO-HKBQSKILL 项目说明
+description: CMO 兵棋 Lua 代码生成的 AI 助手项目
+version: 1.0.0
+updated: 2026-05-14
+tags:
+  - CMO
+  - Lua
+  - MCP
+  - 兵棋
+---
+
 # CMO-HKBQSKILL
 
 > [English](README_en.md) | 中文
@@ -110,26 +123,40 @@ python .\scripts\install.py
 
 ```
 CMO-HKBQSKILL/
-├── SKILL.md                  # AI 行为规范（核心入口，IDE 加载此文件）
+├── SKILL.md                  # AI 行为规范（核心入口）
+├── .cursor/
+│   ├── commands/             # 命令入口
+│   │   ├── cmo.md          # /cmo 主命令
+│   │   ├── cmo-unit.md     # /cmo-unit 快速添加单位
+│   │   ├── cmo-query.md    # /cmo-query 数据库查询
+│   │   ├── cmo-mission.md  # /cmo-mission 任务生成
+│   │   └── cmo-check.md    # /cmo-check 代码自检
+│   ├── skills/              # 技能包
+│   │   ├── cmo-auto/       # 完整工作流
+│   │   ├── cmo-query/     # DBID 查询
+│   │   ├── cmo-unit/      # Unit 操作
+│   │   ├── cmo-side/      # Side 阵营
+│   │   ├── cmo-mission/   # Mission 任务
+│   │   ├── cmo-debug/     # Debug 调试
+│   │   └── cmo-faq/       # 常见问题
+│   └── mcp.json           # MCP 配置
 ├── mcp/
-│   ├── server.py             # MCP 服务端（6 个工具）
+│   ├── server.py            # MCP 服务端
 │   ├── requirements.txt
-│   └── db/                  # 放入你的 DB3K_*.db3 文件
-├── references/               # 知识库
-│   ├── lua-api/             # Lua API 参考
-│   ├── data-types/          # 数据类型参考（经纬度/高度等）
-│   └── dbid/                # 常用 DBID 速查（仅辅助，不可替代 MCP）
-├── templates/                # Lua 模板（basic/advanced/event/utility）
-├── examples/                 # 完整场景案例
-├── errors/                   # 常见错误及解决方案
+│   └── db/                  # DB3K_*.db3 文件
+├── memory/                  # 三层记忆体系
+│   ├── hot/                # 当前会话
+│   ├── warm/               # 跨会话
+│   └── cold/               # 长期知识
+├── references/              # 知识库
+│   ├── lua-api/            # Lua API 参考
+│   ├── data-types/         # 数据类型参考
+│   └── dbid/               # DBID 速查
+├── templates/               # Lua 模板
+├── examples/               # 完整场景案例
+├── errors/                  # 错误教训库
 └── scripts/
-    ├── install.py           # 安装向导（唯一入口）
-    ├── config.py            # 数据库配置工具
-    ├── check-deps.ps1       # 依赖检查工具
-    ├── scan_database.py     # 数据库扫描工具
-    ├── export_table_schemas.py # 数据表字段导出
-    ├── uninstall.ps1        # 卸载工具
-    └── validate-structure.ps1 # 项目结构验证
+    └── install.py          # 安装向导
 ```
 
 ---
