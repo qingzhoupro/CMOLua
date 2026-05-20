@@ -12,12 +12,23 @@ CMO-HKBQSKILL 交互式安装向导
   scan_database.py        ← 数据库结构扫描工具
   export_table_schemas.py ← 数据表字段导出工具
   uninstall.ps1           ← 卸载 MCP 配置工具
-  validate-structure.ps1  ← 项目结构验证工具
+  validate-structure.ps1   ← 项目结构验证工具
 
 新增结构:
-  .cursor/commands/       ← 命令入口 (/cmo, /cmo-unit 等)
-  .cursor/skills/         ← 技能包 (auto, query, unit 等)
-  memory/                 ← 三层记忆体系 (hot/warm/cold)
+  .cursor/commands/       ← 命令入口 (/cmo, /cmo-unit, /cmo-errors 等)
+  .cursor/skills/         ← 技能包 (auto, query, unit, side, mission, debug, faq)
+  memory/                  ← 三层记忆体系 (hot/warm/cold)
+    ├── hot/             ← 当前会话教训
+    ├── warm/            ← 跨会话项目状态
+    ├── cold/            ← 长期知识
+    │   ├── lesson-root-causes.md  ← 教训本体（按根因归类）
+    │   └── lesson-index.md        ← 教训索引
+    ├── TEMPLATES/       ← 用户贡献模板
+    ├── skill/           ← Skill 优化追踪
+    └── user/            ← 用户手动添加区
+      ├── 01_个人经验/
+      ├── 02_成功案例/
+      └── 03_踩坑记录/
 
 用法:
   python install.py              # 完整安装向导

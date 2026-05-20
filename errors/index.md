@@ -3,8 +3,8 @@ doc_id: CMO-ERROR-001
 title: 报错记录库
 description: AI 生成 Lua 代码时常见错误汇总
 type: error-handbook
-version: 1.0.0
-updated: 2026-05-14
+version: 1.1.0
+updated: 2026-05-19
 ---
 
 # 报错记录库 | Error Record
@@ -91,14 +91,15 @@ ScenEdit_AddUnit 0 : Invalid unit type 'Air'
 
 **原因：** `type` 参数使用了非标准值。
 
-**正确 type 值（严格区分大小写）：**
+**正确 type 值（严格区分大小写和空格）：**
 
 | 单位类型 | 正确写法 | 错误写法 |
 |---------|---------|---------|
-| 飞机 | `Aircraft` | `Air`, `aircraft`, `Plane` |
-| 舰艇 | `Ship` | `Naval`, `ship`, `boat` |
+| 飞机 | `Aircraft` | `Air`, `Plane` |
+| 舰艇 | `Ship` | `Naval`, `boat` |
 | 潜艇 | `Submarine` | `sub`, `Sub`, `underwater` |
-| 地面设施 | `Facility` | `Ground`, `Facility`, `base` |
+| 地面单位 | `GROUND UNIT` | `GroundUnit`, `GROUNDUNIT`, `Ground Unit` |
+| 设施 | `Facility` | `Ground`, `base` |
 
 ```lua
 -- ✅ 正确：
@@ -106,9 +107,14 @@ ScenEdit_AddUnit({type = "Aircraft", ...})
 ScenEdit_AddUnit({type = "Ship", ...})
 ScenEdit_AddUnit({type = "Submarine", ...})
 ScenEdit_AddUnit({type = "Facility", ...})
-```
+ScenEdit_AddUnit({type = "GROUND UNIT", ...})  -- 全大写，空格分隔
 
----
+-- ❌ 错误（均报 Invalid unit type）：
+ScenEdit_AddUnit({type = "Air"})
+ScenEdit_AddUnit({type = "GroundUnit"})        -- 不是有效值
+ScenEdit_AddUnit({type = "GROUNDUNIT"})        -- 不是有效值
+ScenEdit_AddUnit({type = "Ground Unit"})      -- 不是有效值
+```
 
 ## 五、side 'xxx' does not exist
 
@@ -120,7 +126,7 @@ ScenEdit_SetUnit ... side 'xxx' does not exist
 **原因：** 阵营未创建，或名称拼写不一致（CMO 中阵营名区分大小写）。
 
 **解决：**
-1. 先创建阵营：`ScenEdit_AddSide({name = "Blue"})`
+1. 先创建阵营：`ScenEdit_AddSide({side = "Blue"})`
 2. 确认 `side` 参数与创建时完全一致（包括大小写和空格）
 
 ---
@@ -260,4 +266,87 @@ end
 |------|-------------|---------|
 | `ScenEdit_KillUnit` | ✅ 触发（Event 系统感知） | 模拟被击毁 |
 | `ScenEdit_DeleteUnit` | ❌ 不触发 | 清理测试单位 |
+
+---
+
+## 十四、Type cannot be GROUNDUNIT
+
+**错误信息：**
+```
+ScenEdit_AddUnit 0 : ,Type cannot be GROUNDUNIT please choose one of the following:
+SHIP, SUB, AIRCRAFT, FACILITY, GROUND UNIT, SATELLITE, WEAPON
+```
+
+**原因：** `type` 值使用了 `GROUNDUNIT`（无空格）或 `GroundUnit`（小写），而正确值为 **`GROUND UNIT`**（全大写，单词之间有空格）。
+
+**正确写法：**
+```lua
+-- ✅ 正确（GROUND UNIT = 全大写 + 空格）
+ScenEdit_AddUnit({
+    side = "Iran",
+    type = "GROUND UNIT",
+    name = "Coastal Radar",
+    dbid = 417,
+    lat = "27.22",
+    lon = "56.38"
+})
+
+-- ❌ 错误（均报 "Type cannot be GROUNDUNIT"）
+ScenEdit_AddUnit({type = "GROUNDUNIT"})
+ScenEdit_AddUnit({type = "GroundUnit"})
+ScenEdit_AddUnit({type = "Ground Unit"})
+```
+
+---
+
+## 十五、Attempted to place facility ... This point appears to be underwater
+
+**错误信息：**
+```
+ScenEdit_AddUnit 0 : ,Attempted to place facility: xxx (Class: Runway (3200m))
+at coordinates: Lat: 27.18 - Lon: 56.36 . This point appears to be underwater.
+Placement aborted!
+```
+
+**原因：** Facility 的 DBID 对应的是只能在陆地上放置的设施类型（如 Runway/Category 2001、Building/Category 3001），而放置坐标在 CMO 地形数据库中被判定为水下。
+
+**Facility Category 放置规则：**
+
+| Category | 类型 | 放置地形 |
+|----------|------|---------|
+| 2001 | Runway（跑道） | 仅限陆地 |
+| 3001 | Building（建筑） | 仅限陆地 |
+| 4050 | Water（水中结构） | 可在水中 |
+| 6001 | Aerostat（气球雷达） | 陆地 |
+| GroundUnit | 移动车辆/雷达车 | 任意地形 |
+
+**解决方案：**
+
+1. **改为 GROUND UNIT 类型**：雷达车等可放置在任意地形
+   ```lua
+   -- ✅ 正确：GROUND UNIT 可在任何地形放置
+   ScenEdit_AddUnit({
+       side = "Iran",
+       type = "GROUND UNIT",
+       name = "Coastal Radar",
+       dbid = 417,  -- Radar (SLC-18) 等地面雷达
+       lat = "27.22",
+       lon = "56.38"
+   })
+   ```
+
+2. **改为水中可放的 Facility**：选择 Category 4050 的设施（如 Offshore Surveillance Platform）
+   ```lua
+   -- ✅ 正确：Offshore Surveillance Platform 可在水中放置
+   ScenEdit_AddUnit({
+       side = "Iran",
+       type = "Facility",
+       name = "Sea Radar Station",
+       dbid = 4115,  -- Structure (Offshore Surveillance Platform)
+       lat = "26.92",
+       lon = "56.38"
+   })
+   ```
+
+3. **确保坐标在陆地上**：查阅地图确认放置点确实在陆地
 
