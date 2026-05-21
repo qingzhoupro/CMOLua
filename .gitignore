@@ -28,6 +28,12 @@ mcp/db/*.db3
 !.cursor/skills/
 !.cursor/mcp.json
 
+# IDE - Trae (project-level MCP config)
+# .trae/ 目录由 install.py 自动创建，用于 Trae 的项目级 MCP 配置
+# Trae 使用 <project>/.trae/mcp.json 而非 APPDATA 用户级配置
+# 注意: .trae/ 包含 SQLITE_DB_PATH 环境变量，请检查后提交或加入 .gitignore
+# 如果不想提交，可在 .gitignore 中添加: .trae/mcp.json
+
 # IDE - VSCode
 .vscode/
 

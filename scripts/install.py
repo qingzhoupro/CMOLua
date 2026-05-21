@@ -370,7 +370,12 @@ def print_mcp_guide(selected_ide: str = "Cursor"):
         print("    方法2: 在项目目录执行: python3 scripts/install.py --quick")
     print()
     print(f"  重启 MCP 服务 ({selected_ide} 已打开时):")
-    print("    Ctrl+Shift+P → 输入 'MCP: Restart Server' → 选择 'CMO_DBID_Lookup'")
+    if selected_ide in ("Trae", "Trae CN"):
+        print("    1. 确保在项目目录下打开了 Trae（能看到 .trae/mcp.json）")
+        print("    2. Ctrl+Shift+P → Developer: Reload Window")
+        print("    3. 或重启 Trae（确保打开的是本项目目录）")
+    else:
+        print("    Ctrl+Shift+P → 输入 'MCP: Restart Server' → 选择 'CMO_DBID_Lookup'")
     print()
     print_divider("─", 70)
     print()
@@ -395,59 +400,6 @@ def print_mcp_guide(selected_ide: str = "Cursor"):
     print()
     print_divider("=", 70)
     print()
-
-
-def detect_running_ide() -> Optional[str]:
-    """检测 Cursor 是否正在运行"""
-    if IS_WINDOWS:
-        try:
-            result = subprocess.run(
-                ["tasklist", "/FI", "IMAGENAME eq Cursor.exe"],
-                capture_output=True, text=True, timeout=5
-            )
-            return "Cursor.exe" in result.stdout
-        except Exception:
-            return False
-    elif IS_MAC:
-        try:
-            result = subprocess.run(
-                ["pgrep", "-x", "Cursor"],
-                capture_output=True, text=True, timeout=5
-            )
-            return result.returncode == 0
-        except Exception:
-            return False
-    else:
-        try:
-            result = subprocess.run(
-                ["pgrep", "-f", "cursor"],
-                capture_output=True, text=True, timeout=5
-            )
-            return result.returncode == 0
-        except Exception:
-            return False
-
-
-def restart_mcp_in_cursor() -> bool:
-    """尝试在已运行的 Cursor 中重启 MCP
-
-    使用 Cursor CLI 发送命令
-    """
-    if IS_WINDOWS:
-        # Windows: 尝试使用 PowerShell 向 Cursor 发送命令
-        try:
-            # 方法1: 尝试通过 Cursor 的命令行接口
-            cursor_cli = get_cursor_path()
-            if cursor_cli:
-                # Cursor 支持 --profile 参数但不直接支持重启 MCP
-                # 我们可以尝试触发配置重新加载
-                result = subprocess.run(
-                    [cursor_cli, "--disable-extensions"],
-                    capture_output=True, text=True, timeout=2
-                )
-        except Exception:
-            pass
-    return False
 
 
 def detect_running_ide() -> Optional[str]:
@@ -907,7 +859,7 @@ def validate_database(db_path: str) -> Tuple[bool, str]:
 #   paths            - 按 sys.platform (win32 / darwin / linux) 映射相对路径
 #   is_project_path  - True 表示相对于项目根目录（如 VS Code 的 .vscode/settings.json）
 #   config_format    - 配置节点格式: "mcpServers" | "mcp" (VS Code Insiders)
-#   aliases          - 其他已知的目录名称（如 Trae CN 的 "Trae" 文件夹）
+#   is_traee_project - True 表示使用项目级 .trae/mcp.json（Trae CN / Trae）
 IDE_CONFIG_MAP: dict = {
     "Cursor": {
         "config_file": "mcp.json",
@@ -918,34 +870,31 @@ IDE_CONFIG_MAP: dict = {
         },
         "is_project_path": False,
         "config_format": "mcpServers",
-        "aliases": [],
+        "is_traee_project": False,
     },
     "Trae": {
         "config_file": "mcp.json",
         "paths": {
-            # 用户级配置（Trae 国际版）
-            "win32":  "Trae/User/mcp.json",
-            "darwin": "Trae/User/mcp.json",
-            "linux":  "Trae/User/mcp.json",
+            # 项目级配置（Trae CN / Trae 国际版均使用此方式）
+            "win32":  ".trae/mcp.json",
+            "darwin": ".trae/mcp.json",
+            "linux":  ".trae/mcp.json",
         },
-        "is_project_path": False,
+        "is_project_path": True,     # 相对于项目根目录
         "config_format": "mcpServers",
-        "aliases": [],
-        "config_hint": "Trae 国际版用户级配置",
+        "is_traee_project": True,
     },
     "Trae CN": {
         "config_file": "mcp.json",
         "paths": {
-            # 用户级配置（Trae CN 中国版）
-            "win32":  "Trae CN/User/mcp.json",
-            "darwin": "Trae CN/User/mcp.json",
-            "linux":  "Trae CN/User/mcp.json",
+            # 项目级配置（Trae CN / Trae 国际版均使用此方式）
+            "win32":  ".trae/mcp.json",
+            "darwin": ".trae/mcp.json",
+            "linux":  ".trae/mcp.json",
         },
-        "is_project_path": False,
+        "is_project_path": True,     # 相对于项目根目录
         "config_format": "mcpServers",
-        # 检测 Trae CN 时使用的别名
-        "aliases": [],
-        "config_hint": "Trae CN 中国版用户级配置",
+        "is_traee_project": True,
     },
     "VS Code": {
         "config_file": "settings.json",
@@ -956,7 +905,7 @@ IDE_CONFIG_MAP: dict = {
         },
         "is_project_path": True,
         "config_format": "mcp",
-        "aliases": [],
+        "is_traee_project": False,
     },
     "Claude Desktop": {
         "config_file": "claude_desktop_config.json",
@@ -967,7 +916,7 @@ IDE_CONFIG_MAP: dict = {
         },
         "is_project_path": False,
         "config_format": "mcpServers",
-        "aliases": [],
+        "is_traee_project": False,
     },
 }
 
@@ -1017,50 +966,53 @@ def get_ide_config_path(ide_name: str, project_root: Optional[Path] = None) -> O
 
 
 def detect_installed_ides() -> list:
-    """检测本机可能已安装的 IDE（通过可执行文件路径 + 配置目录是否存在）
-    
+    """检测本机可能已安装的 IDE（通过进程/exe 检测）
+
     重要：Trae CN（中国版）是中国用户最常用的版本，优先检测！
+    Trae 使用项目级配置 (.trae/mcp.json)，配置目录存在性不能作为检测依据。
     """
     detected = []
     project_root = get_project_root()
     config_base = get_ide_base_dir()
 
     # 定义检测顺序：Trae CN 优先（因为中国用户最常用）
-    # 如果先检测 Trae 国际版，可能会误判 Trae CN 用户
     ide_detection_order = ["Cursor", "Trae CN", "Trae", "VS Code", "Claude Desktop"]
 
     for ide_name in ide_detection_order:
         if ide_name not in IDE_CONFIG_MAP:
             continue
-        
+
         entry = IDE_CONFIG_MAP[ide_name]
         config_path = get_ide_config_path(ide_name, project_root)
         if config_path is None:
             continue
-        
+
         found = False
         found_path = config_path
 
-        # 1. 检查主路径（配置目录或文件是否存在）
-        if config_path.exists() or config_path.parent.exists():
-            found = True
+        # ── Trae 特殊处理：使用项目级配置，不检查配置目录 ─────────────────────
+        # Trae 的配置在 <project>/.trae/mcp.json，不在 APPDATA
+        # 检测方式：进程检测 + exe 文件检测
+        if entry.get("is_traee_project"):
+            # 1. 检查 Trae 进程是否在运行
+            running = detect_running_ide()
+            if running in (ide_name, "Trae", "Trae CN"):
+                found = True
+                found_path = config_path  # 项目级路径
+
+            # 2. 检查 Trae exe 是否存在
+            exe_path = _get_ide_exe_path(ide_name)
+            if exe_path and exe_path.exists():
+                found = True
+                found_path = config_path
+
+        # ── 非 Trae IDE：检查配置目录或 exe ────────────────────────────────
         else:
-            # 2. 检查 Trae CN 特殊路径
-            if ide_name in ("Trae", "Trae CN"):
-                # Trae CN 可能在 Trae 目录下
-                trae_cn_alt = config_base / "Trae" / "User" / entry["config_file"]
-                if trae_cn_alt.exists() or trae_cn_alt.parent.exists():
-                    found = True
-                    found_path = trae_cn_alt
-                
-                # 也检查 Trae CN 标准路径
-                if not found:
-                    trae_cn_std = config_base / "Trae CN" / "User" / entry["config_file"]
-                    if trae_cn_std.exists() or trae_cn_std.parent.exists():
-                        found = True
-                        found_path = trae_cn_std
+            # 检查配置目录是否存在
+            if config_path.exists() or config_path.parent.exists():
+                found = True
             else:
-                # 3. 检查可执行文件（其他 IDE）
+                # 检查 exe 是否存在
                 exe_path = _get_ide_exe_path(ide_name)
                 if exe_path and exe_path.exists():
                     found = True
@@ -1258,9 +1210,9 @@ def configure_ide_interactive(project_root: Path) -> str:
         print()
         for ide_name, config_path in installed_ides:
             running_marker = f" {Colors.GREEN}(运行中){Colors.RESET}" if ide_name == running_ide else ""
-            # Trae CN 特别标注
             cn_marker = " 🌏" if ide_name == "Trae CN" else ""
-            print(f"  {Colors.GREEN}●{Colors.RESET} {ide_name}{cn_marker}{running_marker}")
+            traee_marker = f" {Colors.YELLOW}← 项目级配置{Colors.RESET}" if ide_name in ("Trae", "Trae CN") else ""
+            print(f"  {Colors.GREEN}●{Colors.RESET} {ide_name}{cn_marker}{running_marker}{traee_marker}")
             print(f"      {Colors.DIM}{config_path}{Colors.RESET}")
         print()
         
@@ -1292,26 +1244,26 @@ def configure_ide_interactive(project_root: Path) -> str:
     
     for i, ide_name in enumerate(installed_names + ide_display_order, 1):
         icon = "●" if ide_name in installed_names else "○"
-        if IS_WINDOWS:
+        entry = IDE_CONFIG_MAP[ide_name]
+
+        # Trae 使用项目级配置，显示 <项目根目录>/.trae/mcp.json
+        if entry.get("is_traee_project"):
+            path_hint = project_root / ".trae/mcp.json"
+        elif entry.get("is_project_path"):
             base = get_ide_base_dir()
-            entry = IDE_CONFIG_MAP[ide_name]
-            path_hint = base / entry["paths"]["win32"]
-        elif IS_MAC:
-            base = get_ide_base_dir()
-            entry = IDE_CONFIG_MAP[ide_name]
-            path_hint = base / entry["paths"]["darwin"]
+            path_hint = base / entry["paths"].get(PLATFORM, entry["paths"]["win32"])
         else:
             base = get_ide_base_dir()
-            entry = IDE_CONFIG_MAP[ide_name]
-            path_hint = base / entry["paths"]["linux"]
+            path_hint = base / entry["paths"].get(PLATFORM, entry["paths"]["win32"])
 
         exists_str = f"  {Colors.GREEN}(已找到配置文件){Colors.RESET}" if icon == "●" else ""
         
-        # Trae CN 特别标注
-        if ide_name == "Trae CN":
-            print(f"  {Colors.CYAN}{i}.{Colors.RESET} {icon} {ide_name} {Colors.YELLOW}← 中国用户常用{Colors.RESET}")
-        else:
-            print(f"  {Colors.CYAN}{i}.{Colors.RESET} {icon} {ide_name}")
+        # Trae 使用项目级配置 (.trae/mcp.json)，特别说明
+        if ide_name in ("Trae", "Trae CN"):
+            if ide_name == "Trae CN":
+                print(f"  {Colors.CYAN}{i}.{Colors.RESET} {icon} {ide_name} {Colors.YELLOW}← 项目级配置 · 中国用户常用{Colors.RESET}")
+            else:
+                print(f"  {Colors.CYAN}{i}.{Colors.RESET} {icon} {ide_name} {Colors.YELLOW}← 项目级配置 (.trae/mcp.json){Colors.RESET}")
         print(f"      {Colors.DIM}{path_hint}{Colors.RESET}{exists_str}")
 
     print()
@@ -1348,7 +1300,9 @@ def configure_ide_interactive(project_root: Path) -> str:
 
     # ── D. 校验目标目录是否存在（IDE 是否真正安装） ──────────────────────
     parent = config_path.parent
-    if not parent.exists():
+    # Trae 使用项目级配置 (.trae/)，目录不存在是正常的，write_mcp_config 会自动创建
+    is_traee = IDE_CONFIG_MAP.get(selected_ide, {}).get("is_traee_project", False)
+    if not parent.exists() and not is_traee:
         cprint(
             f"配置文件目录不存在: {parent}", "err"
         )
@@ -1371,29 +1325,28 @@ def configure_ide_interactive(project_root: Path) -> str:
         print_divider("─", 70)
         print()
         cprint("MCP 配置写入成功!", "success")
-
-        if IS_WINDOWS:
-            vscode_hint = "或直接在 VS Code 中运行: code ."
-        elif IS_MAC:
-            vscode_hint = "或直接在 VS Code 中运行: code ."
-        else:
-            vscode_hint = "或直接在 VS Code 中运行: code ."
-
         print()
         print(f"  配置文件: {final_path}")
+        if selected_ide in ("Trae", "Trae CN"):
+            print(f"  {Colors.DIM}(项目级配置，Trae 必须在项目目录下打开){Colors.RESET}")
         if final_path.exists():
             print(f"  文件大小: {final_path.stat().st_size} bytes")
 
         print()
-        cprint("请重启 IDE 以加载 MCP 服务", "step")
-        if selected_ide == "Cursor":
-            print("  重启后按: Ctrl+Shift+P → MCP: Restart Server → CMO_DBID_Lookup")
-        elif selected_ide == "Trae":
+        if selected_ide in ("Trae", "Trae CN"):
+            cprint("请重载 Trae 窗口以加载 MCP 服务", "step")
+            print("  Trae 使用项目级配置 (.trae/mcp.json)，请确保在项目目录下打开 Trae")
+            print("  重载窗口: Ctrl+Shift+P → Developer: Reload Window")
+            print("  或重启 Trae（确保打开的是本项目目录）")
+        elif selected_ide == "Cursor":
+            cprint("请重启 IDE 以加载 MCP 服务", "step")
             print("  重启后按: Ctrl+Shift+P → MCP: Restart Server → CMO_DBID_Lookup")
         elif selected_ide == "VS Code":
-            print(f"  {vscode_hint}")
+            cprint("请重启 IDE 以加载 MCP 服务", "step")
+            print("  或直接在 VS Code 中运行: code .")
             print("  重启后按: Ctrl+Shift+P → MCP: Restart Server → CMO_DBID_Lookup")
         elif selected_ide == "Claude Desktop":
+            cprint("MCP 配置已写入", "step")
             print("  重启 Claude Desktop 应用后配置自动生效")
     else:
         print()
@@ -1495,7 +1448,17 @@ def print_success_panel(python_exe: str, project_root: Path, selected_ide: str =
     print()
 
     # 自动启动 IDE
-    if ide_path and os.path.exists(ide_path):
+    # Trae 使用项目级配置，不能用 exe 路径启动，必须在项目目录下打开
+    if selected_ide in ("Trae", "Trae CN"):
+        print()
+        if ide_path and os.path.exists(ide_path):
+            print(f"  Trae exe 路径: {ide_path}")
+        print(f"  Trae 需要在项目目录下打开，请手动操作:")
+        print("  1. 关闭 Trae")
+        print("  2. 打开项目目录 G:\cmotest\CMOLua")
+        print("  3. 右键用 Trae 打开（或拖入 Trae 窗口）")
+        print("  4. Ctrl+Shift+P → Developer: Reload Window")
+    elif ide_path and os.path.exists(ide_path):
         print_divider("─", 70)
         print()
         launch_choice = input_prompt(f"是否立即启动 {selected_ide}? (y/n)", "y")
