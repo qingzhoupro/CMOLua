@@ -1245,6 +1245,23 @@ def write_mcp_config(ide_name: str, project_root: Path) -> Tuple[bool, Path]:
                 except Exception:
                     pass  # 清理失败不阻塞主流程
 
+        # ── 2c. Trae: 同步 Cursor commands/skills 到 .trae/ ──────────────
+        # .cursor/ 是 Cursor 的命令和技能目录
+        # .trae/  是 Trae 的等效目录（不存在则从 Cursor 复制过来）
+        cursor_dir = project_root / ".cursor"
+        trae_dir = project_root / ".trae"
+        sync_pairs = [
+            (cursor_dir / "commands", trae_dir / "commands"),
+            (cursor_dir / "skills",   trae_dir / "skills"),
+        ]
+        for src, dst in sync_pairs:
+            if src.exists() and not dst.exists():
+                try:
+                    shutil.copytree(src, dst)
+                    cprint(f"已同步 {src.name}/ → .trae/{src.name}/", "ok")
+                except Exception:
+                    pass  # 同步失败不阻塞主流程
+
     # ── 3. 构造要写入的配置 ────────────────────────────────────────────
     server_key = "CMO_DBID_Lookup"
     mcp_entry  = build_mcp_server_entry(project_root)
