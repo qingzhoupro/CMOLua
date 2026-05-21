@@ -389,7 +389,19 @@ def print_mcp_guide(selected_ide: str = "Cursor"):
     print("  检查 MCP 日志:")
     print("    View → Output → 切换到 'MCP' 标签页")
     print()
-    print_divider("─", 70)
+    if selected_ide in ("Trae", "Trae CN"):
+        print_divider("─", 70)
+        print()
+        print(f"{Colors.BOLD}{Colors.RED}【Trae 特殊注意】{Colors.RESET}")
+        print()
+        print("  Trae 的 ${workspaceFolder} 等于它打开的目录（而非 git 仓库根目录）：")
+        print("    ✗ 错误: Trae 打开 G:\\cmotest → ${workspaceFolder}=G:\\cmotest")
+        print("      → 报错: File not found: G:\\cmotest\\mcp\\sqlite_explorer.py")
+        print("    ✓ 正确: Trae 打开 G:\\cmotest\\CMOLua → ${workspaceFolder}=G:\\cmotest\\CMOLua")
+        print()
+        print("  确认方法: 在 Trae 中打开项目后，查看 .trae/mcp.json 是否在左侧文件树根部")
+        print()
+        print_divider("─", 70)
     print()
     print(f"{Colors.BOLD}【卸载/重装】{Colors.RESET}")
     print()
@@ -757,6 +769,54 @@ def ensure_fastmcp_works(python_exe: str) -> bool:
 def get_project_root() -> Path:
     """获取项目根目录（脚本所在位置向上两级）"""
     return Path(__file__).parent.parent.resolve()
+
+
+def check_traee_workspace(project_root: Path) -> Tuple[bool, str]:
+    """检查 Trae 是否打开了正确的项目目录
+
+    Trae 的 ${workspaceFolder} 等于它打开的目录。
+    如果项目在 G:\cmotest\CMOLua 但用户只打开了 G:\cmotest，
+    则 workspaceFolder = G:\cmotest，导致 mcp 找不到 mcp/sqlite_explorer.py。
+
+    Returns:
+        (是否正常, 检测结果描述)
+    """
+    root_name = project_root.name
+    parent_name = project_root.parent.name
+
+    # 检测常见的问题模式：
+    # G:\cmotest\CMOLua     <- 项目嵌套在父目录中
+    # /home/user/CMOLua     <- 正常
+
+    # 如果项目名是通用的嵌套名，提示用户
+    suspicious_names = {
+        "cmotest", "test", "workspace", "project", "repo", "repository",
+        "github", "git", "code", "coding", "ai", "cursor", "claude"
+    }
+
+    issues = []
+
+    if parent_name.lower() in suspicious_names and root_name.lower() not in suspicious_names:
+        issues.append(
+            f"项目嵌套检测: 当前项目路径为 {project_root.parent.name}/{project_root.name}，"
+            f"这意味着 Trae 的 ${{workspaceFolder}} 指向了 {project_root.parent.name}/，"
+            f"而不是 {project_root.name}/。\n"
+            f"  → Trae 必须在 {project_root.name}/ 目录下打开（而非 {project_root.parent.name}/）"
+        )
+
+    # 也检查 .git 位置：.git 在 project_root 还是 parent
+    git_in_parent = (project_root.parent / ".git").exists()
+    git_in_root = (project_root / ".git").exists()
+
+    if git_in_parent and not git_in_root:
+        issues.append(
+            f".git 目录在父目录中: {project_root.parent.name}/.git\n"
+            f"  → 建议将 .git 移入 {project_root.name}/，或确认 Trae 打开了 {project_root.name}/"
+        )
+
+    if issues:
+        return False, "\n".join(issues)
+    return True, "workspaceFolder 正常"
 
 def find_cmo_db_in_directory(base_path: Path) -> list:
     """在指定目录下查找CMO数据库文件"""
@@ -1162,6 +1222,29 @@ def write_mcp_config(ide_name: str, project_root: Path) -> Tuple[bool, Path]:
         except OSError:
             pass  # 备份失败不影响主流程
 
+    # ── 2b. Trae: 清理旧的用户级配置 ─────────────────────────────────
+    # 之前错误地写入了 %APPDATA%/Trae CN/User/mcp.json，需要清理
+    if config_entry.get("is_traee_project"):
+        config_base = get_ide_base_dir()
+        old_config_paths = [
+            config_base / "Trae" / "User" / "mcp.json",
+            config_base / "Trae CN" / "User" / "mcp.json",
+        ]
+        for old_path in old_config_paths:
+            if old_path.exists():
+                try:
+                    old_data = read_json_safe(old_path)
+                    if "mcpServers" in old_data and "CMO_DBID_Lookup" in old_data["mcpServers"]:
+                        # 移除旧的条目
+                        del old_data["mcpServers"]["CMO_DBID_Lookup"]
+                        if old_data["mcpServers"]:
+                            write_json_safe(old_path, old_data)
+                        else:
+                            old_path.unlink()
+                        cprint(f"已清理旧配置: {old_path}", "info")
+                except Exception:
+                    pass  # 清理失败不阻塞主流程
+
     # ── 3. 构造要写入的配置 ────────────────────────────────────────────
     server_key = "CMO_DBID_Lookup"
     mcp_entry  = build_mcp_server_entry(project_root)
@@ -1334,6 +1417,18 @@ def configure_ide_interactive(project_root: Path) -> str:
 
         print()
         if selected_ide in ("Trae", "Trae CN"):
+            cprint("MCP 配置写入成功!", "success")
+            print()
+
+            # 检查 workspace 目录是否正确
+            ws_ok, ws_msg = check_traee_workspace(project_root)
+            if not ws_ok:
+                print()
+                cprint("⚠ Trae 工作目录警告:", "warn")
+                for line in ws_msg.split("\n"):
+                    print(f"  {Colors.YELLOW}{line}{Colors.RESET}")
+                print()
+
             cprint("请重载 Trae 窗口以加载 MCP 服务", "step")
             print("  Trae 使用项目级配置 (.trae/mcp.json)，请确保在项目目录下打开 Trae")
             print("  重载窗口: Ctrl+Shift+P → Developer: Reload Window")
