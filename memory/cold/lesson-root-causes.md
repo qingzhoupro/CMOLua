@@ -38,6 +38,16 @@
 
 **教训-MISSION-REF-POINT** | 巡逻区引用错误 | 参考点不存在 | 先查场景已有参考点名称 | 参考点存在性检查
 
+**教训-MISSION-TYPE-CASE** | MissionType 大小写 | missing mission type | MissionType 必须**小写**：`"strike"`/`"patrol"`/`"ferry"` | 检查 mission type 全小写
+
+**教训-MISSION-STRIKE-TYPE** | Strike 任务的 type 参数 | mission options invalid | Strike 任务的 options 中必须加 `type = "land"`（小写） | Strike 任务检查 type 参数
+
+---
+
+## [数据库/DBID] (通用)
+
+**教训-DBID-TABLE-MATCH** | DBID 与 type 不匹配 | No ground unit with ID: 2434 | DBID 必须与 type 对应：GROUND UNIT 用 DataGroundUnit，Facility 用 DataFacility | 查询 DBID 时记录所属表名
+
 ---
 
 ## 用户添加教训

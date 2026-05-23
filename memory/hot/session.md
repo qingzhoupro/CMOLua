@@ -1,51 +1,22 @@
-# HOT - 当前会话上下文
+---
+doc_id: CMO-SESSION-HOT-001
+title: Hot Session State
+description: 当前会话的运行时状态，包含防错提醒和上下文
+created: 2026-05-23
+---
 
-> 本目录内容在会话结束时应归档到 WARM 层
-
-## 当前会话
-
-- **时间**: <!-- 会话开始时间 -->
-- **会话ID**: <!-- 自动生成 -->
-- **用户**: CMO 兵棋 Lua 代码生成
-
-## 当前状态
-
-- [ ] 需求理解
-- [ ] 场景上下文检测
-- [ ] 教训查询 (Step 0.5)
-- [ ] MCP 验证
-- [ ] 数据查询
-- [ ] 代码生成
-- [ ] 自检验证
+# Hot Session State
 
 ## 本次防错提醒
 
-> Step 0.5 根据关键词自动注入的教训要点
+- GroundUnit type 必须为 `"GROUND UNIT"`（全大写+空格），禁止 `GroundUnit`/`GROUNDUNIT`
+- DBID 已通过 MCP 验证（202, 2434, 3240）
+- ScenEdit_AddUnit 坐标参数使用 `latitude`/`longitude`（非 lat/lon）
+- 空白场景先 `ScenEdit_AddSide` 再 `ScenEdit_AddUnit`
+- ScenEdit_SetSidePosture 使用位置参数：`("SideA", "SideB", "H")`
 
-<!-- AI 在此追加本次会话相关的教训要点 -->
-<!-- 示例： -->
-<!-- - Aircraft 必须有 LoadoutID -->
-<!-- - altitude 默认单位是米 -->
+## 会话信息
 
-## 临时变量
-
-```
-current_dbid: null
-current_loadout: null
-current_type: null
-current_side: null
-```
-
-## 进度记录
-
-| 步骤 | 状态 | 说明 |
-|------|------|------|
-| 需求理解 | 待完成 | |
-| 教训查询 | 待完成 | |
-| DBID 查询 | 待完成 | |
-| 代码生成 | 待完成 | |
-| 自检 | 待完成 | |
-
-## 备注
-
-> 会话内临时记录
+- 用户请求：从朝鲜半岛远程火箭炮打击陆上目标场景
+- 场景类型：空白场景
+- 涉及单位：GROUND UNIT（火箭炮）、Facility/Marker（目标）

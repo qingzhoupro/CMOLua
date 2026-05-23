@@ -53,6 +53,19 @@ MCP 不可用时立即告知用户。
 - [ ] altitude 单位是米
 - [ ] 阵营已存在
 
+## 输出规范
+
+**产物必须保存到 `outputs/` 目录**，不得直接输出到其他位置。
+
+| 产物类型 | 输出路径 |
+|---------|---------|
+| Lua 脚本文件 | `outputs/*.lua` |
+| 场景配置文件 | `outputs/scenarios/` |
+| 侦察脚本 | `outputs/scout/` |
+| 其他产物 | `outputs/misc/` |
+
+> `outputs/` 目录本身由 git 跟踪，目录内文件通过 `.gitignore` 排除，不提交到远程。
+
 ## 参考
 
 - `.cursor/skills/cmo-auto/` - 完整工作流

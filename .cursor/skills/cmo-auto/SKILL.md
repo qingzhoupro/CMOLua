@@ -3,15 +3,22 @@ doc_id: CMO-SKILL-AUTO-001
 title: CMO 自动生成工作流
 description: 完整的 CMO Lua 代码生成工作流，支持场景上下文感知
 references:
-  - references/lua-api/Functions.md
-  - references/lua-api/常用函数总结.md
-  - references/lua-api/CMO_Lua函数_Unit.md
-  - references/lua-api/CMO_Lua函数_Mission.md
+  - references/lua-api/official-api-index.md    # 轻量索引（每个对话默认加载）
+  - references/lua-api/FUNCTIONS_LOAD_RULES.md  # 渐进披露加载规则
+  - references/lua-api/generated/                # 逐函数官方文档（按需加载）
+  - references/lua-api/unit-functions.md         # Unit 操作分类文档
+  - references/lua-api/mission-functions.md     # Mission 操作分类文档
+  - references/lua-api/side-functions.md         # Side 阵营分类文档
+rules:
+  - .cursor/rules/cmo-api-strict.md             # 防幻觉规则（必须遵守）
 ---
 # CMO 自动生成工作流
 
 > **重要：所有函数必须基于官方文档，不允许编造函数名或参数格式。**
 > 代码生成前必须查阅 references 中列出的官方文档。
+>
+> **渐进披露**：默认只加载 `official-api-index.md`，按需加载分类文档和逐函数文档。
+> 详见 `references/lua-api/FUNCTIONS_LOAD_RULES.md`。
 
 ## 流程概览
 
@@ -253,7 +260,8 @@ cmo_nl_query("测试查询")
 
 **有场景上下文时：**
 
-- 单位类型：从上下文确认 `Aircraft` / `Ship` / `Submarine` / `Facility` / `GROUND UNIT`
+- 单位类型：从上下文确认 `Air` / `Ship` / `Sub` / `Facility` / `GROUND UNIT`
+  > **注意**：`type` 官方文档示例值：`'Air'`（非 `'Aircraft'`），`'Ship'`，`'Sub'`（非 `'Submarine'`），`'Facility'`，`'GROUND UNIT'`（全大写+空格）
 - 阵营：从上下文中读取真实阵营名称，不使用占位符
 - 位置：从上下文推断已有单元位置，或询问用户指定
 - 检查是否有同名单元存在，避免冲突
@@ -262,7 +270,8 @@ cmo_nl_query("测试查询")
 
 - **必须先创建阵营**：调用 `ScenEdit_AddSide()` 创建所有需要的阵营
 - **再设置阵营关系**：调用 `ScenEdit_SetSidePosture()` 设置敌对/友好关系
-- 单位类型：`Aircraft` / `Ship` / `Submarine` / `Facility` / `GROUND UNIT`
+- 单位类型：`Air` / `Ship` / `Sub` / `Facility` / `GROUND UNIT`
+  > **注意**：官方文档示例用 `'Air'`（非 `'Aircraft'`），`'Sub'`（非 `'Submarine'`）
 - 位置：手动指定或从需求推断
 
 ### 空白场景阵营创建模板（基于官方 API）
@@ -326,10 +335,10 @@ ScenEdit_AddUnit({
 ```lua
 ScenEdit_AddUnit({
   side = "Blue",
-  type = "Aircraft",
+  type = "Air",
   name = "F-16C #1",
   dbid = 1719,
-  LoadoutID = 2230,
+  loadoutid = 2230,
   latitude = 35.6762,
   longitude = 139.6503,
   altitude = 9144,
@@ -353,17 +362,28 @@ ScenEdit_AddUnit({
 
 - [ ] DBID 验证（通过 MCP 确认存在）
 - [ ] LoadoutID 存在（Aircraft 类型必须）
-- [ ] type 正确（参考 cmo-unit 有效值列表）
-- [ ] 坐标参数正确（latitude / longitude，非 lat / lon）
+- [ ] type 正确（参考官方文档：`Air` / `Ship` / `Sub` / `Facility` / `GROUND UNIT`，注意不是 `Aircraft`/`Submarine`）
+- [ ] `loadoutid` 参数名：**小写 l**，值为数值
+- [ ] 坐标参数正确（`Lat`/`Lon` 或 `latitude`/`longitude`，非 `lat`/`lon`）
 - [ ] altitude 单位为米
 - [ ] 阵营名称与场景上下文一致
 - [ ] 单位名称不与现有单元冲突
 
 ### API 语法自检（防止编造）
 
-- [ ] `ScenEdit_AddSide` 使用 `{side="xxx"}` 格式
-- [ ] `ScenEdit_SetSidePosture` 使用 `(A, B, posture)` 位置参数格式
-- [ ] `ScenEdit_AddMission` 使用 `(Side, Name, Type, {options})` 位置参数格式
+> **必须先查阅文档再写代码**，禁止凭记忆生成。
+
+- [ ] 所有函数名存在于 `official-api-index.md`（禁止编造函数名）
+- [ ] `ScenEdit_AddSide` 使用 `{side="xxx"}` 格式（官方文档明确）
+- [ ] `ScenEdit_SetSidePosture` 使用 `(A, B, posture)` **位置参数**格式
+- [ ] `ScenEdit_AddMission` 使用 `(Side, Name, Type, {options})` **位置参数**格式
+- [ ] `ScenEdit_AssignUnitToMission` 使用 **位置参数**格式
+- [ ] `VP_GetSide` 使用 `{Side="xxx"}` 表参数（大写 S）
+- [ ] `ScenEdit_AddUnit` 的 `type` 值：官方文档示例用 `'Air'`（非 `'Aircraft'`）
+- [ ] `ScenEdit_AddUnit` 的 `loadoutid` 参数：**小写 l**
+- [ ] `ScenEdit_AddUnit` 的坐标参数：`Lat`/`Lon` 或 `latitude`/`longitude`（**非** `lat`/`lon`）
+- [ ] GROUND UNIT 类型：`type = "GROUND UNIT"`（全大写+空格）
+- [ ] 如对参数有疑问 → 加载 `generated/{函数名}.md` 查看官方原文
 
 ---
 
@@ -378,25 +398,33 @@ ScenEdit_AddUnit({
 | `Side 'xxx' doesn't exist`   | 在创建阵营之前就添加了单元                                  | 先调用 `ScenEdit_AddSide({side="xxx"})` 创建阵营，再添加单元                                                                 |
 | `DBID not found`             | 通过 MCP 查询的 DBID 不存在于当前数据库                     | 重新通过 `cmo_nl_query()` 验证 DBID 是否正确                                                                                 |
 | `Missing LoadoutID`          | Aircraft 类型未指定 LoadoutID                               | 通过 `cmo_get_loadouts()` 查询并添加 LoadoutID 参数                                                                          |
-| `Invalid unit type`          | 使用了错误的 type 值（如 `Air`、`Sub`、`GroundUnit`） | 改用正确值：`Aircraft` / `Ship` / `Submarine` / `Facility` / `GROUND UNIT`（**GROUND UNIT 必须全大写加空格**） |
-| `Invalid latitude/longitude` | 使用了 lat/lon 而非 latitude/longitude                      | 修正参数名称：`latitude`、`longitude`                                                                                      |
+| `Invalid unit type`          | 使用了错误的 type 值（如 `Air`、`Sub`、`GroundUnit`） | 改用正确值：`Air`（官方示例）/ `Ship` / `Sub` / `Facility` / `GROUND UNIT` |
+| `Invalid latitude/longitude` | 使用了 `lat`/`lon` 而非 `Lat`/`Lon`/`latitude`/`longitude` | 修正参数名称（官方支持 `Lat`/`Lon` 别名）              |
 
 ---
 
 ## API 正确语法参考（官方文档索引）
 
 > **所有函数必须查阅官方文档，不允许编造。**
+>
+> 渐进披露流程：
+> 1. `official-api-index.md` → 确认函数存在和参数形式
+> 2. 加载分类文档（`unit-functions.md` 等）→ 确认参数名
+> 3. 如仍不确定 → 加载 `generated/{函数名}.md` → 查看官方原文
+>
+> 官方文档 URL：`https://commandlua.github.io/assets/Function_{函数名}.html`
 
 | 功能     | 错误写法                                                              | 正确写法                                                | 参考文档                       |
 | -------- | --------------------------------------------------------------------- | ------------------------------------------------------- | ------------------------------ |
-| 创建阵营 | `ScenEdit_AddSide({name="R", orientation="H"})`                     | `ScenEdit_AddSide({side="Red"})`                      | lua-api/Functions.md           |
-| 设置关系 | `ScenEdit_SetSideRelations({side_a="R", side_b="B", relation="H"})` | `ScenEdit_SetSidePosture("Red","Blue","H")`           | lua-api/常用函数总结.md        |
-| 场景标题 | `ScenEdit_GetScenario().name`                                       | `GetScenarioTitle()`                                  | lua-api/Functions.md           |
-| 阵营列表 | `ScenEdit_GetSides()`                                               | `VP_GetSides()`                                       | lua-api/Functions.md           |
-| 阵营单元 | `ScenEdit_GetUnits({side=...})`                                     | `VP_GetSide({side="xxx"}).units`                      | lua-api/Functions.md           |
-| 任务列表 | `ScenEdit_GetMissions()`                                            | `ScenEdit_GetMissions("阵营名")`                      | lua-api/CMO_Lua函数_Mission.md |
-| 添加任务 | `ScenEdit_AddMission({side="R", name="N", type="P"})`               | `ScenEdit_AddMission("Side","Name","Type",{options})` | lua-api/CMO_Lua函数_Mission.md |
-| 参考点   | `ScenEdit_ReferencePoints(side)`                                    | `ScenEdit_GetReferencePoints({side="xxx"})`           | lua-api/Functions.md           |
+| 创建阵营 | `ScenEdit_AddSide({name="R", orientation="H"})`                     | `ScenEdit_AddSide({side="Red"})`                      | generated/ScenEdit_AddSide.md  |
+| 设置关系 | `ScenEdit_SetSideRelations({side_a="R", side_b="B", relation="H"})` | `ScenEdit_SetSidePosture("Red","Blue","H")` (位置参数) | generated/ScenEdit_SetSidePosture.md |
+| 场景标题 | `ScenEdit_GetScenario().name`                                       | `GetScenarioTitle()`                                  | generated/GetScenarioTitle.md  |
+| 阵营列表 | `ScenEdit_GetSides()`                                               | `VP_GetSides()`                                       | generated/VP_GetSides.md       |
+| 阵营单元 | `ScenEdit_GetUnits({side=...})`                                     | `VP_GetSide({Side="xxx"}).units`                      | generated/VP_GetSide.md        |
+| 任务列表 | `ScenEdit_GetMissions()`                                            | `ScenEdit_GetMissions("阵营名")`                      | generated/ScenEdit_GetMissions.md |
+| 添加任务 | `ScenEdit_AddMission({side="R", name="N", type="P"})`               | `ScenEdit_AddMission("Side","Name","Type",{options})` (位置参数) | generated/ScenEdit_AddMission.md |
+| 参考点   | `ScenEdit_ReferencePoints(side)`                                    | `ScenEdit_GetReferencePoints({side="xxx"})`           | generated/ScenEdit_GetReferencePoints.md |
+| 分配单位 | `ScenEdit_AssignUnitToMission({unit="...", mission="..."})`         | `ScenEdit_AssignUnitToMission("unit", "mission")` (位置参数) | generated/ScenEdit_AssignUnitToMission.md |
 
 ### posture 参数值
 

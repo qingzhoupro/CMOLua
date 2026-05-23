@@ -16,6 +16,9 @@
 | SIDE-API | Lua 幻觉 | 创建阵营/AddSide | lesson-root-causes.md |
 | DEPRECATED-DBID | Lua 幻觉 | 任何 DBID 引用/旧DBID | lesson-root-causes.md |
 | MISSION-REF-POINT | 意图理解 | 巡逻/任务/参考点/patrol | lesson-root-causes.md |
+| MISSION-TYPE-CASE | Lua 幻觉 | Attack/Strike/Patrol/攻击任务 | lesson-root-causes.md |
+| MISSION-STRIKE-TYPE | Lua 幻觉 | strike/land/sea/空对地/火箭炮 | lesson-root-causes.md |
+| DBID-TABLE-MATCH | Lua 幻觉 | DBID/GroundUnit/Facility/2434/3240 | lesson-root-causes.md |
 
 ## 用户添加教训格式
 

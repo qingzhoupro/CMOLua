@@ -42,3 +42,11 @@ mcp/db/*.db3
 
 # IDE - SpecStory
 .specstory/
+
+# outputs/ - 目录结构由 git 跟踪，文件内容不提交
+!outputs/
+outputs/*
+# 保留子目录结构（若需）
+!outputs/scenarios/
+!outputs/scout/
+!outputs/misc/
